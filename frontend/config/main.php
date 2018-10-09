@@ -14,12 +14,13 @@ return [
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
+            'baseUrl' => ''
         ],
         'db' => [
             'class' => 'yii\db\Connection',
             'dsn' => 'mysql:host=localhost;dbname=youoffer_com_db',
             'username' => 'youoffer_com_usr',
-            'password' => '59Fflyz3AcdtF5Gq',
+            'password' => 'lnmsubct6d',
             'charset' => 'utf8',
         ],
         'user' => [
@@ -44,6 +45,7 @@ return [
             'errorAction' => 'site/error',
         ],
         'urlManager' => [
+            // 'class' => 'yii\web\UrlManager',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'enableStrictParsing' => false,

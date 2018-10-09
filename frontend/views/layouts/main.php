@@ -71,9 +71,9 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; Nimpix-studio <?= date('Y') ?></p>
+        <!-- <p class="pull-left">&copy; Nimpix-studio <?= date('Y') ?></p>
 
-        <p class="pull-right">Все права соблюдены</p>
+        <p class="pull-right">Все права соблюдены</p> -->
     </div>
 </footer>
 

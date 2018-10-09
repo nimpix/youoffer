@@ -72,40 +72,8 @@ class SiteController extends Controller
      * @return mixed
      */
     public function actionIndex()
-    {
-        
-        if(Yii::$app->request->isAjax) {
-
-            $data = Yii::$app->request->post();
-
-            $keys = [];
-
-            foreach($data as $key => $value){
-                array_push($keys, $key);
-            }
-            
-           
-            $formname = $_POST[$keys[1]]['form_name'];
-          
-           $model = MainForm::CreateForm($formname);
-           $model->load(Yii::$app->request->post());
-
-           if($model->validate() && $model->CustomAction()){
-               $json['ok'] = "";
-           }else{
-               $json['error'] = " ";                        
-           }
-
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return $json;
-           
-       } 
-       else {
-           $allforms = MainForm::CreateAllForms();
-            
-           return $this->render('index', ['allforms' => $allforms]);
-       }
-        
+    {   
+       return $this->render('index');
     }
 
     /**

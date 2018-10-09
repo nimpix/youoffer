@@ -13,8 +13,26 @@ return [
     'bootstrap' => ['log'],
     'modules' => [],
     'components' => [
+        'assetManager' => [
+            'bundles' => [
+                'yii\bootstrap\BootstrapAsset' => [
+                    'sourcePath' => null,
+                    'basePath' => '/backend/web',
+                    'baseUrl' => '/backend/web',
+                    'css' => ['css/bootstrap.min.css'],
+                ],
+            ],
+        ],
         'request' => [
             'csrfParam' => '_csrf-backend',
+            'baseUrl' => '/admin',
+        ],
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'mysql:host=localhost;dbname=youoffer_com_db',
+            'username' => 'youoffer_com_usr',
+            'password' => 'lnmsubct6d',
+            'charset' => 'utf8',
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -43,10 +61,8 @@ return [
             'showScriptName' => false,
             'enableStrictParsing' => false,
             'rules' => [
-                "signup" => "site/signup",
-                "about" => "site/about",
-                "contact" => "site/contact",
-                "login" => "site/login"
+                "" => "site/index",
+                "/catalog" => "catalog/index"
             ],
         ],
         
