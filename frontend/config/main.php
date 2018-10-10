@@ -16,6 +16,16 @@ return [
             'csrfParam' => '_csrf-frontend',
             'baseUrl' => ''
         ],
+        'assetManager' => [
+            'bundles' => [
+                'yii\bootstrap\BootstrapAsset' => [
+                    'sourcePath' => null,
+                    'basePath' => '/frontend/web',
+                    'baseUrl' => '/frontend/web',
+                    'css' => ['css/bootstrap.min.css'],
+                ],
+            ],
+        ],
         'db' => [
             'class' => 'yii\db\Connection',
             'dsn' => 'mysql:host=localhost;dbname=youoffer_com_db',

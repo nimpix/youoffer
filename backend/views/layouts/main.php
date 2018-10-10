@@ -28,7 +28,7 @@ AppAsset::register($this);
 
 <div class="wrap header">
     <?php
-    if(Yii::$app->controller->action->id !== 'login' && Yii::$app->controller->id !== 'site'){
+    if(Yii::$app->controller->action->id !== 'login'){
         NavBar::begin([
             'options' => [
                 'class' => 'navbar-inverse navbar-fixed-top',

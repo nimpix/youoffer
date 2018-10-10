@@ -77,7 +77,7 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            Yii::$app->response->redirect(Url::to('/admin/catalog'));
+            Yii::$app->response->redirect(Url::to('/admin'));
         } else {
             $model->password = '';
 
