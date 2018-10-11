@@ -2,7 +2,6 @@
 
 namespace backend\models\catalog\sections;
 
-use yii\db\ActiveRecord;
 use yii\db\ActiveQuery;
 use creocoder\nestedsets\NestedSetsQueryBehavior;
 

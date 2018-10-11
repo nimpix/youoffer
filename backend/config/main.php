@@ -11,7 +11,12 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
+    'modules' => [
+        'debug' => [
+            'class' => 'yii\debug\Module',
+            'allowedIPs' => ['185.105.224.2', '127.0.0.1', '::1']
+        ]
+    ],
     'components' => [
         'view' => [
             'class' => 'yii\web\View',

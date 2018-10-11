@@ -23,6 +23,8 @@ class CatalogController extends Controller
 
     public $branch;
 
+    private $_depth;
+
     public function init()
     {
         parent::init();
@@ -39,9 +41,7 @@ class CatalogController extends Controller
      */
     public function actionIndex()
     {
-        foreach ($this->catalog->getAllSections() as $sc) {
-            $this->_listsection .= '<li>' . $sc['name'] . '</li>';
-        }
+        $this->_listsection = $this->catalog->getAllSectionsBranched();
 
         return $this->render('index.twig', ['sections' => $this->_listsection]);
     }
