@@ -20,27 +20,34 @@ class Catalog
 
     }
 
-    public function getAllSectionsBranched()
+    public function getAllSectionsBranched($tagOne ='<ul>',$closeOne = '</ul>',$tagTwo = '<li>',$closeTwo = '</li>')
     {
         $roots = Sections::find()->roots()->addOrderBy('tree, lft')->all();
 
+        $config = [
+            'tagOne' => $tagOne,
+            'closeOne' => $closeOne,
+            'tagTwo' => $tagTwo,
+            'closeTwo' => $closeTwo,
+        ];
+
         foreach ($roots as $root) {
-            $this->sect .= '<li>' . 'id:' . $root->id . ' ' . $root->name . '<ul>' . self::getTree($root->children()->all()) . '</ul></li>';
+            $this->sect .= $tagTwo . 'id:' . $root->id . ' ' . $root->name . $tagOne . self::getTree($root->children()->all(), $config) . $closeOne.$closeTwo;
         }
 
         return $this->sect;
 
     }
 
-    public static function getTree($categories, $left = 0, $right = null, $lvl = 1)
+    public static function getTree($categories, $config, $left = 0, $right = null, $lvl = 1)
     {
 
         $tree = '';
 
         foreach ($categories as $category) {
             if ($category->lft >= $left + 1 && (is_null($right) || $category->rgt <= $right) && $category->depth == $lvl) {
-                $tree .= '<li>' . 'id:' . $category->id . ' ' . $category->name . '<ul>' . self::getTree($categories,
-                        $category->lft, $category->rgt, $category->depth + 1) . '</ul></li>';
+                $tree .= $config['tagTwo'] . 'id:' . $category->id . ' ' . $category->name . $config['tagOne'] . self::getTree($categories,$config,
+                        $category->lft, $category->rgt, $category->depth + 1) . $config['closeOne'].$config['closeTwo'];
             }
         }
 
