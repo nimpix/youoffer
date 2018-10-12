@@ -3,13 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
-use yii\base\InvalidParamException;
-use yii\web\BadRequestHttpException;
 use yii\web\Controller;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-use app\models\MainForm;
-use yii\helpers\Html;
 use backend\models\catalog\Catalog;
 
 /**
@@ -53,18 +47,20 @@ class CatalogController extends Controller
      */
     public function actionIndex()
     {
-        $this->_listsection = $this->catalog->renderList();
-//        $this->_selectsection = $this->catalog->getAllSectionsBranched('select');
+        $this->_listsection = $this->catalog->renderTemplateList();
+        $hier = $this->catalog->renderTemplateHierarchy();
+        $this->_selectsection = $this->catalog->renderTemplateSelectList();
 
-        return $this->render('index.twig', ['sections' => $this->_listsection,'selectsections' => $this->_selectsection]);
+        return $this->render('index.twig',
+            ['sections' => $this->_listsection, 'selectsections' => $this->_selectsection, 'hier' => $hier]);
     }
 
     public function actionAddsection()
     {
         $request = Yii::$app->request;
-
+        
         $this->branch = $this->catalog->addNewBranch($request->get());
 
-        return $this->redirect(['catalog/index'],301);
+        return $this->redirect(['catalog/index'], 301);
     }
 }

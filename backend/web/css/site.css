@@ -130,3 +130,10 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+.pagination li{
+    padding:0px 10px;
+}
+.pagination li.active a{
+    color:#e0a800 !important;
+}

@@ -2,66 +2,38 @@
 
 namespace backend\models\catalog;
 
+use backend\models\catalog\sections\SectionsTemplateRenderer;
 use backend\models\catalog\sections\Sections;
-use yii\helpers\ArrayHelper;
-use yii\db\ActiveRecord;
-
-//Сделать потом абстрактную фабрику
 
 class Catalog
 {
-
-    private $_sections;
-
-    public $sect = [];
+    public $catalogRender;
 
     public function __construct()
     {
-        $this->_sections = new Sections();
+        $this->catalogRender = new SectionsTemplateRenderer();
     }
 
-    private function getAllSectionsBranched()
+    public function renderTemplateList()
     {
-        $roots = Sections::find()->roots()->addOrderBy('tree, lft')->all();
+       $result = $this->catalogRender->renderList();
 
-
-        foreach ($roots as $root) {
-            $this->sect[] = [
-                'lft' =>$root->lft,
-                'rgt' =>$root->rgt,
-                'id' => $root->id,
-                'name' => $root->name,
-                'depth' => $root->depth,
-                'items' => self::getTree($root->children()->all())
-            ];
-        }
-        return $this->sect;
+       return $result;
     }
 
-    private function getTree($roots, $lft = 0, $rgt = null, $depth = 1)
+    public function renderTemplateHierarchy()
     {
-        $items = [];
+        $result = $this->catalogRender->renderHierarchy();
 
-        foreach ($roots as $root) {
-            if ($root->lft >= $lft + 1 && $root->depth == $depth && ($root->rgt <= $rgt || is_null($rgt))) {
-                $items[] = [
-                    'lft' =>$root->lft,
-                    'rgt' =>$root->rgt,
-                    'id' => $root->id,
-                    'name' => $root->name,
-                    'depth' => $root->depth,
-                    'items' => self::getTree($roots, $root->lft, $root->rgt, $root->depth + 1)
-                ];
-            }
-        }
-        return $items;
+        return $result;
     }
 
-    public function renderList(){
-        $tree = self::getAllSectionsBranched();
-        return $tree;
-    }
+    public function renderTemplateSelectList()
+    {
+        $result = $this->catalogRender->renderSelectList();
 
+        return $result;
+    }
 
     public function addNewBranch($conf)
     {

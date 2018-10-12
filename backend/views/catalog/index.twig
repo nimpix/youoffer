@@ -1,12 +1,21 @@
 {{ set(this, 'title', 'Admin catalog') }}
 <div class="site-index">
     <h2>Добавить категорию</h2>
-    <select name="" id="">
-        {{ selectsections | raw }}
-    </select>
+    <form action="/admin/catalog/addsection">
+        <div class="form-group">
+            <label for="new-catalog">Название раздела</label>
+            <input name="name" type="text" class="form-control" id="name">
+        </div>
+        <select class="selectpicker" name="branch" id="branch">
+            <option value="">Новый раздел</option>
+            {{ selectsections | raw }}
+        </select>
+        <input type="submit" class="btn btn-primary" value="Добавить"></input>
+    </form>
     <h2>Категории</h2>
     <ul class="sections"></ul>
-       {{ sections | raw }}
+    {{ sections | raw }}
     </ul>
-
+    <h2>Иерархия</h2>
+    {{ hier | raw }}
 </div>

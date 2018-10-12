@@ -5,7 +5,8 @@ namespace backend\models\catalog\sections;
 use yii\db\ActiveRecord;
 use creocoder\nestedsets\NestedSetsBehavior;
 
-class Sections extends ActiveRecord{
+
+class Sections extends ActiveRecord {
 
     public function behaviors() {
         return [
