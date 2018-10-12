@@ -23,7 +23,19 @@ class CatalogController extends Controller
 
     public $branch;
 
-    private $_depth;
+    public $id;
+
+    public $depth;
+
+    public $name;
+
+    public $items;
+
+    public $lft;
+
+    public $rgt;
+
+    private $_selectsection;
 
     public function init()
     {
@@ -41,9 +53,10 @@ class CatalogController extends Controller
      */
     public function actionIndex()
     {
-        $this->_listsection = $this->catalog->getAllSectionsBranched();
+        $this->_listsection = $this->catalog->renderList();
+//        $this->_selectsection = $this->catalog->getAllSectionsBranched('select');
 
-        return $this->render('index.twig', ['sections' => $this->_listsection]);
+        return $this->render('index.twig', ['sections' => $this->_listsection,'selectsections' => $this->_selectsection]);
     }
 
     public function actionAddsection()

@@ -1,5 +1,9 @@
 {{ set(this, 'title', 'Admin catalog') }}
 <div class="site-index">
+    <h2>Добавить категорию</h2>
+    <select name="" id="">
+        {{ selectsections | raw }}
+    </select>
     <h2>Категории</h2>
     <ul class="sections"></ul>
        {{ sections | raw }}

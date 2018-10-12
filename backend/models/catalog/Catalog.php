@@ -3,56 +3,63 @@
 namespace backend\models\catalog;
 
 use backend\models\catalog\sections\Sections;
+use yii\helpers\ArrayHelper;
+use yii\db\ActiveRecord;
+
+//Сделать потом абстрактную фабрику
 
 class Catalog
 {
 
     private $_sections;
 
-    public $sect = '';
+    public $sect = [];
 
     public function __construct()
     {
         $this->_sections = new Sections();
     }
 
-    public function getAllSections (){
-
-    }
-
-    public function getAllSectionsBranched($tagOne ='<ul>',$closeOne = '</ul>',$tagTwo = '<li>',$closeTwo = '</li>')
+    private function getAllSectionsBranched()
     {
         $roots = Sections::find()->roots()->addOrderBy('tree, lft')->all();
 
-        $config = [
-            'tagOne' => $tagOne,
-            'closeOne' => $closeOne,
-            'tagTwo' => $tagTwo,
-            'closeTwo' => $closeTwo,
-        ];
 
         foreach ($roots as $root) {
-            $this->sect .= $tagTwo . 'id:' . $root->id . ' ' . $root->name . $tagOne . self::getTree($root->children()->all(), $config) . $closeOne.$closeTwo;
+            $this->sect[] = [
+                'lft' =>$root->lft,
+                'rgt' =>$root->rgt,
+                'id' => $root->id,
+                'name' => $root->name,
+                'depth' => $root->depth,
+                'items' => self::getTree($root->children()->all())
+            ];
         }
-
         return $this->sect;
-
     }
 
-    public static function getTree($categories, $config, $left = 0, $right = null, $lvl = 1)
+    private function getTree($roots, $lft = 0, $rgt = null, $depth = 1)
     {
+        $items = [];
 
-        $tree = '';
-
-        foreach ($categories as $category) {
-            if ($category->lft >= $left + 1 && (is_null($right) || $category->rgt <= $right) && $category->depth == $lvl) {
-                $tree .= $config['tagTwo'] . 'id:' . $category->id . ' ' . $category->name . $config['tagOne'] . self::getTree($categories,$config,
-                        $category->lft, $category->rgt, $category->depth + 1) . $config['closeOne'].$config['closeTwo'];
+        foreach ($roots as $root) {
+            if ($root->lft >= $lft + 1 && $root->depth == $depth && ($root->rgt <= $rgt || is_null($rgt))) {
+                $items[] = [
+                    'lft' =>$root->lft,
+                    'rgt' =>$root->rgt,
+                    'id' => $root->id,
+                    'name' => $root->name,
+                    'depth' => $root->depth,
+                    'items' => self::getTree($roots, $root->lft, $root->rgt, $root->depth + 1)
+                ];
             }
         }
+        return $items;
+    }
 
+    public function renderList(){
+        $tree = self::getAllSectionsBranched();
         return $tree;
-
     }
 
 
