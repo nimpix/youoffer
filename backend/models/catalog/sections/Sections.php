@@ -7,6 +7,7 @@ use creocoder\nestedsets\NestedSetsBehavior;
 
 
 class Sections extends ActiveRecord {
+    
 
     public function behaviors() {
         return [

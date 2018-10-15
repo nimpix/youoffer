@@ -5,6 +5,8 @@ namespace backend\models\catalog\sections;
 use yii\grid\GridView;
 use yii\data\ArrayDataProvider;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use yii\helpers\Url;
 
 //сделать фабрику
 
@@ -59,21 +61,23 @@ class SectionsTemplateRenderer
     {
         $tree = self::getAllSectionsBranched();
 
-        foreach($tree as $leaf){
-            $this->result .= '<li>' . $leaf['name'] . '<ul>' . $this->_renderPartHierarchy($leaf['items']) .'</ul>' . '</li>';
+        foreach ($tree as $leaf) {
+            $this->result .= '<li>' . $leaf['name'] . '<ul>' . $this->_renderPartHierarchy($leaf['items']) . '</ul>' . '</li>';
         }
 
         return $this->result;
 
     }
 
-    private function _renderPartHierarchy($tree){
+    private function _renderPartHierarchy($tree)
+    {
 
-        foreach($tree as $leaf){
-            for($i=0;$i<$leaf['depth'];$i++){
-                $leaf['depth'] .= '-';
+        foreach ($tree as $leaf) {
+            for ($i = 0; $i < $leaf['depth']; $i++) {
+                $leaf['depth'] .= '-&nbsp;';
             }
-            $this->result .= '<li>' . preg_replace('/(\d)/','',$leaf['depth']) . $leaf['name'] . $this->_renderPartHierarchy($leaf['items']) . '</li>';
+            $this->result .= '<li>' . preg_replace('/(\d)/', '',
+                    $leaf['depth']) . $leaf['name'] . $this->_renderPartHierarchy($leaf['items']) . '</li>';
         }
     }
 
@@ -88,10 +92,11 @@ class SectionsTemplateRenderer
             Sections::class => [
                 'id',
                 'name',
-                'depth'
+                'depth',
+                'lft'
             ]
         ]);
-
+        
         $data = new ArrayDataProvider([
             'allModels' => $tree,
             'pagination' => [
@@ -105,11 +110,59 @@ class SectionsTemplateRenderer
         $render = GridView::widget([
             'dataProvider' => $data,
             'columns' => [
-                'id',
-                'name',
-                'depth',
+                [
+                    'attribute' => 'id',
+                    'format' => 'text',
+                    'label' => 'id',
+                    'options' => ['width' => '20']
+                ],
+                [
+                    'attribute' => 'name',
+                    'format' => 'text',
+                    'label' => 'Название',
+                ],
+                [
+                    'class' => 'yii\grid\ActionColumn',
+                    'template' => '{view} {update} {delete}',
+                    'urlCreator' => function ($action, $model, $key, $index) {
+                        if ($action === 'delete') {
+                            return \yii\helpers\Url::toRoute(['catalog/delete', 'id' => $model['id']]);
+                        }
+                        if ($action === 'update') {
+                            return \yii\helpers\Url::toRoute(['catalog/update', 'id' => $model['id']]);
+                        }
+                        if ($action === 'view') {
+                            return \yii\helpers\Url::toRoute(['catalog/view', 'id' => $model['id']]);
+                        }
+                    },
+                    'header' => 'Действия',
+                    'headerOptions' => ['style' => 'color:#337ab7'],
+                    'buttons' => [
+                        'view' => function ($url, $model) {
+                            return Html::a('<span class="far fa-eye"></span>', $url, [
+                                'title' => 'Просмотр',
+                            ]);
+                        },
+                        'update' => function ($url, $model) {
+                            return Html::a('<span class="fas fa-pen"></span>', $url, [
+                                'title' => 'Изменить',
+                            ]);
+                        },
+                        'delete' => function ($url, $model) {
+                            return Html::a('<span class="fas fa-ban"></span>', $url, [
+                                'title' => 'Удалить',
+                                'data' => [
+                                    'method' => 'get',
+                                    'confirm' => 'Вы уверены, что хотите удалить категорию?',
+                                ]
+                            ]);
+                        },
+                    ],
+                ],
+
             ],
         ]);
+
 
         return $render;
     }
@@ -122,7 +175,7 @@ class SectionsTemplateRenderer
 
         $result = '';
 
-        foreach ($res as $item){
+        foreach ($res as $item) {
             $result .= '<option>' . $item->name . '</option>';
         }
 

@@ -137,3 +137,16 @@ a.desc:after {
 .pagination li.active a{
     color:#e0a800 !important;
 }
+.grid-view table tr td:last-child{
+    width:80px !important;
+}
+.grid-view table tr td:last-child a{
+    padding:0 5px !important;
+}
+.sections{
+    list-style-type: none;
+    padding: 0 !important;
+}
+.sections li>ul{
+    padding-bottom: 20px;
+}

@@ -3,8 +3,8 @@
     <h2>Добавить категорию</h2>
     <form action="/admin/catalog/addsection">
         <div class="form-group">
-            <label for="new-catalog">Название раздела</label>
-            <input name="name" type="text" class="form-control" id="name">
+            <label for="new-catalog" id="">Название раздела</label>
+            <input name="name" type="text" class="form-control" id="new-catalog">
         </div>
         <select class="selectpicker" name="branch" id="branch">
             <option value="">Новый раздел</option>
@@ -13,9 +13,9 @@
         <input type="submit" class="btn btn-primary" value="Добавить"></input>
     </form>
     <h2>Категории</h2>
-    <ul class="sections"></ul>
     {{ sections | raw }}
-    </ul>
     <h2>Иерархия</h2>
-    {{ hier | raw }}
+    <ul class="sections">
+         {{ hier | raw }}
+    </ul>
 </div>

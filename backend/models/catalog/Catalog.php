@@ -4,7 +4,8 @@ namespace backend\models\catalog;
 
 use backend\models\catalog\sections\SectionsTemplateRenderer;
 use backend\models\catalog\sections\Sections;
-
+use yii\helpers\ArrayHelper;
+use yii\web\Controller;
 class Catalog
 {
     public $catalogRender;
@@ -47,5 +48,20 @@ class Catalog
         }
 
         return 'Ветка {$branch} успешно добавлена';
+    }
+
+    public static function catalogDelete($params){
+        $name = Sections::find()->where(['=','id',$params['id']])->all();
+        $name = ArrayHelper::toArray($name,[
+            Sections::class  => [
+                'name',
+            ]
+        ]);
+       
+        $branch = Sections::findOne(['name' => $name]);
+
+        $branch = $branch->deleteWithChildren();
+
+        return Controller::redirect(['catalog/index'], 301);
     }
 }

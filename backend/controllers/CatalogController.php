@@ -58,9 +58,16 @@ class CatalogController extends Controller
     public function actionAddsection()
     {
         $request = Yii::$app->request;
-        
+
         $this->branch = $this->catalog->addNewBranch($request->get());
 
         return $this->redirect(['catalog/index'], 301);
+    }
+
+    public function actionDelete()
+    {
+        $request = Yii::$app->request->get();
+
+        return Catalog::catalogDelete($request);
     }
 }

@@ -38,11 +38,22 @@ return [
         'assetManager' => [
             'bundles' => [
                 'yii\bootstrap\BootstrapAsset' => [
-                    'sourcePath' => null,
+                    'sourcePath' => "backend/web",
                     'basePath' => '/backend/web',
                     'baseUrl' => '/backend/web',
                     'css' => ['css/bootstrap.min.css'],
                 ],
+            ],
+            'assetMap' => [
+//                'npm.js' => 'http://youoffer.com/backend/web/assets/63d75d9c/js/npm.js',
+//                'core.js' => 'http://youoffer.com/backend/web/assets/666f76be/core.js',
+               // 'yii.js' => 'http://youoffer.com/vendor/yiisoft/yii2/assets/yii.js',
+                'yii.gridView.js' => 'http://youoffer.com/backend/web/assets/b0c1950/yii.gridView.js',
+                'yii.activeForm.js' => 'http://youoffer.com/backend/web/assets/b0c1950/yii.activeForm.js',
+                'yii.captcha.js' => 'http://youoffer.com/backend/web/assets/b0c1950/yii.captcha.js',
+                'yii.validation.js' => 'http://youoffer.com/backend/web/assets/b0c1950/yii.validation.js',
+                'jquery.js' => 'http://youoffer.com/backend/web/assets/666f76be/jquery.js',
+                'bootstrap.js' => 'http://youoffer.com/backend/web/assets/63d75d9c/js/bootstrap.js',
             ],
         ],
         'request' => [
@@ -77,17 +88,17 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'enableStrictParsing' => false,
             'rules' => [
                 "" => "site/index",
-                "/catalog" => "catalog/index"
+                "catalog" => "catalog/index"
             ],
         ],
-        
+
     ],
     'params' => $params,
 ];
