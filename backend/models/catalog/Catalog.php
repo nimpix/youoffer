@@ -4,22 +4,35 @@ namespace backend\models\catalog;
 
 use backend\models\catalog\sections\SectionsTemplateRenderer;
 use backend\models\catalog\sections\Sections;
+use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
-class Catalog
+use yii\helpers\baseHtml;
+
+class Catalog extends Model
 {
     public $catalogRender;
+
+    public $name;
 
     public function __construct()
     {
         $this->catalogRender = new SectionsTemplateRenderer();
     }
 
+    public function rules()
+    {
+        return [
+            ['name', 'required', 'message' => 'Название введено неверно'],
+            ['name', 'string', 'max' => 50]
+        ];
+    }
+
     public function renderTemplateList()
     {
-       $result = $this->catalogRender->renderList();
+        $result = $this->catalogRender->renderList();
 
-       return $result;
+        return $result;
     }
 
     public function renderTemplateHierarchy()
@@ -46,18 +59,17 @@ class Catalog
             $branch = new Sections(['name' => $conf['name']]);
             $branch->makeRoot();
         }
-
-        return 'Ветка {$branch} успешно добавлена';
     }
 
-    public static function catalogDelete($params){
-        $name = Sections::find()->where(['=','id',$params['id']])->all();
-        $name = ArrayHelper::toArray($name,[
-            Sections::class  => [
+    public static function catalogDelete($params)
+    {
+        $name = Sections::find()->where(['=', 'id', $params['id']])->all();
+        $name = ArrayHelper::toArray($name, [
+            Sections::class => [
                 'name',
             ]
         ]);
-       
+
         $branch = Sections::findOne(['name' => $name]);
 
         $branch = $branch->deleteWithChildren();

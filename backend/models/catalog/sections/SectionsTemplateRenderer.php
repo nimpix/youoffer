@@ -136,6 +136,7 @@ class SectionsTemplateRenderer
                         }
                     },
                     'header' => 'Действия',
+                    'options' => ['width' => '30'],
                     'headerOptions' => ['style' => 'color:#337ab7'],
                     'buttons' => [
                         'view' => function ($url, $model) {
@@ -152,7 +153,7 @@ class SectionsTemplateRenderer
                             return Html::a('<span class="fas fa-ban"></span>', $url, [
                                 'title' => 'Удалить',
                                 'data' => [
-                                    'method' => 'get',
+                                    'method' => 'post',
                                     'confirm' => 'Вы уверены, что хотите удалить категорию?',
                                 ]
                             ]);

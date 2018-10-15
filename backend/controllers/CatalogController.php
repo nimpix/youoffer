@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
+use yii\helpers\Html;
 use yii\web\Controller;
 use backend\models\catalog\Catalog;
 
@@ -52,16 +53,29 @@ class CatalogController extends Controller
         $this->_selectsection = $this->catalog->renderTemplateSelectList();
 
         return $this->render('index.twig',
-            ['sections' => $this->_listsection, 'selectsections' => $this->_selectsection, 'hier' => $hier]);
+            [   'sections' => $this->_listsection, 'selectsections' => $this->_selectsection,
+                'hier' => $hier, 'formError' => Yii::$app->request->get('error'),
+            ]);
     }
 
     public function actionAddsection()
     {
         $request = Yii::$app->request;
+        $catalog = new Catalog;
 
-        $this->branch = $this->catalog->addNewBranch($request->get());
+        if ($catalog->load(Yii::$app->request->get(), '') && $catalog->validate()) {
+            $this->branch = $this->catalog->addNewBranch($request->get());
+        }
+        $status = Html::error($catalog,'name',['class'=> 'error-body']);
+        $status = strip_tags($status);
 
-        return $this->redirect(['catalog/index'], 301);
+        if(empty($status)){
+            $status = 'Категория успешно добавлена';
+        }else{
+            $status = 'Название должно содержать не более 50 символов';
+        }
+
+        return $this->redirect(['catalog/index','error' => $status], 301);
     }
 
     public function actionDelete()

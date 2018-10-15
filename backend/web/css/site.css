@@ -2,7 +2,42 @@ html,
 body {
     height: 100%;
 }
-
+.error{
+    color:darkred;
+    padding:10px 0px;
+}
+.success{
+    color:forestgreen;
+    padding:10px 0px;
+}
+a[title='Просмотр'],a[title='Изменить'],a[title='Удалить']{
+    padding:0px 5px;
+}
+.sections{
+    list-style-type: none;
+    padding:0 !important ;
+}
+.pagination li{
+    padding:0px 10px;
+}
+.pagination li.active a{
+    color: #12171d !important;
+}
+.menu-grid{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+}
+.menu-grid>div{
+    border-left:1px solid #007bff;
+    border-top:1px solid #007bff;
+    border-right:1px solid #007bff;
+    padding:10px 20px;
+    background:#dee2e6;
+}
+.menu-grid>div:last-child {
+    border-bottom:1px solid dodgerblue;
+}
 .wrap {
     min-height: 100%;
     height: auto;
@@ -129,24 +164,4 @@ a.desc:after {
 
 .nav > li > form > button.logout:focus {
     outline: none;
-}
-
-.pagination li{
-    padding:0px 10px;
-}
-.pagination li.active a{
-    color:#e0a800 !important;
-}
-.grid-view table tr td:last-child{
-    width:80px !important;
-}
-.grid-view table tr td:last-child a{
-    padding:0 5px !important;
-}
-.sections{
-    list-style-type: none;
-    padding: 0 !important;
-}
-.sections li>ul{
-    padding-bottom: 20px;
 }
