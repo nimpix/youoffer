@@ -6,10 +6,15 @@
             <label for="new-catalog" id="">Название раздела</label>
             <input name="name" type="text" class="form-control" id="new-catalog">
         </div>
-        <select class="selectpicker" name="branch" id="branch">
-            <option value="">Новый раздел</option>
-            {{ selectsections | raw }}
-        </select>
+        <div class="form-group">
+            <label for="">Родительский каталог</label>
+            <div class="clearfix"></div>
+            <select class="selectpicker" name="branch" id="branch">
+                <option value="">Новый раздел</option>
+                {{ selectsections | raw }}
+            </select>
+        </div>
+
         <input type="submit" class="btn btn-primary" value="Добавить"></input>
         <div class="error {% if formError == 'Категория успешно добавлена' %} {{ 'success' }} {% endif %}">
                  {{ formError |raw }}
