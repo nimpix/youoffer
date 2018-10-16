@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>Изменить категорию {{ name | lower }}</h2>
+            <form action="" id="detailed">
+                <div class="form-group">
+                    <label for="name">Название категории</label>
+                    <div class="clearfix"></div>
+                    <input type="text" id="name">
+                </div>
+                <div class="form-group" id="parent">
+                    <label for="parent-list">Родительская категория</label>
+                    <div class="clearfix"></div>
+                    <select name="parent-list" id="parent-list">
+                        <option value="none">Не менять</option>
+                        <option value="root">!Сделать корневым!</option>
+                        {{ options | raw }}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" value="{{ name }}" id="currentcat">
+                    <input type="submit" class="btn btn-primary" value="Обновить">
+                </div>
+            </form>
+            <a class="btn btn-primary" style="color:#fff;" href="/backend/web/catalog/">Назад</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#detailed').submit(function(e){
+        e.preventDefault();
+        var name = $(this).find('#name').val(),
+            parent = $(this).find('#parent-list').val(),
+            currentcat = $(this).find('#currentcat').val();
+        $.ajax({
+            url: '/backend/web/catalog/update',
+            method: 'post',
+            data: {'name':name,'parent':parent, 'currentCat': currentcat },
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+            },
+            error:function () {
+
+            }
+        });
+    });
+</script>

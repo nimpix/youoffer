@@ -7,6 +7,7 @@ use yii\data\ArrayDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use Yii;
 
 //сделать фабрику
 
@@ -81,12 +82,11 @@ class SectionsTemplateRenderer
         }
     }
 
-    public function renderList()
+    public function filterList($name)
     {
-
         $tree = new Sections();
 
-        $res = $tree->find()->all();
+        $res = empty($name) ? $tree->find()->all() : $tree->find()->where(['LIKE','name', $name])->all();
 
         $tree = ArrayHelper::toArray($res, [
             Sections::class => [
@@ -96,7 +96,13 @@ class SectionsTemplateRenderer
                 'lft'
             ]
         ]);
-        
+
+        return $tree;
+    }
+
+    public function renderList($tree)
+    {
+
         $data = new ArrayDataProvider([
             'allModels' => $tree,
             'pagination' => [
@@ -110,10 +116,7 @@ class SectionsTemplateRenderer
         $render = GridView::widget([
             'dataProvider' => $data,
             'columns' => [
-                [
-                    'attribute' => 'id',
-                    'format' => 'text',
-                    'label' => 'id',
+                [   'class' => 'yii\grid\SerialColumn',
                     'options' => ['width' => '20']
                 ],
                 [
@@ -129,21 +132,13 @@ class SectionsTemplateRenderer
                             return \yii\helpers\Url::toRoute(['catalog/delete', 'id' => $model['id']]);
                         }
                         if ($action === 'update') {
-                            return \yii\helpers\Url::toRoute(['catalog/update', 'id' => $model['id']]);
-                        }
-                        if ($action === 'view') {
-                            return \yii\helpers\Url::toRoute(['catalog/view', 'id' => $model['id']]);
+                            return \yii\helpers\Url::toRoute(['catalog/update', 'id' => $model['id'],'name' => $model['name']]);
                         }
                     },
                     'header' => 'Действия',
                     'options' => ['width' => '30'],
                     'headerOptions' => ['style' => 'color:#337ab7'],
                     'buttons' => [
-                        'view' => function ($url, $model) {
-                            return Html::a('<span class="far fa-eye"></span>', $url, [
-                                'title' => 'Просмотр',
-                            ]);
-                        },
                         'update' => function ($url, $model) {
                             return Html::a('<span class="fas fa-pen"></span>', $url, [
                                 'title' => 'Изменить',

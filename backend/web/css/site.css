@@ -2,6 +2,25 @@ html,
 body {
     height: 100%;
 }
+.sections li>ul{
+    padding-bottom:20px;
+}
+#filter-form .form-group{
+    width: auto;
+    display: inline-block;
+}
+#filter-form .form-group:last-child{
+    margin-left: 5px;
+}
+#filter-form .form-group:first-child{
+    margin-right: 5px;
+}
+#filter{
+    width:400px;
+}
+#new-catalog{
+    width:400px;
+}
 .error{
     color:darkred;
     padding:10px 0px;
