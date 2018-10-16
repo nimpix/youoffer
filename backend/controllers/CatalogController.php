@@ -99,16 +99,17 @@ class CatalogController extends Controller
             $response->format = \yii\web\Response::FORMAT_JSON;
             $test = $this->catalog->updateSection(Yii::$app->request->post());
 
-            $response->data = ['data' => $test];
+            $response->data = $test;
 
             return $response;
 
         } else {
-            $categoryName = Yii::$app->request->get('name');
+            $categoryData['name'] = Yii::$app->request->get('name');
+            $categoryData['id'] = Yii::$app->request->get('id');
 
             $options = $this->catalog->renderTemplateSelectList();
 
-            return $this->render('update.twig', ['name' => $categoryName, 'options' => $options]);
+            return $this->render('update.twig', ['name' => $categoryData['name'], 'id' => $categoryData['id'] , 'options' => $options]);
         }
     }
 }

@@ -2,6 +2,11 @@ html,
 body {
     height: 100%;
 }
+.form-status{
+    padding:0px 0px 10px 0px;
+    color:darkred;
+    display:none;
+}
 .sections li>ul{
     padding-bottom:20px;
 }

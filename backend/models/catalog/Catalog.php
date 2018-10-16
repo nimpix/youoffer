@@ -82,21 +82,25 @@ class Catalog extends Model
 
     public function updateSection()
     {
+        $catid = Yii::$app->request->post('catid');
         $newname = Yii::$app->request->post('name');
         $currentcat = Yii::$app->request->post('currentCat');
         $parentname = Yii::$app->request->post('parent');
 
-        if ($parentname == 'none') {
+        $message = 'Данные успешно изменены';
+        $message_status = false;
 
+        if ($parentname == 'none') {
+            $message = 'Данные не были изменены';
         } else {
-            
+            $message_status = true;
             if ($parentname == 'root') {
-                $childFinded = Sections::find()->where(['=', 'name', $currentcat])->all();
+                $childFinded = Sections::find()->where(['=', 'id', $catid])->all();
                 $childFinded[0]->makeRoot();
             } else {
                 $parentFinded = Sections::find()->where(['=', 'name', $parentname])->all();
 
-                $childFinded = Sections::find()->where(['=', 'name', $currentcat])->all();
+                $childFinded = Sections::find()->where(['=', 'id', $catid])->all();
 
                 $childFinded[0]->appendTo($parentFinded[0]);
             }
@@ -104,11 +108,17 @@ class Catalog extends Model
 
 
         if (!empty($newname)) {
-            $changename = Sections::find()->where(['=', 'name', $currentcat])->all();
+            $changename = Sections::find()->where(['=', 'id', $catid])->all();
             $changename[0]->name = $newname;
             $changename[0]->save();
+            $message = 'Данные успешно изменены';
+        } else {
+            if (!$message_status) {
+                $message = 'Данные не были изменены';
+            }
         }
 
-        return ['data' => $parentname];
+
+        return ['data' => $message];
     }
 }
