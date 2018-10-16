@@ -63,7 +63,7 @@ class SectionsTemplateRenderer
         $tree = self::getAllSectionsBranched();
 
         foreach ($tree as $leaf) {
-            $this->result .= '<li>' . $leaf['name'] . '<ul>' . $this->_renderPartHierarchy($leaf['items']) . '</ul>' . '</li>';
+            $this->result .= '<li class="main-item">' . $leaf['name'] .  $this->_renderPartHierarchy($leaf['items']) .  '</li>';
         }
 
         return $this->result;
@@ -77,7 +77,7 @@ class SectionsTemplateRenderer
             for ($i = 0; $i < $leaf['depth']; $i++) {
                 $leaf['depth'] .= '-&nbsp;';
             }
-            $this->result .= '<li>' . preg_replace('/(\d)/', '',
+            $this->result .= '<li class="second-list">' . preg_replace('/(\d)/', '',
                     $leaf['depth']) . $leaf['name'] . $this->_renderPartHierarchy($leaf['items']) . '</li>';
         }
     }

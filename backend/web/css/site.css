@@ -2,13 +2,17 @@ html,
 body {
     height: 100%;
 }
+.main-item{
+    margin-top:15px;
+    font-weight: bold;
+}
 .form-status{
     padding:0px 0px 10px 0px;
     color:darkred;
     display:none;
 }
 .sections li>ul{
-    padding-bottom:20px;
+ 
 }
 #filter-form .form-group{
     width: auto;
