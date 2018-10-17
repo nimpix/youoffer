@@ -94,7 +94,8 @@ return [
             'enableStrictParsing' => false,
             'rules' => [
                 "" => "site/index",
-                "catalog" => "catalog/index"
+                "catalog" => "catalog/index",
+                "currency" => "currency/index"
             ],
         ],
 

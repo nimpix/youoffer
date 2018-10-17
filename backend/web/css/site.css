@@ -2,9 +2,29 @@ html,
 body {
     height: 100%;
 }
+#current{
+    display: inline-block;
+    width: 70%;
+    height: 50px;
+    padding-left: 10px;
+}
+.td-active{
+    padding:0 !important;
+}
+.currency table td{
+    padding-top:0;
+    padding-bottom:0;
+    height:50px;
+    vertical-align: middle;
+}
 .main-item{
     margin-top:15px;
     font-weight: bold;
+}
+#curbtn{
+    width: 30%;
+    display: inline-block;
+    height: 50px;
 }
 .form-status{
     padding:0px 0px 10px 0px;
