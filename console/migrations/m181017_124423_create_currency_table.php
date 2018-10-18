@@ -15,7 +15,20 @@ class m181017_124423_create_currency_table extends Migration
         $this->createTable('currency', [
             'id' => $this->primaryKey(),
             'name' => $this->string(20),
-            'kurs' => $this->int(),
+            'kurs' => $this->integer(),
+        ]);
+
+        $this->insert('currency', [
+            'name' => 'RUB',
+            'kurs' => '0',
+        ]);
+        $this->insert('currency', [
+            'name' => 'USD',
+            'kurs' => '60',
+        ]);
+        $this->insert('currency', [
+            'name' => 'EUR',
+            'kurs' => '70',
         ]);
     }
 

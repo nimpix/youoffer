@@ -11,6 +11,7 @@ $this->title = 'youoffer';
     <div class="row">
         <div class="col-lg-12 mt-5">
             <h1><a href="/admin">Войти</a> в админку</h1>
+            <a href="/signup">Регистрация</a>
         </div>
     </div>
 </div>

@@ -8,9 +8,9 @@ modules:
             user: 'youoffer_com_usr'
             password: 'lnmsubct6d'
             dump: 'tests/_data/dump.sql'
-            populate: true
+            populate: false
             cleanup: true
             reconnect: true
-            populator: 'mysql -u youoffer_com_usr -h localhost $dbname < $dump'
+            populator: 'mysql -u youoffer_com_usr -h localhost youoffer_com_db < tests/_data/dump.sql'
         - Yii2:
-            part: [fixtures,ORM,init]
+            part: [fixtures]
