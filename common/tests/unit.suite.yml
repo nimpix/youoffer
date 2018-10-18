@@ -2,6 +2,15 @@ suite_namespace: common\tests\unit
 actor: UnitTester
 bootstrap: false
 modules:
-    enabled:
+  enabled:
+        - Db:
+            dsn: 'mysql:host=localhost;dbname=youoffer_com_db'
+            user: 'youoffer_com_usr'
+            password: 'lnmsubct6d'
+            dump: 'tests/_data/dump.sql'
+            populate: true
+            cleanup: true
+            reconnect: true
+            populator: 'mysql -u youoffer_com_usr -h localhost $dbname < $dump'
         - Yii2:
-            part: fixtures
+            part: [fixtures,ORM,init]
