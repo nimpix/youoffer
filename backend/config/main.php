@@ -95,7 +95,9 @@ return [
             'rules' => [
                 "" => "site/index",
                 "catalog" => "catalog/index",
-                "currency" => "currency/index"
+                "currency" => "currency/index",
+                "users" => "users/index",
+                "settings" => "settings/index"
             ],
         ],
 

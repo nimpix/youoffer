@@ -17,10 +17,10 @@ $this->title = 'My Yii Application';
                         <a href="http://youoffer.com/backend/web/currency">Валюты</a>
                     </div>
                     <div>
-                        <a href="http://youoffer.com/backend/web/catalog">Пользователи</a>
+                        <a href="http://youoffer.com/backend/web/users">Пользователи</a>
                     </div>
                     <div>
-                        <a href="http://youoffer.com/backend/web/catalog">Настройки</a>
+                        <a href="http://youoffer.com/backend/web/settings">Настройки</a>
                     </div>
                 </div>
             </div>
