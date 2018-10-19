@@ -3,14 +3,15 @@ actor: UnitTester
 bootstrap: false
 modules:
   enabled:
+        - Asserts
         - Db:
-            dsn: 'mysql:host=localhost;dbname=youoffer_com_db'
+            dsn: 'mysql:host=localhost;dbname=youoffertest'
             user: 'youoffer_com_usr'
             password: 'lnmsubct6d'
             dump: 'tests/_data/dump.sql'
             populate: false
-            cleanup: true
-            reconnect: true
-            populator: 'mysql -u youoffer_com_usr -h localhost youoffer_com_db < tests/_data/dump.sql'
+            cleanup: false
+            populator: 'mysql $dbname < $dump'
         - Yii2:
-            part: [fixtures]
+            configFile: 'config/test-local.php'
+            part: [fixtures,orm,init]

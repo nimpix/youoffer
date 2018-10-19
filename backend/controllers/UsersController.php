@@ -87,8 +87,6 @@ class UsersController extends Controller
 
     public function actionDelete(){
         $uid = Yii::$app->request->get('id');
-//        $user = new User();
-//        $users = $user->find()->where(['=','id', $uid])->all();
 
         return User::deleteAll(['=','id', $uid]) ? $this->redirect(['users/index', ''], 301) : 'Не удалился. Для уточнения информации свяжитесь с администратором';
     }

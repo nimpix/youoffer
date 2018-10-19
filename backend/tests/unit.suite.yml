@@ -1,9 +1,17 @@
-# Codeception Test Suite Configuration
-#
-# Suite for unit or integration tests.
-
+suite_namespace: backend\tests\unit
 actor: UnitTester
+bootstrap: false
 modules:
-    enabled:
-        - Asserts
-        - \backend\Helper\Unit
+  enabled:
+  - Asserts
+  - Db:
+      dsn: 'mysql:host=localhost;dbname=youoffertest'
+      user: 'youoffer_com_usr'
+      password: 'lnmsubct6d'
+      dump: 'tests/_data/dump.sql'
+      populate: false
+      cleanup: false
+      populator: 'mysql $dbname < $dump'
+  - Yii2:
+      configFile: 'config/test-local.php'
+      part: [fixtures,orm,init]

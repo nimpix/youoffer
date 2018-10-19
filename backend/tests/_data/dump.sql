@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.6.41, for Linux (x86_64)
 --
--- Host: localhost    Database: youoffertest
+-- Host: localhost    Database: youoffer_com_db
 -- ------------------------------------------------------
 -- Server version	5.6.41
 
@@ -60,7 +60,7 @@ CREATE TABLE `migration` (
 
 LOCK TABLES `migration` WRITE;
 /*!40000 ALTER TABLE `migration` DISABLE KEYS */;
-INSERT INTO `migration` VALUES ('m000000_000000_base',1539933837),('m130524_201442_init',1539933838),('m181010_123415_create_sections_table',1539933839),('m181017_124423_create_currency_table',1539933839);
+INSERT INTO `migration` VALUES ('m000000_000000_base',1539874597),('m130524_201442_init',1539876184),('m181010_123415_create_sections_table',1539874599),('m181017_124423_create_currency_table',1539874854);
 /*!40000 ALTER TABLE `migration` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -134,4 +134,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-19 10:52:23
+-- Dump completed on 2018-10-19  9:13:31
