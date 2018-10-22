@@ -1,92 +1,30 @@
 <?php
 
-namespace backend\models\catalog\sections;
+namespace backend\models\catalog\sections\types\block;
 
+use backend\models\catalog\sections\types\block\Block;
+use yii\base\BaseObject;
+use backend\models\catalog\sections\Sections;
 use yii\grid\GridView;
 use yii\data\ArrayDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\helpers\Url;
-use Yii;
 
-//сделать фабрику
-
-class SectionsTemplateRenderer
+class Listdata extends BaseObject implements Block
 {
-    private $_sections;
-
-    public $sect = [];
-
-    public $result = '';
-
-    public function __construct()
+    public function formData($request)
     {
-        $this->_sections = new Sections();
-    }
+        $tree = self::filterList($request);
+        $render = self::renderList($tree);
 
-    private function getAllSectionsBranched()
-    {
-        $roots = Sections::find()->roots()->addOrderBy('tree, lft')->all();
-
-
-        foreach ($roots as $root) {
-            $this->sect[] = [
-                'id' => $root->id,
-                'name' => $root->name,
-                'depth' => $root->depth,
-                'items' => self::getTree($root->children()->all())
-            ];
-        }
-        return $this->sect;
-
-    }
-
-    private function getTree($roots, $lft = 0, $rgt = null, $depth = 1)
-    {
-        $items = [];
-
-        foreach ($roots as $root) {
-            if ($root->lft >= $lft + 1 && $root->depth == $depth && ($root->rgt <= $rgt || is_null($rgt))) {
-                $items[] = [
-                    'id' => $root->id,
-                    'name' => $root->name,
-                    'depth' => $root->depth,
-                    'items' => self::getTree($roots, $root->lft, $root->rgt, $root->depth + 1)
-                ];
-            }
-        }
-        return $items;
-    }
-
-    public function renderHierarchy()
-    {
-        $tree = self::getAllSectionsBranched();
-
-        foreach ($tree as $leaf) {
-            $this->result .= '<li class="main-item">' . $leaf['name'] .  $this->_renderPartHierarchy($leaf['items']) .  '</li>';
-        }
-
-        return $this->result;
-
-    }
-
-    private function _renderPartHierarchy($tree)
-    {
-
-        foreach ($tree as $leaf) {
-            for ($i = 0; $i < $leaf['depth']; $i++) {
-                $leaf['depth'] .= '-&nbsp;';
-            }
-            $this->result .= '<li class="second-list">' . preg_replace('/(\d)/', '',
-                    $leaf['depth']) . $leaf['name'] . $this->_renderPartHierarchy($leaf['items']) . '</li>';
-        }
+        return $render;
     }
 
     public function filterList($name)
     {
         $tree = new Sections();
 
-        $res = empty($name) ? $tree->find()->all() : $tree->find()->where(['LIKE','name', $name])->all();
+        $res = empty($name) ? $tree->find()->all() : $tree->find()->where(['LIKE', 'name', $name])->all();
 
         $tree = ArrayHelper::toArray($res, [
             Sections::class => [
@@ -116,7 +54,8 @@ class SectionsTemplateRenderer
         $render = GridView::widget([
             'dataProvider' => $data,
             'columns' => [
-                [   'class' => 'yii\grid\SerialColumn',
+                [
+                    'class' => 'yii\grid\SerialColumn',
                     'options' => ['width' => '20']
                 ],
                 [
@@ -132,7 +71,11 @@ class SectionsTemplateRenderer
                             return \yii\helpers\Url::toRoute(['catalog/delete', 'id' => $model['id']]);
                         }
                         if ($action === 'update') {
-                            return \yii\helpers\Url::toRoute(['catalog/update', 'id' => $model['id'],'name' => $model['name']]);
+                            return \yii\helpers\Url::toRoute([
+                                'catalog/update',
+                                'id' => $model['id'],
+                                'name' => $model['name']
+                            ]);
                         }
                     },
                     'header' => 'Действия',
@@ -161,21 +104,6 @@ class SectionsTemplateRenderer
 
 
         return $render;
-    }
-
-    public function renderSelectList()
-    {
-        $tree = new Sections();
-
-        $res = $tree->find()->all();
-
-        $result = '';
-
-        foreach ($res as $item) {
-            $result .= '<option>' . $item->name . '</option>';
-        }
-
-        return $result;
     }
 
 }

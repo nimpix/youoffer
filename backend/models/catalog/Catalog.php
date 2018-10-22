@@ -2,25 +2,20 @@
 
 namespace backend\models\catalog;
 
-use backend\models\catalog\sections\SectionsTemplateRenderer;
 use backend\models\catalog\sections\Sections;
 use backend\models\catalog\sections\Sectionsbuffer;
 use yii\base\Model;
 use yii;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
-use yii\helpers\baseHtml;
+use backend\models\catalog\sections\types\block\ListViewCreator;
+use backend\models\catalog\sections\types\block\TreeCreator;
+use backend\models\catalog\sections\types\block\SelectCreator;
+
 
 class Catalog extends Model
 {
-    public $catalogRender;
-
     public $name;
-
-    public function __construct()
-    {
-        $this->catalogRender = new SectionsTemplateRenderer();
-    }
 
     public function rules()
     {
@@ -30,26 +25,29 @@ class Catalog extends Model
         ];
     }
 
+
     public function renderTemplateList($request)
     {
-        $tree = $this->catalogRender->filterList($request);
-        $result = $this->catalogRender->renderList($tree);
+        $list_creator = new ListViewCreator();
+        $list = $list_creator->factory();
 
-        return $result;
+        return $list->formData($request);
     }
 
     public function renderTemplateHierarchy()
     {
-        $result = $this->catalogRender->renderHierarchy();
+        $list_creator = new TreeCreator();
+        $list = $list_creator->factory();
 
-        return $result;
+        return $list->formData([]);
     }
 
     public function renderTemplateSelectList()
     {
-        $result = $this->catalogRender->renderSelectList();
+        $list_creator = new SelectCreator();
+        $list = $list_creator->factory();
 
-        return $result;
+        return $list->formData([]);
     }
 
     public function addNewBranch($conf)

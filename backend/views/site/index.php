@@ -4,7 +4,7 @@
 
 $this->title = 'My Yii Application';
 ?>
-<div class="site-index">
+<div class="site-index" id="admin-catalog"">
 
     <div class="container">
         <div class="row">
