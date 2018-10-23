@@ -18,6 +18,10 @@ return [
         ]
     ],
     'components' => [
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            'defaultRoles' => ['admin', 'product','manager','guest']
+        ],
         'view' => [
             'class' => 'yii\web\View',
             'renderers' => [
@@ -47,7 +51,7 @@ return [
             'assetMap' => [
 //                'npm.js' => 'http://youoffer.com/backend/web/assets/63d75d9c/js/npm.js',
 //                'core.js' => 'http://youoffer.com/backend/web/assets/666f76be/core.js',
-               // 'yii.js' => 'http://youoffer.com/vendor/yiisoft/yii2/assets/yii.js',
+                // 'yii.js' => 'http://youoffer.com/vendor/yiisoft/yii2/assets/yii.js',
 //                'yii.gridView.js' => 'http://youoffer.com/backend/web/assets/b0c1950/yii.gridView.js',
 //                'yii.activeForm.js' => 'http://youoffer.com/backend/web/assets/b0c1950/yii.activeForm.js',
 //                'yii.captcha.js' => 'http://youoffer.com/backend/web/assets/b0c1950/yii.captcha.js',

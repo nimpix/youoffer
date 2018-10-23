@@ -186,4 +186,11 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+
+    public function afterSave()
+    {
+        $auth = \Yii::$app->authManager;
+        $authorRole = $auth->getRole('manager-role');
+        $auth->assign($authorRole, $this->id);
+    }
 }

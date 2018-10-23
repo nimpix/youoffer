@@ -4,7 +4,8 @@ namespace backend\controllers;
 
 use Yii;
 use yii\grid\GridView;
-use yii\helpers\Html;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use backend\models\currency\Currency;
 use yii\data\ActiveDataProvider;
@@ -12,6 +13,33 @@ use yii\data\ActiveDataProvider;
 
 class CurrencyController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => [''],
+                        'allow' => true,
+                        'roles' => ['manager-role','product-role'],
+                    ],
+                    [
+                        'actions' => ['index','update'],
+                        'allow' => true,
+                        'roles' => ['admin-role'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
+
     public function actionIndex()
     {
         $currency_data = new ActiveDataProvider([

@@ -22,6 +22,10 @@ return [
           ],
     ],
     'components' => [
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            'defaultRoles' => ['admin', 'product','manager','guest']
+        ],
         'log' => [
             'targets' => [
                 [

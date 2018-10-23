@@ -6,6 +6,8 @@ use Yii;
 use yii\helpers\Html;
 use yii\web\Controller;
 use backend\models\catalog\Catalog;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 
 /**
  * Site controller
@@ -40,7 +42,29 @@ class CatalogController extends Controller
 
     public function behaviors()
     {
-        return [];
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => [''],
+                        'allow' => true,
+                        'roles' => ['manager-role','product-role'],
+                    ],
+                    [
+                        'actions' => ['addsection', 'index','delete','update'],
+                        'allow' => true,
+                        'roles' => ['admin-role','product-role'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
     }
 
     /**

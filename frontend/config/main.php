@@ -12,6 +12,10 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            'defaultRoles' => ['admin', 'product','manager','guest']
+        ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
             'baseUrl' => ''

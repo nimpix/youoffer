@@ -7,6 +7,9 @@ use backend\models\Users;
 use yii\grid\GridView;
 use common\models\User;
 use yii\helpers\Html;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
+
 
 /**
  * Users controller
@@ -14,6 +17,33 @@ use yii\helpers\Html;
 class UsersController extends Controller
 {
     private $_user;
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => [''],
+                        'allow' => true,
+                        'roles' => ['manager-role','product-role'],
+                    ],
+                    [
+                        'actions' => ['index','add','delete'],
+                        'allow' => true,
+                        'roles' => ['admin-role'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
 
     public function actionIndex()
     {
