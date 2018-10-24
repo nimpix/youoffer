@@ -70,10 +70,16 @@ class BrandsController extends Controller
             ],
         ]);
 
-        return $this->render('index.twig',['data' => $grid]);
+        return $this->render('index.twig', ['data' => $grid]);
     }
 
-    public function actionAdd(){
+    public function actionAllMerchants()
+    {
+        // Brands::find()->joinWith('merchant')->where(['merchant_id' => 1])->all();
+    }
+
+    public function actionAdd()
+    {
 
         $this->brand = new Brands();
         $request = Yii::$app->request->get();
@@ -81,13 +87,15 @@ class BrandsController extends Controller
         $this->brand->name = $request['brand'];
 
 
-        return $this->brand->save() ? $this->redirect(['brands/index', ''], 301) : 'Не добавился. Для уточнения информации свяжитесь с администратором';
+        return $this->brand->save() ? $this->redirect(['brands/index', ''],
+            301) : 'Не добавился. Для уточнения информации свяжитесь с администратором';
     }
 
-    public function actionDelete(){
+    public function actionDelete()
+    {
         $uid = Yii::$app->request->get('id');
 
-        return Brands::deleteAll(['=','id', $uid]) ? $this->redirect(['brands/index', ''], 301) : 'Не удалился. Для уточнения информации свяжитесь с администратором';
+        return Brands::deleteAll(['=', 'id', $uid]) ? $this->redirect(['brands/index', ''],
+            301) : 'Не удалился. Для уточнения информации свяжитесь с администратором';
     }
-
 }
