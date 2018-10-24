@@ -97,11 +97,13 @@ return [
             'showScriptName' => false,
             'enableStrictParsing' => false,
             'rules' => [
-                "" => "site/index",
-                "catalog" => "catalog/index",
-                "currency" => "currency/index",
-                "users" => "users/index",
-                "settings" => "settings/index"
+                '' => 'site/index',
+                'catalog' => 'catalog/index',
+                'currency' => 'currency/index',
+                'users' => 'users/index',
+                'settings' => 'settings/index',
+                'brands' => 'brands/index',
+                'merch' => 'merch/index'
             ],
         ],
 
