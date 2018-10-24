@@ -8,6 +8,8 @@ use yii\web\Controller;
 use backend\models\brands\Brands;
 use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
+use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * Site controller
@@ -15,6 +17,33 @@ use yii\grid\GridView;
 class BrandsController extends Controller
 {
     public $brand;
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => [''],
+                        'allow' => true,
+                        'roles' => ['manager-role','product-role'],
+                    ],
+                    [
+                        'actions' => ['index','add','delete'],
+                        'allow' => true,
+                        'roles' => ['admin-role'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
 
     public function actionIndex()
     {

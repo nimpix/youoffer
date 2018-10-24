@@ -103,7 +103,8 @@ return [
                 'users' => 'users/index',
                 'settings' => 'settings/index',
                 'brands' => 'brands/index',
-                'merch' => 'merch/index'
+                'merch' => 'merch/index',
+                'products' => 'products/index',
             ],
         ],
 

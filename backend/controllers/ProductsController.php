@@ -4,21 +4,17 @@ namespace backend\controllers;
 
 use Yii;
 use yii\helpers\Html;
-use yii\web\Controller;
-use backend\models\merchants\Merchant;
-use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
-use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
+use yii\web\Controller;
+use backend\models\currency\Currency;
+use yii\data\ActiveDataProvider;
+use backend\models\products\Products;
+use backend\models\products\ProductProvider;
 
-
-/**
- * Site controller
- */
-class MerchController extends Controller
+class ProductsController extends Controller
 {
-    public $merch;
-
     public function behaviors()
     {
         return [
@@ -48,13 +44,13 @@ class MerchController extends Controller
 
     public function actionIndex()
     {
-        $merch = new Merchant();
-        $data = $merch->find();
+        $product = new ProductProvider();
+        $data = $product->getProducts();
 
         $provider = new ActiveDataProvider([
             'query' => $data,
             'pagination' => [
-                'pageSize' => 10,
+                'pageSize' => 20,
             ]
         ]);
 
@@ -71,7 +67,7 @@ class MerchController extends Controller
                 [
                     'attribute' => 'name',
                     'format' => 'text',
-                    'label' => 'Поставщик',
+                    'label' => 'Наименование',
                     'options' => ['width' => '70'],
                 ],
                 [
@@ -79,7 +75,7 @@ class MerchController extends Controller
                     'template' => '{delete}',
                     'urlCreator' => function ($action, $model, $key, $index) {
                         if ($action === 'delete') {
-                            return \yii\helpers\Url::toRoute(['merch/delete', 'id' => $model['id']]);
+                            return \yii\helpers\Url::toRoute(['products/delete', 'id' => $model['id']]);
                         }
                     },
                     'header' => 'Действия',
@@ -91,7 +87,7 @@ class MerchController extends Controller
                                 'title' => 'Удалить',
                                 'data' => [
                                     'method' => 'post',
-                                    'confirm' => 'Вы уверены, что хотите удалить поставщика?',
+                                    'confirm' => 'Вы уверены, что хотите удалить товар?',
                                 ]
                             ]);
                         },
@@ -101,28 +97,6 @@ class MerchController extends Controller
         ]);
 
         return $this->render('index.twig', ['data' => $grid]);
-    }
-
-
-    public function actionAdd()
-    {
-
-        $this->merch = new Merchant();
-        $request = Yii::$app->request->get();
-
-        $this->merch->name = $request['merch'];
-
-
-        return $this->merch->save() ? $this->redirect(['merch/index', ''],
-            301) : 'Не добавился. Для уточнения информации свяжитесь с администратором';
-    }
-
-    public function actionDelete()
-    {
-        $uid = Yii::$app->request->get('id');
-
-        return Merchant::deleteAll(['=', 'id', $uid]) ? $this->redirect(['merch/index', ''],
-            301) : 'Не удалился. Для уточнения информации свяжитесь с администратором';
     }
 
 }
