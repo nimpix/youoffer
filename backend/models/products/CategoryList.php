@@ -25,12 +25,15 @@ class CategoryList
         $section = new Sections();
 
         $data = Products::find()->with('sections')->where(['=', 'id', $get['id']])->all();
-
         $maincat = ArrayHelper::toArray($data[0]->sections, [Sections::class => ['name','id'],]);
 
+        $maincat_arr = '';
+
+        foreach ($maincat as $cat) {
+            $maincat_arr .= '<input checked="checked" type="checkbox"  value="' . $cat['id'] . '"><label>'.$cat['name'].'</label><div class="clearfix"></div>';
+        }
 
         $options = $section->find()->all();
-
         $options_data = ArrayHelper::toArray($options, [Sections::class => ['name','id'],]);
 
         foreach ($options_data as $key => $elem)
@@ -44,12 +47,12 @@ class CategoryList
         $options_html = '';
 
         foreach ($options_data as $data) {
-            $options_html .= '<option value="' . $data['id'] . '">' . $data['name'] . '</option>';
+            $options_html .= '<input type="checkbox"  value="' . $data['id'] . '"><label>'.$data["name"].'</label><div class="clearfix"></div>';
         }
 
         $catlist = [];
 
-        array_push($catlist,['default' => $maincat['name'],'body' => $options_html,'id' => $maincat['id']]);
+        array_push($catlist,['default' => $maincat_arr,'body' => $options_html,'id' => $maincat['id']]);
 
         return $catlist;
     }

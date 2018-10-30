@@ -11,10 +11,9 @@
                 <div class="form-group" id="category">
                     <label for="parent-list">Категория</label>
                     <div class="clearfix"></div>
-                    <select name="category-list" class="form-control" id="category-list">
-                        <option value="{{ cat_id }}">{{ main_cat }}</option>
+                        {{ main_cat | raw }}
                         {{ options_cat | raw }}
-                    </select>
+
                 </div>
                 <div class="form-group" id="brand">
                     <label for="brand-list">Бренд</label>
