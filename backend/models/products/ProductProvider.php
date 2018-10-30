@@ -18,6 +18,6 @@ class ProductProvider extends Model
 
     public function getProducts()
     {
-        return $this->product->find();
+        return $this->product->find()->joinWith('merchant')->all();
     }
 }

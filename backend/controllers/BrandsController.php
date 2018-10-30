@@ -46,7 +46,7 @@ class BrandsController extends Controller
     }
 
     public function actionIndex()
-    {
+    {   
         $brand = new Brands();
         $data = $brand->find();
 
@@ -104,7 +104,7 @@ class BrandsController extends Controller
 
     public function actionAllMerchants()
     {
-        // Brands::find()->joinWith('merchant')->where(['merchant_id' => 1])->all();
+//        var_dump(Brands::find()->joinWith('merchant')->where(['merchant_id' => 1])->all()) ;
     }
 
     public function actionAdd()

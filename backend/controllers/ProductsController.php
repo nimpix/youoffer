@@ -24,10 +24,10 @@ class ProductsController extends Controller
                     [
                         'actions' => [''],
                         'allow' => true,
-                        'roles' => ['manager-role','product-role'],
+                        'roles' => ['manager-role', 'product-role'],
                     ],
                     [
-                        'actions' => ['index','add','delete'],
+                        'actions' => ['index', 'add', 'delete', 'update'],
                         'allow' => true,
                         'roles' => ['admin-role'],
                     ],
@@ -45,7 +45,10 @@ class ProductsController extends Controller
     public function actionIndex()
     {
         $product = new ProductProvider();
-        $data = $product->getProducts();
+
+        $data = Products::find()
+            ->joinWith(['merchant' => function($q){$q->select(['name']);}])
+            ->joinWith(['brands' => function($q){$q->select(['name']);}]);
 
         $provider = new ActiveDataProvider([
             'query' => $data,
@@ -71,17 +74,41 @@ class ProductsController extends Controller
                     'options' => ['width' => '70'],
                 ],
                 [
+                    'attribute' => 'merchant.name',
+                    'format' => 'text',
+                    'label' => 'Поставщик',
+                    'options' => ['width' => '70'],
+                ],
+                [
+                    'attribute' => 'brands.name',
+                    'format' => 'text',
+                    'label' => 'Бренд',
+                    'options' => ['width' => '70'],
+                ],
+                [
                     'class' => 'yii\grid\ActionColumn',
-                    'template' => '{delete}',
+                    'template' => '{view} {update} {delete}',
                     'urlCreator' => function ($action, $model, $key, $index) {
                         if ($action === 'delete') {
                             return \yii\helpers\Url::toRoute(['products/delete', 'id' => $model['id']]);
                         }
+                        if ($action === 'update') {
+                            return \yii\helpers\Url::toRoute([
+                                'products/update',
+                                'id' => $model['id'],
+                                'name' => $model['name']
+                            ]);
+                        }
                     },
                     'header' => 'Действия',
-                    'options' => ['width' => '30'],
+                    'options' => ['width' => '20'],
                     'headerOptions' => ['style' => 'color:#337ab7'],
                     'buttons' => [
+                        'update' => function ($url, $model) {
+                            return Html::a('<span class="fas fa-pen"></span>', $url, [
+                                'title' => 'Изменить',
+                            ]);
+                        },
                         'delete' => function ($url, $model) {
                             return Html::a('<span class="fas fa-ban"></span>', $url, [
                                 'title' => 'Удалить',
@@ -97,6 +124,16 @@ class ProductsController extends Controller
         ]);
 
         return $this->render('index.twig', ['data' => $grid]);
+    }
+
+    public function actionDelete()
+    {
+        return false;
+    }
+
+    public function actionUpdate()
+    {
+        return false;
     }
 
 }
