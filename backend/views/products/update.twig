@@ -1,6 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
+            <div class="status-window"></div>
             <h2>Продукт '{{ name }}'</h2>
             <form action="" id="detailed">
                 <div class="form-group">
@@ -13,7 +14,6 @@
                     <div class="clearfix"></div>
                     {{ main_cat | raw }}
                     {{ options_cat | raw }}
-
                 </div>
                 <div class="form-group" id="brand">
                     <label for="brand-list">Бренд</label>
@@ -82,10 +82,12 @@
         if (!attr) {
             $.get('/backend/web/products/dellinks', {cat_id: cat_id,id:id}, function (data) {
                 console.log(data);
+                $('.status-window').text('Категория удалена').css('background','#b91717').fadeIn().delay(2000).fadeOut();
             });
         } else {
             $.get('/backend/web/products/uplinks', {cat_id: cat_id,id:id}, function (data) {
                 console.log(data);
+                $('.status-window').text('Категория добавлена').css('background','#2b901d').fadeIn().delay(2000).fadeOut();
             });
             //  $(this).addAttr('checked','checked');
         }
