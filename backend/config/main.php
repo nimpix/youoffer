@@ -14,7 +14,7 @@ return [
     'modules' => [
         'debug' => [
             'class' => 'yii\debug\Module',
-            'allowedIPs' => ['185.105.224.2', '127.0.0.1', '::1']
+            'allowedIPs' => ['213.176.233.107', '127.0.0.1', '::1']
         ]
     ],
     'components' => [

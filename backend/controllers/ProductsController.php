@@ -38,7 +38,7 @@ class ProductsController extends Controller
                         'roles' => ['manager-role', 'product-role'],
                     ],
                     [
-                        'actions' => ['index', 'add', 'delete', 'update','insert'],
+                        'actions' => ['index', 'add', 'delete', 'update', 'insert', 'dellinks', 'uplinks'],
                         'allow' => true,
                         'roles' => ['admin-role'],
                     ],
@@ -104,14 +104,14 @@ class ProductsController extends Controller
                     'format' => 'raw',
                     'label' => 'Категория',
                     'options' => ['width' => '70'],
-                    'value' => function($section){
+                    'value' => function ($section) {
                         $result = '';
                         $section = ArrayHelper::toArray($section->sections, [Sections::class => ['name']]);
-                        foreach($section as $sect){
-                            $result .= '<li>'.$sect['name'].'</li>';
+                        foreach ($section as $sect) {
+                            $result .= '<li>' . $sect['name'] . '</li>';
                         }
 
-                        return '<ul>'.$result.'</ul>';
+                        return '<ul>' . $result . '</ul>';
                     },
                 ],
                 [
@@ -199,25 +199,26 @@ class ProductsController extends Controller
 
         $params = Params::getParams($get);
         $params = $params[0];
-        $description =  ArrayHelper::getValue($params, 'description');
+        $description = ArrayHelper::getValue($params, 'description');
+        $name = ArrayHelper::getValue($params, 'name');
 
-        $inputs = ArrayHelper::getValue($params, function ($params){
+        $inputs = ArrayHelper::getValue($params, function ($params) {
             $paramsArr = [
-                ['id' => 'articul' , 'name' => 'Артикул', 'value' => $params['articul']],
-                ['id' => 'price_roznica' , 'name' => 'Цена розничная', 'value' => $params['price_roznica']],
-                ['id' => 'price_opt' , 'name' => 'Цена оптовая', 'value' => $params['price_opt']],
-                ['id' => 'status' , 'name' => 'Статус', 'value' => $params['status']],
-                ['id' => 'waiting' , 'name' => 'Доставка через(дней)', 'value' => $params['waiting']],
-                ['id' => 'amount' , 'name' => 'Количество', 'value' => $params['amount']],
-                ['id' => 'weight' , 'name' => 'Вес', 'value' => $params['weight']],
-                ['id' => 'size' , 'name' => 'Размер', 'value' => $params['size']],
+                ['id' => 'articul', 'name' => 'Артикул', 'value' => $params['articul']],
+                ['id' => 'price_roznica', 'name' => 'Цена розничная', 'value' => $params['price_roznica']],
+                ['id' => 'price_opt', 'name' => 'Цена оптовая', 'value' => $params['price_opt']],
+                ['id' => 'status', 'name' => 'Статус', 'value' => $params['status']],
+                ['id' => 'waiting', 'name' => 'Доставка через(дней)', 'value' => $params['waiting']],
+                ['id' => 'amount', 'name' => 'Количество', 'value' => $params['amount']],
+                ['id' => 'weight', 'name' => 'Вес', 'value' => $params['weight']],
+                ['id' => 'size', 'name' => 'Размер', 'value' => $params['size']],
             ];
             return $paramsArr;
         });
 
         return $this->render('update.twig',
             [
-                'name' => $get['name'],
+                'name' => $name,
                 'main_cat' => $catlist_default,
                 'options_cat' => $catlist_body,
                 'cat_id' => $cat_id,
@@ -235,19 +236,18 @@ class ProductsController extends Controller
 
     public function actionInsert()
     {
-
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
 
-        $post =  Yii::$app->request->post();
-
+        $post = Yii::$app->request->post();
 
         $prod = Products::findOne($post['id']);
-        $section = new Sections();
-        $section->link('products', $prod);
 
+        /**
+         * Сохраняем
+         */
         $prod->name = $post['name'];
-        $prod->category_id = $post['category-list'];
+        // $prod->category_id = $post['category-list'];
         $prod->brand_id = $post['brand-list'];
         $prod->merchant_id = $post['merch-list'];
         $prod->description = $post['descr'];
@@ -261,10 +261,60 @@ class ProductsController extends Controller
         $prod->amount = $post['amount'];
         $prod->size = $post['size'];
 
-//        if($prod->save()){
-//            $response->data = 'Успешно обновлено';
-//        }
-        //$response->data =$post;
+        if ($prod->save()) {
+            $response->data = 'Успешно обновлено';
+        }
+
+        return $response;
+    }
+
+    public function actionUplinks()
+    {
+
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_JSON;
+        $get = Yii::$app->request->get();
+
+        /**
+         * Обновляем связи
+         */
+
+        $prod = Products::findOne($get['id']);
+
+        $sections = Sections::findOne($get['cat_id']);
+
+        try {
+            $prod->link('sections', $sections);
+            $response->data = 'Категория успешно добавлена';
+        } catch (yii\base\InvalidArgumentException $e) {
+            $response->data = 'Relation is not added ' . $e->getMessage();
+        }
+
+        return $response;
+    }
+
+    public function actionDellinks()
+    {
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_JSON;
+        $get = Yii::$app->request->get();
+
+        $prod = Products::findOne($get['id']);
+
+
+        /**
+         * Удаляем связи
+         */
+
+        $sectionsdel = Sections::findOne($get['cat_id']);
+
+        try {
+            $prod->unlink('sections', $sectionsdel,true);
+            $response->data = 'Категория успешно удалена';
+        }catch(yii\base\InvalidArgumentException $e) {
+            $response->data = 'Relation is not deleted '.$e->getMessage();
+        }
+
         return $response;
     }
 

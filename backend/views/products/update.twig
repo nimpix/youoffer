@@ -11,8 +11,8 @@
                 <div class="form-group" id="category">
                     <label for="parent-list">Категория</label>
                     <div class="clearfix"></div>
-                        {{ main_cat | raw }}
-                        {{ options_cat | raw }}
+                    {{ main_cat | raw }}
+                    {{ options_cat | raw }}
 
                 </div>
                 <div class="form-group" id="brand">
@@ -34,7 +34,8 @@
                 <div class="form-group">
                     <label for="name">Описание</label>
                     <div class="clearfix"></div>
-                    <textarea class="form-control" rows="5" type="text" id="descr" name="descr" value="{{ description }}">{{ description }}</textarea>
+                    <textarea class="form-control" rows="5" type="text" id="descr" name="descr"
+                              value="{{ description }}">{{ description }}</textarea>
                     {{ decsription }}
                 </div>
 
@@ -42,7 +43,7 @@
                     <div class="form-group">
                         <label for="{{ input.id }}">{{ input.name }}</label>
                         <div class="clearfix"></div>
-                        <input type="text" id="{{ input.id  }}" name="{{ input.id  }}" value="{{ input.value }}">
+                        <input type="text" id="{{ input.id }}" name="{{ input.id }}" value="{{ input.value }}">
                     </div>
                 {% endfor %}
                 <div class="form-group">
@@ -57,7 +58,7 @@
 </div>
 
 <script>
-    $('#detailed').submit(function(e){
+    $('#detailed').submit(function (e) {
         e.preventDefault();
         $.ajax({
             url: '/backend/web/products/insert',
@@ -67,9 +68,28 @@
             success: function (data) {
                 console.log(data);
             },
-            error:function () {
+            error: function () {
 
             }
         });
+    });
+
+    $('#detailed input[type=checkbox]').change(function () {
+        let attr = $(this).prop('checked');
+        let id = $('input[name=id]').val();
+        let cat_id = $(this).val();
+
+        if (!attr) {
+            $.get('/backend/web/products/dellinks', {cat_id: cat_id,id:id}, function (data) {
+                console.log(data);
+            });
+        } else {
+            $.get('/backend/web/products/uplinks', {cat_id: cat_id,id:id}, function (data) {
+                console.log(data);
+            });
+            //  $(this).addAttr('checked','checked');
+        }
+
+        $(this).removeAttr('checked');
     });
 </script>

@@ -11,6 +11,7 @@ class Params
     {
         $fieldObj = Products::find()->where(['=', 'id', $get['id']])->all();
         $maincat = ArrayHelper::toArray($fieldObj, [Products::class => [
+            'name',
             'description',
             'image',
             'articul',
