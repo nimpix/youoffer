@@ -20,6 +20,9 @@ use backend\models\products\CategoryList;
 use backend\models\products\BrandsList;
 use backend\models\products\MerchantsList;
 use backend\models\products\Params;
+use yii\web\UploadedFile;
+use backend\models\products\ProductValidator;
+
 
 class ProductsController extends Controller
 {
@@ -38,7 +41,7 @@ class ProductsController extends Controller
                         'roles' => ['manager-role', 'product-role'],
                     ],
                     [
-                        'actions' => ['index', 'add', 'delete', 'update', 'insert', 'dellinks', 'uplinks'],
+                        'actions' => ['index', 'add', 'delete', 'update', 'insert', 'dellinks', 'uplinks', 'productform', 'productadd'],
                         'allow' => true,
                         'roles' => ['admin-role'],
                     ],
@@ -58,11 +61,8 @@ class ProductsController extends Controller
      */
     public function actionIndex()
     {
-        $prod = new Products;
-        // var_dump($prod->getSections());
+
         $data = Products::find();
-        // ->joinWith(['merchant' => function($q){$q->from(['merchant' => Merchant::tableName()]);}]);
-        //  ->joinWith(['brands' => function($q){$q->select(['name']);}]);
 
         $provider = new ActiveDataProvider([
             'query' => $data,
@@ -70,8 +70,7 @@ class ProductsController extends Controller
                 'pageSize' => 20,
             ]
         ]);
-//        $dataa = ArrayHelper::toArray($data, [Products::class => ['name','id','sections.name'],]);
-//        var_dump($dataa);
+
         $grid = GridView::widget([
             'dataProvider' => $provider,
             'columns' => [
@@ -247,7 +246,6 @@ class ProductsController extends Controller
          * Сохраняем
          */
         $prod->name = $post['name'];
-        // $prod->category_id = $post['category-list'];
         $prod->brand_id = $post['brand-list'];
         $prod->merchant_id = $post['merch-list'];
         $prod->description = $post['descr'];
@@ -287,7 +285,7 @@ class ProductsController extends Controller
             $prod->link('sections', $sections);
             $response->data = 'Категория успешно добавлена';
         } catch (yii\base\InvalidArgumentException $e) {
-            $response->data = 'Relation is not added ' . $e->getMessage();
+            $response->data = 'Категория не добавлена ошибка ' . $e->getMessage();
         }
 
         return $response;
@@ -309,13 +307,104 @@ class ProductsController extends Controller
         $sectionsdel = Sections::findOne($get['cat_id']);
 
         try {
-            $prod->unlink('sections', $sectionsdel,true);
+            $prod->unlink('sections', $sectionsdel, true);
             $response->data = 'Категория успешно удалена';
-        }catch(yii\base\InvalidArgumentException $e) {
-            $response->data = 'Relation is not deleted '.$e->getMessage();
+        } catch (yii\base\InvalidArgumentException $e) {
+            $response->data = 'Категория не удалена ошибка ' . $e->getMessage();
         }
 
         return $response;
     }
 
+    public function actionProductform()
+    {
+        /**
+         * Category list
+         */
+        $catlistData = CategoryList::renderCatList();
+        $catlist_body = ArrayHelper::getValue($catlistData[0], 'body');
+
+        /**
+         * Brandlist
+         */
+        $brandlistData = BrandsList::getBrandsList();
+        $brandlist_body = ArrayHelper::getValue($brandlistData[0], 'body');
+
+        /**
+         * Merchants list
+         */
+        $merchlistData = MerchantsList::getMerchantsList();
+        $merchlist_body = ArrayHelper::getValue($merchlistData[0], 'body');
+
+        $paramsArr = [
+            ['id' => 'articul', 'name' => 'Артикул','required' => 'required'],
+            ['id' => 'price_roznica', 'name' => 'Цена розничная','required' => 'required'],
+            ['id' => 'price_opt', 'name' => 'Цена оптовая','required' => 'required'],
+            ['id' => 'status', 'name' => 'Статус'],
+            ['id' => 'waiting', 'name' => 'Доставка через(дней)'],
+            ['id' => 'amount', 'name' => 'Количество'],
+            ['id' => 'weight', 'name' => 'Вес'],
+            ['id' => 'size', 'name' => 'Размер'],
+        ];
+
+        return $this->render('add.twig',
+            [
+                'options_cat' => $catlist_body,
+                'options_brand' => $brandlist_body,
+                'options_merch' => $merchlist_body,
+                'inputs' => $paramsArr,
+            ]
+        );
+    }
+
+    public function actionProductadd()
+    {
+        $post = Yii::$app->request->post();
+
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_JSON;
+        $response->data = $post;
+
+        $prod = new Products();
+
+        /**
+         * Сохраняем
+         */
+        $prod->name = $post['name'];
+        $prod->brand_id = $post['brand-list'];
+        $prod->merchant_id = $post['merch-list'];
+        $prod->description = $post['descr'];
+        $prod->articul = $post['articul'];
+        $prod->image = ''; //image
+        $prod->price_roznica = $post['price_roznica'];
+        $prod->price_opt = $post['price_opt'];
+        $prod->status = $post['status'];
+        $prod->waiting = $post['waiting'];
+        $prod->weight = $post['weight'];
+        $prod->amount = $post['amount'];
+        $prod->size = $post['size'];
+
+        if ($prod->save()) {
+            $response->data = 'Успешно обновлено';
+        }
+
+        $cat_list = [];
+        foreach ($post as $key => $value) {
+            if (strstr($key, 'category-list')) {
+                array_push($cat_list, $value);
+            }
+        }
+
+        foreach ($cat_list as $cat) {
+            $sections = Sections::findOne($cat);
+            try {
+                $prod->link('sections', $sections);
+                $response->data = 'Категория успешно добавлена';
+            } catch (yii\base\InvalidArgumentException $e) {
+                $response->data = 'Relation is not added ' . $e->getMessage();
+            }
+        }
+
+        return $this->redirect(['products/index'], 301);
+    }
 }

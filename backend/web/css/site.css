@@ -3,7 +3,7 @@ body {
     height: 100%;
 }
 .status-window{
-    position: absolute;
+    position: fixed;
     display: none;
     color:#fff;
     font-size:14px;

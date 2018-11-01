@@ -28,7 +28,7 @@ class CategoryList
      * @param $get
      * @return array
      */
-    public static function renderCatList($get)
+    public static function renderCatList($get = [])
     {
         $section = new Sections();
         /**

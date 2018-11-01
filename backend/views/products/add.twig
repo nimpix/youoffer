@@ -1,8 +1,8 @@
-<div class="container">
+<div class="container add-product">
     <div class="row">
-        <div class="col-xs-12">
-            <div class="status-window"></div>
-            <h2>Продукт '{{ name }}'</h2>
+        <div class="col-12">
+            <h2>Добавить новый товар</h2>
+
             <form action="" id="detailed">
                 <div class="form-group">
                     <label for="name">Название</label>
@@ -12,14 +12,13 @@
                 <div class="form-group" id="category">
                     <label for="parent-list">Категория</label>
                     <div class="clearfix"></div>
-                    {{ main_cat | raw }}
                     {{ options_cat | raw }}
                 </div>
                 <div class="form-group" id="brand">
                     <label for="brand-list">Бренд</label>
                     <div class="clearfix"></div>
-                    <select name="brand-list" class="form-control" id="brand-list">
-                        <option value="{{ brand_id }}">{{ main_brand }}</option>
+                    <select name="brand-list" class="form-control" id="brand-list" required>
+                        <option value="10">Без бренда</option>
                         {{ options_brand | raw }}
                     </select>
                 </div>
@@ -27,30 +26,34 @@
                     <label for="merch-list">Поставщик</label>
                     <div class="clearfix"></div>
                     <select name="merch-list" class="form-control" id="merch-list">
-                        <option value="{{ merch_id }}">{{ main_merch }}</option>
                         {{ options_merch | raw }}
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="name">Описание</label>
                     <div class="clearfix"></div>
-                    <textarea class="form-control" rows="5" type="text" id="descr" name="descr"
-                              value="{{ description }}">{{ description }}</textarea>
-                    {{ decsription }}
+                    <textarea class="form-control" rows="5" type="text" id="descr" name="descr" value="">
+                    </textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Изображение</label>
+                    <div class="clearfix"></div>
+                    <input type="file" name="image" id="img">
                 </div>
 
                 {% for input in inputs %}
                     <div class="form-group">
                         <label for="{{ input.id }}">{{ input.name }}</label>
                         <div class="clearfix"></div>
-                        <input type="text" id="{{ input.id }}" name="{{ input.id }}" value="{{ input.value }}">
+                        <input {{ input.required }} type="text" id="{{ input.id }}" name="{{ input.id }}" value="">
                     </div>
                 {% endfor %}
                 <div class="form-group">
                     <input type="hidden" value="{{ id }}" id="id" name="id">
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-primary" value="Обновить">
+                    <input type="submit" class="btn btn-primary" value="Добавить">
                 </div>
             </form>
             <a class="btn btn-primary" style="color:#fff;" href="/backend/web/products/">Назад</a>
@@ -62,13 +65,13 @@
     $('#detailed').submit(function (e) {
         e.preventDefault();
         $.ajax({
-            url: '/backend/web/products/insert',
+            url: '/backend/web/products/productadd',
             method: 'post',
             data: $(this).serialize(),
             dataType: 'json',
             success: function (data) {
                 console.log(data);
-                $('.status-window').text('Товар обновлен').css('background','#2b901d').fadeIn().delay(2000).fadeOut();
+                $('.status-window').text('Товар обновлен').css('background', '#2b901d').fadeIn().delay(2000).fadeOut();
             },
             error: function () {
 
@@ -76,24 +79,24 @@
         });
     });
 
-    $('#detailed input[type=checkbox]').change(function () {
-        let attr = $(this).prop('checked');
-        let id = $('input[name=id]').val();
-        let cat_id = $(this).val();
-
-        if (!attr) {
-            $.get('/backend/web/products/dellinks', {cat_id: cat_id,id:id}, function (data) {
-                console.log(data);
-                $('.status-window').text('Категория удалена').css('background','#b91717').fadeIn().delay(2000).fadeOut();
-            });
-        } else {
-            $.get('/backend/web/products/uplinks', {cat_id: cat_id,id:id}, function (data) {
-                console.log(data);
-                $('.status-window').text('Категория добавлена').css('background','#2b901d').fadeIn().delay(2000).fadeOut();
-            });
-            //  $(this).addAttr('checked','checked');
-        }
-
-        $(this).removeAttr('checked');
-    });
+    // $('#detailed input[type=checkbox]').change(function () {
+    //     let attr = $(this).prop('checked');
+    //     let id = $('input[name=id]').val();
+    //     let cat_id = $(this).val();
+    //
+    //     if (!attr) {
+    //         $.get('/backend/web/products/dellinks', {cat_id: cat_id, id: id}, function (data) {
+    //             console.log(data);
+    //             $('.status-window').text('Категория удалена').css('background', '#b91717').fadeIn().delay(2000).fadeOut();
+    //         });
+    //     } else {
+    //         $.get('/backend/web/products/uplinks', {cat_id: cat_id, id: id}, function (data) {
+    //             console.log(data);
+    //             $('.status-window').text('Категория добавлена').css('background', '#2b901d').fadeIn().delay(2000).fadeOut();
+    //         });
+    //         //  $(this).addAttr('checked','checked');
+    //     }
+    //
+    //     $(this).removeAttr('checked');
+    // });
 </script>

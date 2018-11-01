@@ -20,7 +20,7 @@ use yii\helpers\ArrayHelper;
 
 class MerchantsList extends Merchant
 {
-    public static function getMerchantsList($get)
+    public static function getMerchantsList($get = [])
     {
         $data = Products::find()->with('merchant')->where(['=', 'id', $get['id']])->all();
         $mainmerch = ArrayHelper::toArray($data[0]->merchant, [Merchant::class => ['name','id'],]);

@@ -20,7 +20,7 @@ use yii\helpers\ArrayHelper;
 
 class BrandsList
 {
-    public static function getBrandsList($get)
+    public static function getBrandsList($get = [])
     {
         $data = Products::find()->with('brands')->where(['=', 'id', $get['id']])->all();
         $mainbrand = ArrayHelper::toArray($data[0]->brands, [Brands::class => ['name','id'],]);
