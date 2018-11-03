@@ -24,6 +24,7 @@ use yii\helpers\ArrayHelper;
 
 class CategoryList
 {
+    public $CategoryDropdown;
     /**
      * @param $get
      * @return array

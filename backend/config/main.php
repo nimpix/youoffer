@@ -1,26 +1,30 @@
 <?php
 $params = array_merge(
-    require __DIR__ . '/../../common/config/params.php',
-    require __DIR__ . '/../../common/config/params-local.php',
-    require __DIR__ . '/params.php',
-    require __DIR__ . '/params-local.php'
+    require __DIR__.'/../../common/config/params.php',
+    require __DIR__.'/../../common/config/params-local.php',
+    require __DIR__.'/params.php',
+    require __DIR__.'/params-local.php'
 );
 
 return [
     'id' => 'app-backend',
+    'language' => 'ru-RU',
+    'aliases' =>[
+        '@images' => '/var/www/youoffer.com/data/www/youoffer.com',
+    ],
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [
         'debug' => [
             'class' => 'yii\debug\Module',
-            'allowedIPs' => ['213.176.233.107', '127.0.0.1', '::1']
-        ]
+            'allowedIPs' => ['213.176.233.106', '127.0.0.1', '::1', '91.240.208.186'],
+        ],
     ],
     'components' => [
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
-            'defaultRoles' => ['admin', 'product','manager','guest']
+            'defaultRoles' => ['admin', 'product', 'manager', 'guest'],
         ],
         'view' => [
             'class' => 'yii\web\View',
@@ -62,6 +66,9 @@ return [
         ],
         'request' => [
             'csrfParam' => '_csrf-backend',
+            'parsers' => [
+                'multipart/form-data' => 'yii\\web\\MultipartFormDataParser',
+            ],
         ],
         'db' => [
             'class' => 'yii\db\Connection',

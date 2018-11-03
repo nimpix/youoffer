@@ -2,8 +2,8 @@
     <div class="row">
         <div class="col-12">
             <h2>Добавить новый товар</h2>
-<!--enctype="application/x-www-form-urlencoded | multipart/form-data"  /backend/web/products/paste-->
-            <form action="" id="detailed">
+
+            <form action="" id="detailed" >
                 <div class="form-group">
                     <label for="name">Название</label>
                     <div class="clearfix"></div>
@@ -51,7 +51,6 @@
                 {% endfor %}
                 <div class="form-group">
                     <input type="hidden" value="{{ id }}" id="id" name="id">
-                    <input type="hidden" name="_csrf-backend" value="{{ token }}" />
                 </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary" value="Добавить">
@@ -68,12 +67,10 @@
         e.preventDefault();
 
        if( $.ajax({
-            url: '/backend/web/products/paste',
+            url: '/backend/web/products/productadd',
             method: 'post',
             data: $(this).serialize(),
             dataType: 'json',
-            processData: false,
-            contentType: false,
             success: function (data) {
                 console.log(data);
                 $('.status-window').text('Товар добавлен').css('background', '#2b901d').fadeIn().delay(2000).fadeOut();
@@ -83,7 +80,27 @@
             }
         })){
          console.log('ajax ушел');
-         console.log($(this).serialize());
        };
     });
+
+    // $('#detailed input[type=checkbox]').change(function () {
+    //     let attr = $(this).prop('checked');
+    //     let id = $('input[name=id]').val();
+    //     let cat_id = $(this).val();
+    //
+    //     if (!attr) {
+    //         $.get('/backend/web/products/dellinks', {cat_id: cat_id, id: id}, function (data) {
+    //             console.log(data);
+    //             $('.status-window').text('Категория удалена').css('background', '#b91717').fadeIn().delay(2000).fadeOut();
+    //         });
+    //     } else {
+    //         $.get('/backend/web/products/uplinks', {cat_id: cat_id, id: id}, function (data) {
+    //             console.log(data);
+    //             $('.status-window').text('Категория добавлена').css('background', '#2b901d').fadeIn().delay(2000).fadeOut();
+    //         });
+    //         //  $(this).addAttr('checked','checked');
+    //     }
+    //
+    //     $(this).removeAttr('checked');
+    // });
 </script>

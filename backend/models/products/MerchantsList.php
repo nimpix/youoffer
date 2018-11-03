@@ -18,7 +18,7 @@ use backend\models\products\ProductProvider;
 use backend\models\catalog\sections\Sections;
 use yii\helpers\ArrayHelper;
 
-class MerchantsList extends Merchant
+class MerchantsList
 {
     public static function getMerchantsList($get = [])
     {
