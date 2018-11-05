@@ -136,7 +136,11 @@ class ProductInserter extends Model
             $this->image->saveAs($path . $this->image->baseName . '.' . $this->image->extension);
             $this->url = '/uploads/images/' . $this->image->baseName . '.' . $this->image->extension;
         }else{
-            $this->url = '/uploads/images/noimage.jpeg';
+            if(!empty($prod->image)){
+                return false;
+            }else{
+                $this->url = '/uploads/images/noimage.jpg';
+            }
         }
 
         /**

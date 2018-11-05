@@ -29,6 +29,7 @@ use yii\helpers\Url;
 class ProductsController extends Controller
 {
     private $inserter;
+
     /**
      * @return array
      */
@@ -79,8 +80,13 @@ class ProductsController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->request->get('search_product')) {
+            $get = Yii::$app->request->get('search_product');
+            $data = Products::find()->where(['LIKE','name',$get])->orWhere(['LIKE','articul',$get]);
+        } else {
+            $data = Products::find();
+        }
 
-        $data = Products::find();
 
         $provider = new ActiveDataProvider(
             [
@@ -100,9 +106,9 @@ class ProductsController extends Controller
                         'format' => 'raw',
                         'label' => 'Изображение',
                         'options' => ['style' => 'width:50px;'],
-                        'contentOptions'=>['style'=>'max-width: 50px;'],
-                        'value' => function($data){
-                            return HTML::tag('img','',['src'=>$data['image'],'style' => 'display:block;width:100%;']);
+                        'contentOptions' => ['style' => 'max-width: 50px;'],
+                        'value' => function ($data) {
+                            return HTML::tag('img', '', ['src' => $data['image'], 'style' => 'display:block;width:100%;']);
                         }
 
                     ],
@@ -135,7 +141,7 @@ class ProductsController extends Controller
                         'format' => 'raw',
                         'label' => 'Категория',
                         'options' => ['style' => 'width:180px;'],
-                        'contentOptions'=>['style'=>'max-width: 180px;white-space: normal;'],
+                        'contentOptions' => ['style' => 'max-width: 180px;white-space: normal;'],
                         'value' => function ($section) {
                             $result = '';
                             $section = ArrayHelper::toArray($section->sections, [Sections::class => ['name']]);
@@ -293,17 +299,17 @@ class ProductsController extends Controller
         $inserter = new ProductInserter();
 
         if (Yii::$app->request->post()) {
-            if ($inserter->load(Yii::$app->request->post(),'') && $inserter->validate()) {
+            if ($inserter->load(Yii::$app->request->post(), '') && $inserter->validate()) {
                 $inserter->image = UploadedFile::getInstanceByName('image');
                 $inserter->updateUserData();
-            }else{
+            } else {
                 throw new Exeption('Не ушли данные в модель');
             }
-        }else{
+        } else {
             throw new Exeption('Не пришел post');
         }
 
-        return  $this->redirect(['products/index', ''], 301);
+        return $this->redirect(['products/index', ''], 301);
     }
 
     public function actionUplinks()
@@ -315,7 +321,6 @@ class ProductsController extends Controller
     {
         $this->inserter->Dellinks();
     }
-
 
 
     public function actionProductform()
@@ -344,7 +349,7 @@ class ProductsController extends Controller
             }
 
 
-            return  $this->redirect(['products/index', ''], 301);
+            return $this->redirect(['products/index', ''], 301);
 
         } else {
             return $this->render(

@@ -2,6 +2,13 @@ html,
 body {
     height: 100%;
 }
+#psearch input{
+    display:inline-block;
+}
+#psearch input[name='search_product']{
+    width: 250px;
+    margin-top: 30px;
+}
 .status-window{
     position: fixed;
     display: none;

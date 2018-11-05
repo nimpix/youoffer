@@ -3,6 +3,12 @@
         <div class="col-12">
             <h2>Продукты</h2>
             <a href="/backend/web/products/productform" class="btn btn-primary">Добавить</a>
+            <form action="/backend/web/products" id="psearch" method="GET">
+                <div class="form-group">
+                    <input type="text" name="search_product" class="form-control">
+                    <input type="submit" class="btn btn-primary" value="Поиск">
+                </div>
+            </form>
             {{ data | raw }}
             <a class="btn btn-primary" style="color:#fff;" href="/backend/web/">Назад</a>
         </div>
