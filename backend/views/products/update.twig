@@ -3,7 +3,8 @@
         <div class="col-xs-12">
             <div class="status-window"></div>
             <h2>Продукт '{{ name }}'</h2>
-            <form action="" id="detailed">
+            <!--enctype="multipart/form-data"-->
+            <form action="/backend/web/products/insert" id="detailed" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="name">Название</label>
                     <div class="clearfix"></div>
@@ -18,7 +19,7 @@
                 <div class="form-group" id="brand">
                     <label for="brand-list">Бренд</label>
                     <div class="clearfix"></div>
-                    <select name="brand-list" class="form-control" id="brand-list">
+                    <select name="brand_list" class="form-control" id="brand_list">
                         <option value="{{ brand_id }}">{{ main_brand }}</option>
                         {{ options_brand | raw }}
                     </select>
@@ -26,7 +27,7 @@
                 <div class="form-group" id="merch">
                     <label for="merch-list">Поставщик</label>
                     <div class="clearfix"></div>
-                    <select name="merch-list" class="form-control" id="merch-list">
+                    <select name="merch_list" class="form-control" id="merch_list">
                         <option value="{{ merch_id }}">{{ main_merch }}</option>
                         {{ options_merch | raw }}
                     </select>
@@ -39,6 +40,13 @@
                     {{ decsription }}
                 </div>
 
+                <div class="form-group">
+                    <label for="name">Изображение</label>
+                    <div class="clearfix"></div>
+                    <input type="file" name="image" id="image">
+                </div>
+
+
                 {% for input in inputs %}
                     <div class="form-group">
                         <label for="{{ input.id }}">{{ input.name }}</label>
@@ -48,6 +56,7 @@
                 {% endfor %}
                 <div class="form-group">
                     <input type="hidden" value="{{ id }}" id="id" name="id">
+                    <input type="hidden" name="_csrf-backend" value="{{ token }}" />
                 </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary" value="Обновить">
@@ -59,22 +68,22 @@
 </div>
 
 <script>
-    $('#detailed').submit(function (e) {
-        e.preventDefault();
-        $.ajax({
-            url: '/backend/web/products/insert',
-            method: 'post',
-            data: $(this).serialize(),
-            dataType: 'json',
-            success: function (data) {
-                console.log(data);
-                $('.status-window').text('Товар обновлен').css('background','#2b901d').fadeIn().delay(2000).fadeOut();
-            },
-            error: function () {
-
-            }
-        });
-    });
+    // $('#detailed').submit(function (e) {
+    //     e.preventDefault();
+    //     $.post({
+    //         url: '/backend/web/products/insert',
+    //         method: 'post',
+    //         data: $(this).serialize(),
+    //         dataType: 'json',
+    //         success: function (data) {
+    //             console.log(data);
+    //             $('.status-window').text('Товар обновлен').css('background','#2b901d').fadeIn().delay(2000).fadeOut();
+    //         },
+    //         error: function () {
+    //
+    //         }
+    //     });
+    // });
 
     $('#detailed input[type=checkbox]').change(function () {
         let attr = $(this).prop('checked');

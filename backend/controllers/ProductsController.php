@@ -22,13 +22,21 @@ use backend\models\products\MerchantsList;
 use backend\models\products\Params;
 use yii\web\UploadedFile;
 use backend\models\products\ProductInserter;
+use yii\widgets\ActiveForm;
+use yii\helpers\Url;
 
 
 class ProductsController extends Controller
 {
+    private $inserter;
     /**
      * @return array
      */
+    public function init()
+    {
+        $this->inserter = new ProductInserter();
+    }
+
     public function behaviors()
     {
         return [
@@ -263,92 +271,40 @@ class ProductsController extends Controller
                 'description' => $description,
                 'inputs' => $inputs,
                 'id' => $get['id'],
+                'token' => Yii::$app->request->getCsrfToken(),
             ]
         );
     }
 
     public function actionInsert()
     {
-        $response = Yii::$app->response;
-        $response->format = \yii\web\Response::FORMAT_JSON;
+        $inserter = new ProductInserter();
 
-        $post = Yii::$app->request->post();
-
-        $prod = Products::findOne($post['id']);
-
-        /**
-         * Сохраняем
-         */
-        $prod->name = $post['name'];
-        $prod->brand_id = $post['brand-list'];
-        $prod->merchant_id = $post['merch-list'];
-        $prod->description = $post['descr'];
-        $prod->articul = $post['articul'];
-        $prod->image = ''; //image
-        $prod->price_roznica = $post['price_roznica'];
-        $prod->price_opt = $post['price_opt'];
-        $prod->status = $post['status'];
-        $prod->waiting = $post['waiting'];
-        $prod->weight = $post['weight'];
-        $prod->amount = $post['amount'];
-        $prod->size = $post['size'];
-
-        if ($prod->save()) {
-            $response->data = 'Успешно обновлено';
+        if (Yii::$app->request->post()) {
+            if ($inserter->load(Yii::$app->request->post(),'') && $inserter->validate()) {
+                $inserter->image = UploadedFile::getInstanceByName('image');
+                $inserter->updateUserData();
+            }else{
+                throw new Exeption('Не ушли данные в модель');
+            }
+        }else{
+            throw new Exeption('Не пришел post');
         }
 
-        return $response;
+        return  $this->redirect(['products/index', ''], 301);
     }
 
     public function actionUplinks()
     {
-
-        $response = Yii::$app->response;
-        $response->format = \yii\web\Response::FORMAT_JSON;
-        $get = Yii::$app->request->get();
-
-        /**
-         * Обновляем связи
-         */
-
-        $prod = Products::findOne($get['id']);
-
-        $sections = Sections::findOne($get['cat_id']);
-
-        try {
-            $prod->link('sections', $sections);
-            $response->data = 'Категория успешно добавлена';
-        } catch (yii\base\InvalidArgumentException $e) {
-            $response->data = 'Категория не добавлена ошибка ' . $e->getMessage();
-        }
-
-        return $response;
+        $this->inserter->Uplinks();
     }
 
     public function actionDellinks()
     {
-        $response = Yii::$app->response;
-        $response->format = \yii\web\Response::FORMAT_JSON;
-        $get = Yii::$app->request->get();
-
-        $prod = Products::findOne($get['id']);
-
-
-        /**
-         * Удаляем связи
-         */
-
-        $sectionsdel = Sections::findOne($get['cat_id']);
-
-        try {
-            $prod->unlink('sections', $sectionsdel, true);
-            $response->data = 'Категория успешно удалена';
-        } catch (yii\base\InvalidArgumentException $e) {
-            $response->data = 'Категория не удалена ошибка ' . $e->getMessage();
-        }
-
-        return $response;
+        $this->inserter->Dellinks();
     }
+
+
 
     public function actionProductform()
     {
@@ -364,7 +320,7 @@ class ProductsController extends Controller
         ];
 
 
-        $validator = new ProductInserter();
+        $validator = $this->inserter;
 
         if (Yii::$app->request->post()) {
             $response = Yii::$app->response;
@@ -376,7 +332,7 @@ class ProductsController extends Controller
             }
 
 
-            return $response;
+            return  $this->redirect(['products/index', ''], 301);
 
         } else {
             return $this->render(
@@ -390,58 +346,4 @@ class ProductsController extends Controller
         }
     }
 
-
-    public static function actionPaste(ProductInserter $validator)
-    {
-//        $post = Yii::$app->request->post();
-//
-//        $response->data = $post;
-//
-//        $prod = new Products();
-//
-//        /**
-//         * Сохраняем
-//         */
-//        $prod->name = $post['name'];
-//        $prod->brand_id = $post['brand-list'];
-//        $prod->merchant_id = $post['merch-list'];
-//        $prod->description = $post['descr'];
-//        $prod->articul = $post['articul'];
-//        $prod->image = ''; //image
-//        $prod->price_roznica = $post['price_roznica'];
-//        $prod->price_opt = $post['price_opt'];
-//        $prod->status = $post['status'];
-//        $prod->waiting = $post['waiting'];
-//        $prod->weight = $post['weight'];
-//        $prod->amount = $post['amount'];
-//        $prod->size = $post['size'];
-//
-//        if ($prod->save()) {
-//            $response->data = 'Успешно обновлено';
-//        }
-//
-//        $cat_list = [];
-//        foreach ($post as $key => $value) {
-//            if (strstr($key, 'category-list')) {
-//                array_push($cat_list, $value);
-//            }
-//        }
-//
-//        foreach ($cat_list as $cat) {
-//            $sections = Sections::findOne($cat);
-//            try {
-//                $prod->link('sections', $sections);
-//                $response->data = 'Категория успешно добавлена';
-//            } catch (yii\base\InvalidArgumentException $e) {
-//                $response->data = 'Relation is not added ' . $e->getMessage();
-//            }
-//        }
-
-        //       return $this->redirect(['products/index'], 301);
-
-
-
-        // return $this->redirect(['products/productform', ''], 301);
-//        return $response;
-    }
 }

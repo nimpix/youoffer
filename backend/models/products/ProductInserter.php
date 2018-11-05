@@ -43,7 +43,7 @@ class ProductInserter extends Model
     public function rules()
     {
         return [
-            [['name', 'category_list', 'brand_list', 'merch_list', 'price_roznica'], 'required'],
+            [['name', 'brand_list', 'merch_list', 'price_roznica'], 'required'],
             ['descr', 'safe'],
             ['name', 'string', 'min' => 3],
             ['category_list', 'safe'],
@@ -77,9 +77,12 @@ class ProductInserter extends Model
         $path = $root . '/uploads/images/';
         FileHelper::createDirectory($path, 0775, true);
 
-        $this->image->saveAs($path . $this->image->baseName . '.' . $this->image->extension);
-
-        $this->url = $path . $this->image->baseName . '.' . $this->image->extension;
+        if(!empty($this->image) && $this->image->size !== 0) {
+            $this->image->saveAs($path . $this->image->baseName . '.' . $this->image->extension);
+            $this->url = '/uploads/images/' . $this->image->baseName . '.' . $this->image->extension;
+        }else{
+            $this->url = '/uploads/images/noimage.jpeg';
+        }
 
         /**
          * Сохраняем
@@ -99,11 +102,9 @@ class ProductInserter extends Model
         $prod->amount = $this->amount;
         $prod->size = $this->size;
 
-
         if ($prod->save()) {
             $response = 'Успешно обновлено';
         }
-
 
         foreach ($this->category_list as $cat) {
             $sections = Sections::findOne($cat);
@@ -113,6 +114,100 @@ class ProductInserter extends Model
             } catch (yii\base\InvalidArgumentException $e) {
                 $response = 'Relation is not added ' . $e->getMessage();
             }
+        }
+
+        return $response;
+    }
+
+    public function updateUserData()
+    {
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_JSON;
+
+        $post = Yii::$app->request->post();
+
+        $prod = Products::findOne($post['id']);
+
+        $root = Yii::getAlias('@images');
+        $path = $root . '/uploads/images/';
+        FileHelper::createDirectory($path, 0775, true);
+
+        if(!empty($this->image) && $this->image->size !== 0) {
+            $this->image->saveAs($path . $this->image->baseName . '.' . $this->image->extension);
+            $this->url = '/uploads/images/' . $this->image->baseName . '.' . $this->image->extension;
+        }else{
+            $this->url = '/uploads/images/noimage.jpeg';
+        }
+
+        /**
+         * Сохраняем
+         */
+        $prod->name = $post['name'];
+        $prod->brand_id = $post['brand_list'];
+        $prod->merchant_id = $post['merch_list'];
+        $prod->description = $post['descr'];
+        $prod->articul = $post['articul'];
+        $prod->image = ''; //image
+        $prod->price_roznica = $post['price_roznica'];
+        $prod->price_opt = $post['price_opt'];
+        $prod->status = $post['status'];
+        $prod->waiting = $post['waiting'];
+        $prod->weight = $post['weight'];
+        $prod->amount = $post['amount'];
+        $prod->size = $post['size'];
+
+        if ($prod->save()) {
+            $response->data = 'Успешно обновлено';
+        }
+
+        return $response;
+    }
+
+    public function Uplinks()
+    {
+
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_JSON;
+        $get = Yii::$app->request->get();
+
+        /**
+         * Обновляем связи
+         */
+
+        $prod = Products::findOne($get['id']);
+
+        $sections = Sections::findOne($get['cat_id']);
+
+        try {
+            $prod->link('sections', $sections);
+            $response->data = 'Категория успешно добавлена';
+        } catch (yii\base\InvalidArgumentException $e) {
+            $response->data = 'Категория не добавлена ошибка ' . $e->getMessage();
+        }
+
+        return $response;
+    }
+
+    public function Dellinks()
+    {
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_JSON;
+        $get = Yii::$app->request->get();
+
+        $prod = Products::findOne($get['id']);
+
+
+        /**
+         * Удаляем связи
+         */
+
+        $sectionsdel = Sections::findOne($get['cat_id']);
+
+        try {
+            $prod->unlink('sections', $sectionsdel, true);
+            $response->data = 'Категория успешно удалена';
+        } catch (yii\base\InvalidArgumentException $e) {
+            $response->data = 'Категория не удалена ошибка ' . $e->getMessage();
         }
 
         return $response;
