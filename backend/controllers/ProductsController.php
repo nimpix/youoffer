@@ -96,6 +96,17 @@ class ProductsController extends Controller
                 'dataProvider' => $provider,
                 'columns' => [
                     [
+                        'attribute' => 'image',
+                        'format' => 'raw',
+                        'label' => 'Изображение',
+                        'options' => ['style' => 'width:50px;'],
+                        'contentOptions'=>['style'=>'max-width: 50px;'],
+                        'value' => function($data){
+                            return HTML::tag('img','',['src'=>$data['image'],'style' => 'display:block;width:100%;']);
+                        }
+
+                    ],
+                    [
                         'attribute' => 'id',
                         'format' => 'text',
                         'label' => 'id',
@@ -123,7 +134,8 @@ class ProductsController extends Controller
                     [
                         'format' => 'raw',
                         'label' => 'Категория',
-                        'options' => ['width' => '70'],
+                        'options' => ['style' => 'width:180px;'],
+                        'contentOptions'=>['style'=>'max-width: 180px;white-space: normal;'],
                         'value' => function ($section) {
                             $result = '';
                             $section = ArrayHelper::toArray($section->sections, [Sections::class => ['name']]);

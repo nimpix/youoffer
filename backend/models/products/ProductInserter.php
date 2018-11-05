@@ -147,7 +147,7 @@ class ProductInserter extends Model
         $prod->merchant_id = $post['merch_list'];
         $prod->description = $post['descr'];
         $prod->articul = $post['articul'];
-        $prod->image = ''; //image
+        $prod->image = $this->url; 
         $prod->price_roznica = $post['price_roznica'];
         $prod->price_opt = $post['price_opt'];
         $prod->status = $post['status'];
