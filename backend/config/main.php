@@ -112,6 +112,7 @@ return [
                 'brands' => 'brands/index',
                 'merch' => 'merch/index',
                 'products' => 'products/index',
+                'parsers' => 'site/parsers'
             ],
         ],
 

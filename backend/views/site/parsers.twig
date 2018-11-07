@@ -1,0 +1,15 @@
+<h2>Парсеры</h2>
+<form action="{{ link }}" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="">Выберите загрузчик</label>
+        <select name="parser-name" id="">
+            <option value="">Не выбрано</option>
+            <option value="Insight Fitness">Insight Fitness</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="">Ссылка на xml</label>
+        <input type="text" name="link" class="form-control" style="max-width:600px;">
+    </div>
+    <input type="submit" value="Загрузить товары" class="btn btn-primary">
+</form>

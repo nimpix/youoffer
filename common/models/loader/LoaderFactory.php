@@ -2,14 +2,8 @@
 
 namespace common\models\loader;
 
-abstract class LoaderFactory
+interface LoaderFactory
 {
-    public abstract function factory();
+    public function createParser($name);
 
-    public function parserInit()
-    {
-        $parser = $this->factory();
-
-        return $parser->insertData();
-    }
 }

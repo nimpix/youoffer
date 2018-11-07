@@ -137,7 +137,7 @@ class ProductInserter extends Model
             $this->url = '/uploads/images/' . $this->image->baseName . '.' . $this->image->extension;
         }else{
             if(!empty($prod->image)){
-                return false;
+                $this->url = $prod->image;
             }else{
                 $this->url = '/uploads/images/noimage.jpg';
             }

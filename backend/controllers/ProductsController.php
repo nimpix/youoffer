@@ -299,17 +299,21 @@ class ProductsController extends Controller
         $inserter = new ProductInserter();
 
         if (Yii::$app->request->post()) {
-            if ($inserter->load(Yii::$app->request->post(), '') && $inserter->validate()) {
-                $inserter->image = UploadedFile::getInstanceByName('image');
-                $inserter->updateUserData();
+            if ($inserter->load(Yii::$app->request->post(), '')) {
+                if($inserter->validate()){
+                    $inserter->image = UploadedFile::getInstanceByName('image');
+                    $inserter->updateUserData();
+                }else{
+                    throw new \Exception('Не прошла валидация');
+                }
             } else {
-                throw new Exeption('Не ушли данные в модель');
+                throw new \Exception('Не ушли данные в модель');
             }
         } else {
-            throw new Exeption('Не пришел post');
+            throw new \Exception('Не пришел post');
         }
 
-        return $this->redirect(['products/index', ''], 301);
+      return $this->redirect(['products/index', ''], 301);
     }
 
     public function actionUplinks()

@@ -29,6 +29,9 @@ $this->title = 'My Yii Application';
                         <a href="http://youoffer.com/backend/web/users">Пользователи</a>
                     </div>
                     <div>
+                        <a href="http://youoffer.com/backend/web/parsers">Загрузка товаров xml/yml</a>
+                    </div>
+                    <div>
                         <a href="http://youoffer.com/backend/web/settings">Настройки</a>
                     </div>
                 </div>

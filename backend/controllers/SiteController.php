@@ -1,4 +1,5 @@
 <?php
+
 namespace backend\controllers;
 
 use Yii;
@@ -7,6 +8,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
 use yii\helpers\Url;
+use common\models\loader\parsers\Loader;
 
 /**
  * Site controller
@@ -30,6 +32,11 @@ class SiteController extends Controller
                         'actions' => ['logout', 'index'],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['parsers'],
+                        'allow' => true,
+                        'roles' => ['admin-role', 'product-role'],
                     ],
                 ],
             ],
@@ -97,5 +104,24 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+
+    public function actionParsers()
+    {   $this->enableCsrfValidation = false;
+        if (Yii::$app->request->post()) {
+            $post = Yii::$app->request->post();
+            $loader = new Loader();
+            $parser = $loader->createParser($post['parser-name']);
+            $parser->getXml();
+        } else {
+            return $this->render('parsers.twig', [
+                'link' => Url::toRoute('site/parsers'),
+            ]);
+        }
+    }
+
+    public function beforeAction($action) {
+        $this->enableCsrfValidation = false;
+        return parent::beforeAction($action);
     }
 }
