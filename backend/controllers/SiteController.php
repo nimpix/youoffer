@@ -9,6 +9,7 @@ use yii\filters\AccessControl;
 use common\models\LoginForm;
 use yii\helpers\Url;
 use common\models\loader\parsers\Loader;
+use yii\web\UploadedFile;
 
 /**
  * Site controller
@@ -109,10 +110,16 @@ class SiteController extends Controller
     public function actionParsers()
     {   $this->enableCsrfValidation = false;
         if (Yii::$app->request->post()) {
+            
             $post = Yii::$app->request->post();
+
+            $file = UploadedFile::getInstanceByName('xml');
+
             $loader = new Loader();
-            $parser = $loader->createParser($post['parser-name']);
-            $parser->getXml();
+
+            $parser = $loader->createParser($post,$file);
+            $parser->Parsing();
+
         } else {
             return $this->render('parsers.twig', [
                 'link' => Url::toRoute('site/parsers'),

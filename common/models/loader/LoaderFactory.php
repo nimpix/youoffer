@@ -4,6 +4,7 @@ namespace common\models\loader;
 
 interface LoaderFactory
 {
-    public function createParser($name);
-
+    public function createParser($post,$file);
+    
+    public function getXml();
 }
