@@ -4,7 +4,9 @@
         <label for="">Выберите загрузчик</label>
         <select name="parser-name" id="">
             <option value="">Не выбрано</option>
-            <option value="Insight Fitness">Insight Fitness</option>
+            {% for merch in merches %}
+                <option value="{{ merch.id }}">{{ merch.name }}</option>
+            {% endfor %} }}
         </select>
     </div>
     <div class="form-group">

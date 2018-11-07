@@ -6,5 +6,5 @@ interface Parser
 {
     public function Parsing();
 
-    public function InsertData();
+    public function InsertData($data);
 }

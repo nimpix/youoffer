@@ -4,6 +4,7 @@ namespace common\models\loader\parsers;
 
 use common\models\loader\LoaderFactory;
 use yii\helpers\FileHelper;
+use backend\models\merchants\Merchant;
 
 use yii;
 
@@ -16,14 +17,17 @@ class Loader implements LoaderFactory
 
     public function createParser($post,$file)
     {
-        $this->name = $post['parser-name'];
+        $merch = new Merchant();
+        $merch_arr = $merch->find()->Select(['name'])->where(['=','id', $post['parser-name']])->all();
+
+        $this->name = $merch_arr[0]->name;
         $this->post = $post;
         $this->file = $file;
 
         $this->getXml();
 
         switch($this->name){
-            case 'InsightFitness': return Yii::createObject(InsightFit::class,[$this->filepath, $this->name]);
+            case 'InsightFitness': return Yii::createObject(InsightFit::class,[$this->filepath, $this->name, $post['parser-name']]);
         }
     }
 

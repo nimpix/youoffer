@@ -10,6 +10,8 @@ use common\models\LoginForm;
 use yii\helpers\Url;
 use common\models\loader\parsers\Loader;
 use yii\web\UploadedFile;
+use backend\models\merchants\Merchant;
+
 
 /**
  * Site controller
@@ -121,8 +123,12 @@ class SiteController extends Controller
             $parser->Parsing();
 
         } else {
+            $merch = new Merchant();
+            $merch_arr = $merch->find()->Select(['name','id'])->asArray()->all();
+
             return $this->render('parsers.twig', [
                 'link' => Url::toRoute('site/parsers'),
+                'merches' => $merch_arr,
             ]);
         }
     }
