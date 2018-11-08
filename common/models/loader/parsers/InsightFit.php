@@ -7,6 +7,8 @@ use SimpleXMLElement;
 use Yii;
 use backend\models\brands\Brands;
 use yii\helpers\ArrayHelper;
+use backend\models\products\Products;
+
 
 class InsightFit implements Parser
 {
@@ -20,6 +22,7 @@ class InsightFit implements Parser
         $this->file = $file;
         $this->id = $id;
         $this->_imagedir = $imagedir;
+        $this->brands_table = new Brands();
     }
 
     public function Parsing()
@@ -54,11 +57,15 @@ class InsightFit implements Parser
             $images_path = Yii::getAlias('@images');
 
             try {
-             //   copy($g_image_link, $dir_path . '/' . $this->_imagedir . '/' . basename($g_image_link));
+                $url = $dir_path . '/' . $this->_imagedir . '/' . basename($g_image_link);
+                if (!file_exists($url)) {
+                    copy($g_image_link, $url);
+                }
             } catch (yii\base\ErrorException $e) {
-                $image_url = $images_path . 'noImage.jpg';
+                $image_url = $images_path . '/noImage.jpg';
             }
-            array_push($elems,[
+
+            array_push($elems, [
                 "name" => $g_title,
                 "description" => $g_descr,
                 "articul" => $g_id,
@@ -70,13 +77,17 @@ class InsightFit implements Parser
             ]);
         }
 
-        $this->InsertBrand($elems);
+         $this->InsertBrand($elems);
+          $this->InsertOrUpdate($elems);
+
+
     }
+
 
     public function InsertBrand($data)
     {
 
-        $brand_table = new Brands();
+        $brand_table = $this->brands_table;
 
         $new_brands = [];
 
@@ -93,10 +104,40 @@ class InsightFit implements Parser
 
         foreach ($new_brands as $value) {
             if (empty($brand_table->find()->Select('name')->asArray()->where(['=', 'name', $value])->all())) {
-                $new_table_brand = new Brands();
+                $new_table_brand = $this->brands_table;
                 $new_table_brand->name = $value;
                 $new_table_brand->save();
             }
         }
+    }
+
+
+    public function InsertOrUpdate($data)
+    {
+        $products = new Products();
+        $cnt = 0;
+        foreach ($data as $val) {
+
+            if (empty($products->find()->where(['=', 'articul', $val['articul']])->all())) {
+                $products = new Products();
+                $products->name = $val['name']->__toString();
+                $products->description = $val['description'];
+                $products->articul = $val['articul']->__toString();
+                $products->status = $val['status_goods'];
+                $products->image = $val['photo'];
+                $products->price_opt = $val['price'];
+                $products->price_roznica = $val['price'] * 2;
+                $products->merchant_id = $val['postavshik'];
+                $products->brand_id = 1;
+                $products->save();
+
+                $cnt++;
+            };
+            if ($cnt == 10) {
+                break;
+            }
+        }
+
+
     }
 }
