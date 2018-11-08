@@ -9,6 +9,18 @@ use backend\models\products\Products;
 
 abstract class Parser
 {
+    public $file;
+    public $id;
+    public $imagedir;
+
+    public function __construct($file, $imagedir, $id)
+    {
+        $this->file = $file;
+        $this->id = $id;
+        $this->imagedir = $imagedir;
+        $this->brands_table = new Brands();
+    }
+
     abstract public function Parsing();
 
     public function getImage($url,$image)

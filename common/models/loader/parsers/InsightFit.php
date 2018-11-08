@@ -12,19 +12,7 @@ use backend\models\products\Products;
 
 class InsightFit extends Parser
 {
-    public $file;
-    public $id;
     private $_xml;
-    private $_brand_ids = [];
-    private $_imagedir;
-
-    public function __construct($file, $imagedir, $id)
-    {
-        $this->file = $file;
-        $this->id = $id;
-        $this->_imagedir = $imagedir;
-        $this->brands_table = new Brands();
-    }
 
     public function Parsing()
     {
@@ -56,10 +44,10 @@ class InsightFit extends Parser
 
             $dir_path = Yii::getAlias('@xml');
 
-            $url = $dir_path . '/' . $this->_imagedir . '/' . basename($g_image_link);
+            $url = $dir_path . '/' . $this->imagedir . '/' . basename($g_image_link);
 
             try{
-                $image_url = '/uploads/xml/' . $this->_imagedir . '/' . basename($g_image_link);
+                $image_url = '/uploads/xml/' . $this->imagedir . '/' . basename($g_image_link);
                 $this->getImage($url,$g_image_link);
             }catch (yii\base\ErrorException $e){
                 $image_url = '/uploads/images/noImage.jpg';
