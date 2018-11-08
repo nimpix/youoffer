@@ -6,6 +6,7 @@ use common\models\loader\Parser;
 use SimpleXMLElement;
 use Yii;
 use backend\models\brands\Brands;
+use yii\helpers\ArrayHelper;
 
 class InsightFit implements Parser
 {
@@ -69,11 +70,33 @@ class InsightFit implements Parser
             ]);
         }
 
-        $this->InsertData($elems);
+        $this->InsertBrand($elems);
     }
 
-    public function InsertData($data)
+    public function InsertBrand($data)
     {
 
+        $brand_table = new Brands();
+
+        $new_brands = [];
+
+        //Getting all new brands with no doubles
+
+        foreach ($data as $elem) {
+            $brand = $elem['tbl_brand'];
+            $brand = $brand->__toString();
+
+            if (!ArrayHelper::isIn($brand, $new_brands)) {
+                array_push($new_brands, $brand);
+            }
+        }
+
+        foreach ($new_brands as $value) {
+            if (empty($brand_table->find()->Select('name')->asArray()->where(['=', 'name', $value])->all())) {
+                $new_table_brand = new Brands();
+                $new_table_brand->name = $value;
+                $new_table_brand->save();
+            }
+        }
     }
 }
