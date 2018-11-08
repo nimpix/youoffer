@@ -24,4 +24,14 @@ class Products extends ActiveRecord
         return $this->hasMany(Sections::className(), ['id' => 'sections_id'])
             ->viaTable('products_sections', ['products_id' => 'id']);
     }
+
+    public function beforeSave($insert)
+    {
+        if ($this->isNewRecord)
+        {
+
+        }
+
+        return parent::beforeSave($insert);
+    }
 }
