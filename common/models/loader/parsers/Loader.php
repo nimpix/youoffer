@@ -28,6 +28,7 @@ class Loader implements LoaderFactory
 
         switch($this->name){
             case 'InsightFitness': return Yii::createObject(InsightFit::class,[$this->filepath, $this->name, $post['parser-name']]);
+            default: throw new yii\base\ErrorException;
         }
     }
 

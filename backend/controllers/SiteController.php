@@ -110,21 +110,32 @@ class SiteController extends Controller
     }
 
     public function actionParsers()
-    {   $this->enableCsrfValidation = false;
+    {
+        $this->enableCsrfValidation = false;
         if (Yii::$app->request->post()) {
-            
+
             $post = Yii::$app->request->post();
 
             $file = UploadedFile::getInstanceByName('xml');
 
             $loader = new Loader();
 
-            $parser = $loader->createParser($post,$file);
+            try {
+                $parser = $loader->createParser($post, $file);
+            } catch (yii\base\ErrorException $e) {
+                $response = Yii::$app->response;
+                $response->format = \yii\web\Response::FORMAT_JSON;
+                $response->data = 'Для данного поставщика отсутствует загрузчик. Обратитесь к администратору.';
+
+                return $response;
+            }
+
             $parser->Parsing();
+
 
         } else {
             $merch = new Merchant();
-            $merch_arr = $merch->find()->Select(['name','id'])->asArray()->all();
+            $merch_arr = $merch->find()->Select(['name', 'id'])->asArray()->all();
 
             return $this->render('parsers.twig', [
                 'link' => Url::toRoute('site/parsers'),
@@ -133,7 +144,8 @@ class SiteController extends Controller
         }
     }
 
-    public function beforeAction($action) {
+    public function beforeAction($action)
+    {
         $this->enableCsrfValidation = false;
         return parent::beforeAction($action);
     }

@@ -53,7 +53,7 @@ class InsightFit implements Parser
             $images_path = Yii::getAlias('@images');
 
             try {
-                copy($g_image_link, $dir_path . '/' . $this->_imagedir . '/' . basename($g_image_link));
+             //   copy($g_image_link, $dir_path . '/' . $this->_imagedir . '/' . basename($g_image_link));
             } catch (yii\base\ErrorException $e) {
                 $image_url = $images_path . 'noImage.jpg';
             }
