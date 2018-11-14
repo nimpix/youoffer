@@ -13,7 +13,8 @@ class AppAsset extends AssetBundle
     public $baseUrl = '/backend/web';
    
     public $css = [
-        'css/site.css'
+        'css/site.css',
+        'css/bootstrap.min.css'
     ];
     public $js = [
         'js/main.js'

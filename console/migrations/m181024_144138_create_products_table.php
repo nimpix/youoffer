@@ -32,6 +32,7 @@ class m181024_144138_create_products_table extends Migration
             'weight' => $this->string(),
             'amount' => $this->integer(),
             'size' => $this->string(),
+            'thumbnails' => $this->string(),
         ]);
 
         // creates index for column `brand_id`

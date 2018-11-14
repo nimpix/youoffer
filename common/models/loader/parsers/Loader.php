@@ -5,7 +5,6 @@ namespace common\models\loader\parsers;
 use common\models\loader\LoaderFactory;
 use yii\helpers\FileHelper;
 use backend\models\merchants\Merchant;
-
 use yii;
 
 class Loader implements LoaderFactory
@@ -39,11 +38,11 @@ class Loader implements LoaderFactory
         $this->name = str_replace(' ', '', $this->name);
         FileHelper::createDirectory($dir_path, 0775, true);
         FileHelper::createDirectory($dir_path .'/' . $this->name, 0775, true);
+        FileHelper::createDirectory($dir_path .'/' . $this->name . '/thumbnails', 0775, true);
 
         $this->filepath = $dir_path . '/' . $this->file->name;
 
 
         $this->file->saveAs($this->filepath);
-
     }
 }

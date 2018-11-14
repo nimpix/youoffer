@@ -114,6 +114,8 @@ class SiteController extends Controller
         $this->enableCsrfValidation = false;
         if (Yii::$app->request->post()) {
 
+            $response= 'Товары успешно загружены';
+
             $post = Yii::$app->request->post();
 
             $file = UploadedFile::getInstanceByName('xml');
@@ -122,16 +124,12 @@ class SiteController extends Controller
 
             try {
                 $parser = $loader->createParser($post, $file);
+                $parser->Parsing();
             } catch (yii\base\ErrorException $e) {
-                $response = Yii::$app->response;
-                $response->format = \yii\web\Response::FORMAT_JSON;
-                $response->data = 'Для данного поставщика отсутствует загрузчик. Обратитесь к администратору.';
-
-                return $response;
+                $response = 'Для данного поставщика отсутствует загрузчик. Обратитесь к администратору.';
             }
 
-            $parser->Parsing();
-
+            return $this->render('parsed.twig',['resp' => $response]);
 
         } else {
             $merch = new Merchant();

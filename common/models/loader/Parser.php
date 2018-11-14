@@ -6,6 +6,8 @@ use Yii;
 use backend\models\brands\Brands;
 use yii\helpers\ArrayHelper;
 use backend\models\products\Products;
+use yii\imagine\Image;
+use Imagine\Image\Box;
 
 abstract class Parser
 {
@@ -23,10 +25,11 @@ abstract class Parser
 
     abstract public function Parsing();
 
-    public function getImage($url,$image)
+    public function getImage($url,$image,$name)
     {
       $file = file_get_contents($image);
-      file_put_contents($url,$file);
+      file_put_contents($url . $name,$file);
+      Image::frame($url . $name, 0)->thumbnail(new Box(260, 260))->save($url . 'thumbnails/' . $name, ['quality' => 100]);
     }
 
     public function InsertBrand($data)
@@ -76,6 +79,7 @@ abstract class Parser
                 $products->articul = $val['articul']->__toString();
                 $products->status = $val['status_goods'];
                 $products->image = $val['photo'];
+                $products->thumbnails = $val['thumb'];
                 $products->price_opt = $val['price'];
                 $products->price_roznica = $val['price'] * 2;
                 $products->merchant_id = $val['postavshik'];
@@ -88,6 +92,7 @@ abstract class Parser
                 $products->articul = $val['articul']->__toString();
                 $products->status = $val['status_goods'];
                 $products->image = $val['photo'];
+                $products->thumbnails = $val['thumb'];
                 $products->price_opt = $val['price'];
                 $products->price_roznica = $val['price'] * 2;
                 $products->merchant_id = $val['postavshik'];

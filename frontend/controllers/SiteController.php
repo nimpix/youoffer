@@ -13,6 +13,8 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use app\models\MainForm;
+use backend\models\products\Products;
+
 
 /**
  * Site controller
@@ -27,24 +29,27 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
                 'rules' => [
                     [
-                        'actions' => ['signup'],
+                        'actions' => ['login', 'error','signup','getprods'],
                         'allow' => true,
-                        'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['logout', 'index','signup','getprods'],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['logout','signup','getprods'],
+                        'allow' => true,
+                        'roles' => ['admin-role', 'product-role'],
                     ],
                 ],
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post'],
+                    'logout' => ['post','get'],
                 ],
             ],
         ];
@@ -72,8 +77,18 @@ class SiteController extends Controller
      * @return mixed
      */
     public function actionIndex()
-    {   
-       return $this->render('index');
+    {
+       return $this->render('index.twig');
+    }
+
+    public function actionGetprods(){
+        $products = new Products;
+        $data = $products->find()->asArray()->all();
+
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_JSON;
+        $response->data = $data;
+        return $response;
     }
 
     /**
@@ -213,4 +228,5 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
 }

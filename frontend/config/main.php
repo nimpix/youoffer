@@ -11,7 +11,30 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'modules' => [
+        'debug' => [
+            'class' => 'yii\debug\Module',
+            'allowedIPs' => ['213.176.233.106', '127.0.0.1', '::1', '91.240.208.186'],
+        ],
+    ],
     'components' => [
+        'view' => [
+            'class' => 'yii\web\View',
+            'renderers' => [
+                'twig' => [
+                    'class' => 'yii\twig\ViewRenderer',
+                    'cachePath' => '@runtime/Twig/cache',
+                    // Array of twig options:
+                    'options' => [
+                        'auto_reload' => true,
+                    ],
+                    'globals' => [
+                        'html' => ['class' => '\yii\helpers\Html'],
+                    ],
+                    'uses' => ['yii\bootstrap'],
+                ],
+            ],
+        ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
             'defaultRoles' => ['admin', 'product','manager','guest']
@@ -24,9 +47,10 @@ return [
             'bundles' => [
                 'yii\bootstrap\BootstrapAsset' => [
                     'sourcePath' => null,
-                    'basePath' => '/frontend/web',
-                    'baseUrl' => '/frontend/web',
+                    'basePath' => '@webroot',
+                    'baseUrl' => '@web',
                     'css' => ['css/bootstrap.min.css'],
+                    'js' => ['/frontend/web/js/bootstrap.min.js'],
                 ],
             ],
         ],
@@ -69,6 +93,9 @@ return [
                 "contact" => "site/contact",
                 "login" => "site/login",
                 "" => "site/index",
+                "admin" => "site/admin",
+                "logout" => "site/logout",
+                "jsonprods" => "site/getprods"
             ],
         ],
     ],

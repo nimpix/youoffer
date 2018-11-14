@@ -60,24 +60,28 @@ AppAsset::register($this);
     // NavBar::end();
     ?>
 
-    <div class="container">
+
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= Alert::widget() ?>
         <?= $content ?>
-    </div>
+
 </div>
 
-<footer class="footer">
-    <div class="container">
-        <!-- <p class="pull-left">&copy; Nimpix-studio <?= date('Y') ?></p>
+<footer class="footer" style="position:absolute; bottom:0;width:100vw;">
+    <!--   <div class="container-fluid">
+        <div class="row justify-content-end">
+            <p class="pull-left">&copy; Adamant-studio <?= date('Y')  ?></p>
 
-        <p class="pull-right">Все права соблюдены</p> -->
-    </div>
+            <p class="pull-right">&nbsp;Все права соблюдены</p>
+        </div>
+
+    </div>-->
 </footer>
 
 <?php $this->endBody() ?>
+
 </body>
 </html>
 <?php $this->endPage() ?>

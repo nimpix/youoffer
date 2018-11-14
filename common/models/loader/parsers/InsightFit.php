@@ -44,13 +44,16 @@ class InsightFit extends Parser
 
             $dir_path = Yii::getAlias('@xml');
 
-            $url = $dir_path . '/' . $this->imagedir . '/' . basename($g_image_link);
+            $url = $dir_path . '/' . $this->imagedir . '/';
+
+            $thumbnail = '/uploads/xml/' . $this->imagedir . '/thumbnails' . basename($g_image_link);
 
             try{
                 $image_url = '/uploads/xml/' . $this->imagedir . '/' . basename($g_image_link);
-                $this->getImage($url,$g_image_link);
+                $this->getImage($url,$g_image_link, basename($g_image_link));
             }catch (yii\base\ErrorException $e){
                 $image_url = '/uploads/images/noImage.jpg';
+                $thumbnail = '/uploads/images/noImage.jpg';
             }
 
             array_push($elems, [
@@ -62,6 +65,7 @@ class InsightFit extends Parser
                 "tbl_brand" => $g_seria,
                 "price" => $price,
                 "photo" => $image_url,
+                'thumb' => $thumbnail,
             ]);
         }
 
