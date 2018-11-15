@@ -1,0 +1,9 @@
+I WANT TO LOGIN SUCCESS
+
+I am on page 'http://youoffer.com/backend/web/site/login' 
+I see 'Логин' 
+I fill field 'LoginForm[username]','davert' 
+I fill field 'loginform-password','qwerty' 
+I click 'Login' 
+I see 'Hello"," davert'
+

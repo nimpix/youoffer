@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2>Брэнды</h2>
+            <div class="body-brands">
+                {{ data | raw }}
+                <form action="/backend/web/brands/add" class="form-inline add-brand">
+                    <div class="form-group">
+                        <label for="login">Название</label>
+                        <input type="text" name="brand" id="brand" required>
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Добавить">
+                </form>
+                <a class="btn btn-primary" style="color:#fff;" href="/backend/web/">Назад</a>
+            </div>
+        </div>
+    </div>
+</div>

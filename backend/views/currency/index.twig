@@ -1,0 +1,52 @@
+<div class="container currency">
+    <div class="row">
+        <div class="col-12">
+            <h2>Валюты</h2>
+            {{ data | raw }}
+            <a class="btn btn-primary" style="color:#fff;" href="/backend/web/">Назад</a>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    window.onload = function () {
+        $('.currency table tbody td').click(function (event) {
+            if($(this).hasClass('td-active')){
+                if(event.target.tagName == 'BUTTON'){
+
+                    var data = $(this).parent().find('.val-name #current').val(),
+                        id = $(this).parent().find('.val-id').text(),
+                        value = $(this).parent().find('.val-kurs').text();
+
+                    if (data == null) {
+                        data = $(this).parent().find('.val-name').text();
+                    }
+                    if (value == 'Изменить') {
+                        value = $(this).find('#current').val();
+                    }
+                    console.log(data+'-'+id+'-'+value);
+                    $.post('/backend/web/currency/update', {'data': data, 'id': id, 'value': value}, function (data) {
+                        console.log(data);
+                    });
+                }else{
+                    return false;
+                }
+
+            }
+            //Нажатие на поле input -> td делаем из ячейки инпут
+            $('.td-active').empty().text($('.td-active').data('current')).removeClass('td-active');
+            var text = $(this).text();
+            $(this).empty();
+            $(this).addClass('td-active');
+            $(this).append('<input type="text" id="current" >');
+            $(this).attr('data-current',text);
+            $('#current').val(text);
+
+            //addButton
+            $(this).append("<button class='btn btn-primary' onlick='event.stopPropagation()' id='curbtn'>Изменить</button>");
+        });
+    }
+
+
+</script>

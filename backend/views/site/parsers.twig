@@ -1,0 +1,18 @@
+<h2>Загрузка товаров</h2>
+<form action="{{ link }}" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="">Выберите поставщика</label>
+        <select name="parser-name" id="">
+            <option value="">Не выбрано</option>
+            {% for merch in merches %}
+                <option value="{{ merch.id }}">{{ merch.name }}</option>
+            {% endfor %} }}
+        </select>
+    </div>
+    <div class="form-group">
+     <!--   <label for="">Ссылка на xml</label>
+        <input type="text" name="link" class="form-control" style="max-width:600px;">-->
+        <input type="file" name="xml" required>
+    </div>
+    <input type="submit" value="Загрузить товары" class="btn btn-primary">
+</form>
