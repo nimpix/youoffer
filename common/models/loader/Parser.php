@@ -35,8 +35,6 @@ abstract class Parser
     public function InsertBrand($data)
     {
 
-        $brand_table = $this->brands_table;
-
         $new_brands = [];
 
         //Getting all new brands with no doubles
@@ -51,9 +49,10 @@ abstract class Parser
         }
 
         foreach ($new_brands as $value) {
-            if (empty($brand_table->find()->Select('name')->asArray()->where(['=', 'name', $value])->all())) {
-                $new_table_brand = $this->brands_table;
+            if (empty($this->brands_table->find()->Select('name')->asArray()->where(['=', 'name', $value])->all())) {
+                $new_table_brand = new Brands();
                 $new_table_brand->name = $value;
+              //  echo $value. '<br>';
                 $new_table_brand->save();
             }
         }
