@@ -46,7 +46,7 @@ class InsightFit extends Parser
 
             $url = $dir_path . '/' . $this->imagedir . '/';
 
-            $thumbnail = '/uploads/xml/' . $this->imagedir . '/thumbnails' . basename($g_image_link);
+            $thumbnail = '/uploads/xml/' . $this->imagedir . '/thumbnails/' . basename($g_image_link);
 
             try{
                 $image_url = '/uploads/xml/' . $this->imagedir . '/' . basename($g_image_link);

@@ -86,6 +86,7 @@ abstract class Parser
                 $products->brand_id = $brand_id;
                 $products->save();
             } else {
+
                 $products = $prod_searched[0];
                 $products->name = $val['name']->__toString();
                 $products->description = $val['description'];

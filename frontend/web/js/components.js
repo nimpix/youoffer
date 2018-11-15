@@ -15,8 +15,24 @@ Vue.component('card', {
         }
     },
     props:['item'],
-    template: '<div class="card-body col-3"><div class="card-image"><img class="img-responsive" :src="item.image" alt=""></div></div>'
+    template: ' <div class="col-3"><div class="card-body">' +
+        '<div class="card-image"><img class="img-responsive" :src="item.thumbnails" alt=""></div>' +
+        '<div class="title">{{ item.name }}</div>'+
+        '<div class="price">{{ item.price_roznica }} р.</div>'+
+        '</div>'+
+        '</div>'
 })
+
+Vue.component('detailed', {
+    data: function () {
+        return {
+
+        }
+    },
+    props:'',
+    template: '',
+})
+
 
 new Vue({
     el:'#app',
