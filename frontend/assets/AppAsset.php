@@ -17,8 +17,9 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'js/main.js',
-        'https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js',
-        'js/components.js',
+      //  'https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js',
+        //'js/components.js',
+
 
 
     ];

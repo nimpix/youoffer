@@ -78,7 +78,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-       return $this->render('index.twig');
+       return $this->render('@app/app/dist/index.html');
     }
 
     public function actionGetprods(){

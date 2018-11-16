@@ -3,7 +3,7 @@ return [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
-        '@xml' => '/var/www/offer.com/data/www/youoffer.com/uploads/xml',
+        '@xml' => '/var/www/offer.com/data/www/offer.com/uploads/xml',
 //        '@xml' => $_SERVER['ROOT'] . '/uploads/xml',
     ],
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
