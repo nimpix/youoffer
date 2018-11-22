@@ -17,6 +17,7 @@ class InsightFit extends Parser
     public function Parsing()
     {
         $data = file_get_contents($this->file);
+  
         $this->_xml = new SimpleXMLElement($data);
         $space = $this->_xml->getNamespaces(true);
 

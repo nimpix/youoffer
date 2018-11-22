@@ -73,8 +73,8 @@ return [
         'db' => [
             'class' => 'yii\db\Connection',
             'dsn' => 'mysql:host=localhost;dbname=offer_com_db',
-            'username' => 'offer_com_usr',
-            'password' => 'lnmsubct6d',
+            'username' => 'root',
+            'password' => 'admin2018',
             'charset' => 'utf8',
         ],
         'user' => [
@@ -112,7 +112,7 @@ return [
                 'brands' => 'brands/index',
                 'merch' => 'merch/index',
                 'products' => 'products/index',
-                'parsers' => 'site/parsers'
+                'parsers' => 'site/parsers',
             ],
         ],
 

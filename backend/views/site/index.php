@@ -11,28 +11,28 @@ $this->title = 'My Yii Application';
             <div class="col-xs-4">
                 <div class="menu-grid">
                     <div>
-                        <a href="http://offer.com/backend/web/catalog">Категории</a>
+                        <a href="/backend/web/catalog">Категории</a>
                     </div>
                     <div>
-                        <a href="http://offer.com/backend/web/products">Товары</a>
+                        <a href="/backend/web/products">Товары</a>
                     </div>
                     <div>
-                        <a href="http://offer.com/backend/web/currency">Валюты</a>
+                        <a href="/backend/web/currency">Валюты</a>
                     </div>
                     <div>
-                        <a href="http://offer.com/backend/web/brands">Брэнды</a>
+                        <a href="/backend/web/brands">Брэнды</a>
                     </div>
                     <div>
-                        <a href="http://offer.com/backend/web/merch">Поставщики</a>
+                        <a href="/backend/web/merch">Поставщики</a>
                     </div>
                     <div>
-                        <a href="http://offer.com/backend/web/users">Пользователи</a>
+                        <a href="/backend/web/users">Пользователи</a>
                     </div>
                     <div>
-                        <a href="http://offer.com/backend/web/parsers">Загрузка товаров xml/yml</a>
+                        <a href="/backend/web/parsers">Загрузка товаров xml/yml</a>
                     </div>
                     <div>
-                        <a href="http://offer.com/backend/web/settings">Настройки</a>
+                        <a href="/backend/web/settings">Настройки</a>
                     </div>
                 </div>
             </div>

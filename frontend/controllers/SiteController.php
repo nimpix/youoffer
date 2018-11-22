@@ -31,16 +31,16 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error','signup','getprods'],
+                        'actions' => ['login', 'error','signup'],
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index','signup','getprods'],
+                        'actions' => ['logout', 'index','signup'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['logout','signup','getprods'],
+                        'actions' => ['logout','signup'],
                         'allow' => true,
                         'roles' => ['admin-role', 'product-role'],
                     ],
@@ -76,20 +76,11 @@ class SiteController extends Controller
      *
      * @return mixed
      */
+
     public function actionIndex()
-    {
-       return $this->render('@app/app/dist/index.html');
-    }
-
-    public function actionGetprods(){
-        $products = new Products;
-        $data = $products->find()->asArray()->all();
-
-        $response = Yii::$app->response;
-        $response->format = \yii\web\Response::FORMAT_JSON;
-        $response->data = $data;
-        return $response;
-    }
+     {
+        return $this->render('index.html');
+     }
 
     /**
      * Logs in a user.

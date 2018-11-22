@@ -36,9 +36,10 @@ class Loader implements LoaderFactory
         $dir_path = Yii::getAlias('@xml');
 
         $this->name = str_replace(' ', '', $this->name);
-        FileHelper::createDirectory($dir_path, 0775, true);
-        FileHelper::createDirectory($dir_path .'/' . $this->name, 0775, true);
-        FileHelper::createDirectory($dir_path .'/' . $this->name . '/thumbnails', 0775, true);
+        $this->file->name = str_replace(' ','',$this->file->name);
+        //FileHelper::createDirectory($dir_path, 0777, true);
+        FileHelper::createDirectory($dir_path .'/' . $this->name, 0777, true);
+        FileHelper::createDirectory($dir_path .'/' . $this->name . '/thumbnails', 0777, true);
 
         $this->filepath = $dir_path . '/' . $this->file->name;
 

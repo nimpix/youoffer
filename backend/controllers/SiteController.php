@@ -11,7 +11,7 @@ use yii\helpers\Url;
 use common\models\loader\parsers\Loader;
 use yii\web\UploadedFile;
 use backend\models\merchants\Merchant;
-
+use backend\models\products\Products;
 
 /**
  * Site controller
@@ -28,16 +28,16 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
+                        'actions' => ['login', 'error','getprods'],
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'index','getprods'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['parsers'],
+                        'actions' => ['parsers','getprods'],
                         'allow' => true,
                         'roles' => ['admin-role', 'product-role'],
                     ],
@@ -72,6 +72,16 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
+    }
+
+    public function actionGetprods(){
+        $products = new Products;
+        $data = $products->find()->asArray()->all();
+
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_JSON;
+        $response->data = $data;
+        return $response;
     }
 
     /**
@@ -120,9 +130,11 @@ class SiteController extends Controller
 
             $file = UploadedFile::getInstanceByName('xml');
 
+
+
             $loader = new Loader();
 
-            try {
+           try {
                 $parser = $loader->createParser($post, $file);
                 $parser->Parsing();
             } catch (yii\base\ErrorException $e) {

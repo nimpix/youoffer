@@ -3,7 +3,7 @@ return [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
-        '@xml' => '/var/www/offer.com/data/www/offer.com/uploads/xml',
+        '@xml' => '/var/www/offer/uploads/xml',
 //        '@xml' => $_SERVER['ROOT'] . '/uploads/xml',
     ],
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
@@ -15,8 +15,8 @@ return [
         'db' => [
             'class' => 'yii\db\Connection',
             'dsn' => 'mysql:host=localhost;dbname=offer_com_db',
-            'username' => 'offer_com_usr',
-            'password' => 'lnmsubct6d',
+            'username' => 'root',
+            'password' => 'admin2018',
             'charset' => 'utf8',
         ],
         'cache' => [
