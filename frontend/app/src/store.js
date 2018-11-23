@@ -15,7 +15,6 @@ export default new Vuex.Store({
   actions: {
     set_products: ({commit}) => {
         fetch('http://offer/backend/web/api-getprods', {
-            // mode: 'no-cors',
             headers: {
                 'Access-Control-Allow-Origin': "*"
             },
