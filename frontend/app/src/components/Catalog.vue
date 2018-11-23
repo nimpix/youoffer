@@ -9,11 +9,11 @@
         </div>
         <div class="row">
             <Card v-for="(prod,index) in displayedProds" :key="index" :item="prod"></Card>
-        </div>'
+        </div>
     </div>
 </template>
 
-
+<!--Запунуть потом пагинацию в отдельный компонент-->
 <script>
     import Card from '@/components/Card.vue'
 
