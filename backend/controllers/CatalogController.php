@@ -97,6 +97,7 @@ class CatalogController extends Controller
         if ($catalog->load(Yii::$app->request->get(), '') && $catalog->validate()) {
             $this->branch = $this->catalog->addNewBranch($request->get());
         }
+
         $status = Html::error($catalog, 'name', ['class' => 'error-body']);
         $status = strip_tags($status);
 

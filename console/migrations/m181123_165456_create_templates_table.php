@@ -14,7 +14,7 @@ class m181123_165456_create_templates_table extends Migration
     {
         $this->createTable('templates', [
             'id' => $this->primaryKey(),
-            'name' => $this->integer()->defaultValue(0),
+            'name' => $this->string()->defaultValue(0),
             'data' => $this->string(2000)->defaultValue(0),
         ]);
     }

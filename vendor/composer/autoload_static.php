@@ -35,6 +35,13 @@ class ComposerStaticInit29614825a13fc2a1fcf0f0bd2f8efab4
         array (
             'phpDocumentor\\Reflection\\' => 25,
         ),
+        'k' => 
+        array (
+            'kartik\\tree\\' => 12,
+            'kartik\\form\\' => 12,
+            'kartik\\dialog\\' => 14,
+            'kartik\\base\\' => 12,
+        ),
         'c' => 
         array (
             'creocoder\\nestedsets\\' => 21,
@@ -133,6 +140,22 @@ class ComposerStaticInit29614825a13fc2a1fcf0f0bd2f8efab4
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+        ),
+        'kartik\\tree\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-tree-manager/src',
+        ),
+        'kartik\\form\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-activeform/src',
+        ),
+        'kartik\\dialog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-dialog/src',
+        ),
+        'kartik\\base\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-krajee-base/src',
         ),
         'creocoder\\nestedsets\\' => 
         array (

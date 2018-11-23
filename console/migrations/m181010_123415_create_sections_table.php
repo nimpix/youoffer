@@ -14,7 +14,7 @@ class m181010_123415_create_sections_table extends Migration
     {
         $this->createTable('sections', [
             'id' => $this->primaryKey(),
-            'tree' => $this->integer()->notNull(),
+            'tree' => $this->integer()->notNull()->defaultValue(1),
             'lft' => $this->integer()->notNull(),
             'rgt' => $this->integer()->notNull(),
             'depth' => $this->integer()->notNull(),
