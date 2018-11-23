@@ -21,6 +21,7 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
+
     public function behaviors()
     {
         return [
@@ -28,16 +29,16 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error','getprods'],
+                        'actions' => ['login', 'error', 'getprods'],
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index','getprods'],
+                        'actions' => ['logout', 'index', 'getprods'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['parsers','getprods'],
+                        'actions' => ['parsers', 'getprods'],
                         'allow' => true,
                         'roles' => ['admin-role', 'product-role'],
                     ],
@@ -48,6 +49,22 @@ class SiteController extends Controller
                 'actions' => [
                     'logout' => ['post'],
                 ],
+            ],
+            'corsFilter' => [
+                'class' => \yii\filters\Cors::className(),
+                'cors' => [
+                    // restrict access to
+                    'Access-Control-Allow-Origin' => ['*'],
+                    'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
+                    // Allow only POST and PUT methods
+                    'Access-Control-Request-Headers' => ['*'],
+                    // Allow only headers 'X-Wsse'
+                    'Access-Control-Allow-Credentials' => true,
+                    // Allow OPTIONS caching
+                    'Access-Control-Max-Age' => 86400,
+                    // Allow the X-Pagination-Current-Page header to be exposed to the browser.
+                    'Access-Control-Expose-Headers' => [],
+                ]
             ],
         ];
     }
@@ -74,13 +91,15 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
-    public function actionGetprods(){
+    public function actionGetprods()
+    {
         $products = new Products;
         $data = $products->find()->asArray()->all();
 
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
         $response->data = $data;
+
         return $response;
     }
 
@@ -124,24 +143,23 @@ class SiteController extends Controller
         $this->enableCsrfValidation = false;
         if (Yii::$app->request->post()) {
 
-            $response= 'Товары успешно загружены';
+            $response = 'Товары успешно загружены';
 
             $post = Yii::$app->request->post();
 
             $file = UploadedFile::getInstanceByName('xml');
 
 
-
             $loader = new Loader();
 
-           try {
+            try {
                 $parser = $loader->createParser($post, $file);
                 $parser->Parsing();
             } catch (yii\base\ErrorException $e) {
                 $response = 'Для данного поставщика отсутствует загрузчик. Обратитесь к администратору.';
             }
 
-            return $this->render('parsed.twig',['resp' => $response]);
+            return $this->render('parsed.twig', ['resp' => $response]);
 
         } else {
             $merch = new Merchant();

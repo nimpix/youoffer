@@ -1,37 +1,77 @@
 <template id="catalog-template">
     <div class="user-body">
-
+        <div v-if="page>1" class="clearfix w-100 mb-4 text-right font-weight-bold title-pagination">Страница {{ page }}</div>
+        <div class="clearfix btn-group justify-content-end w-100 mb-4">
+            <button v-if="page>1" type="button" class="btn btn-sm btn-primary outline" @click="page = 1">В начало</button>
+            <button type="button" class="btn btn-sm btn-primary outline" v-if="page != 1" @click="page--"> Предыдущая </button>
+            <button type="button" :class="'btn btn-sm btn-primary outline'+ current " :data="(page == pageNumber) ? '1': '2'" v-for="pageNumber in pages.slice(page-1, page+3)" @click="changePage(pageNumber)"> {{pageNumber}} </button>
+            <button type="button" @click="page++" v-if="page < pages.length-4" class="btn btn-sm btn-primary outline"> Следующая </button>
+        </div>
+        <div class="row">
+            <Card v-for="(prod,index) in displayedProds" :key="index" :item="prod"></Card>
+        </div>'
     </div>
 </template>
 
 
 <script>
+    import Card from '@/components/Card.vue'
+
     export default {
         name: 'Catalog',
+        components: {
+            Card
+        },
         data: function () {
             return {
-                prods: [],
+                pages: [],
+                page: 1,
+                perPage:20,
+                current: ''
             }
         },
         props: {},
-        created: function () {
-            let vm = this
-            // Fetch our array of posts from an API
-            fetch('http://offer.com/jsonprods')
-                .then(function (response) {
-                    return response
-                }).then(function (data) {
-                    vm.prods = data
-                    console.log(data)
-                })
+        computed: {
+            prods() {
+                this.$store.dispatch('set_products');  //вызываем нужный экшон который вызывает свою мутацию
+                return this.$store.getters.get_products  //получаем результат
+            },
+            displayedProds () {
+                return this.paginate(this.prods);
+            }
+        },
+        methods:{
+            setPages () {
+                let numberOfPages = Math.ceil(this.prods.length / this.perPage)
+                for (let index = 1; index <= numberOfPages; index++) {
+                   if(this.pages.length == numberOfPages){   //Просчитываем индексы
+                       break;
+                   }
+                   this.pages.push(index);
+                }
+            },
+            paginate (pprods) {
+                let page = this.page;
+                let perPage = this.perPage;
+                let from = (page * perPage) - perPage;
+                let to = (page * perPage);
+                return  pprods.slice(from, to);  //отрисовываем товары в пагинации
+            },
+            changePage(pageNumber){
+                this.page = pageNumber
+            }
+        },
+        watch: {
+            prods () {
+                this.setPages();
+            }
         }
     }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-
-    .content {
+    .user-body {
         width: 100%;
         height: calc(100vh - 60px);
         padding: 40px;
@@ -43,36 +83,10 @@
         }
 
     }
-
-    #content {
-
+    .outline{
+       margin:0 10px;
     }
-
-    .card-body {
-        border: 1px solid #dedede;
-        height: 100%;
-        margin: 5px;
-        text-align: center;
-    }
-
-    .card-image {
-        min-height: 270px;
-        display: flex;
-        flex-flow: row wrap;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .img-responsive {
-        display: block;
-        max-width: 100%;
-        height: auto;
-    }
-
-    .price {
-        text-align: center;
-        width: 100%;
-        margin-top: 20px;
-        font-weight: bold;
+    .title-pagination{
+        font-size:25px;
     }
 </style>

@@ -8,25 +8,28 @@ export default new Vuex.Store({
     products: []
   },
   mutations: {
-    set(state,{ type ,items }){
-        state[type] = items
+    products(state, data){
+        state.products = data
     }
   },
   actions: {
-    set_products: ({commit},args) => {
-        const url = 'http://offer.com/jsonprods'
-
-        fetch(url)
-             .then(function (response) {
-                    return response.json()
-             }).then(function (data){
-                 const  result = data;
-                 commit('set',{ type: 'products', items: result})
+    set_products: ({commit}) => {
+        fetch('http://offer/backend/web/api-getprods', {
+            // mode: 'no-cors',
+            headers: {
+                'Access-Control-Allow-Origin': "*"
+            },
+        })
+            .then(function (response) {
+                return response.json()
             })
+            .then(function (data) {
+                commit('products', data);
+            });
     }
   },
   getters:{
-    products: state => {
+    get_products: state => {
       return state.products
     }
   }

@@ -79,6 +79,7 @@ class Cors extends ActionFilter
      * @var array define specific CORS rules for specific actions
      */
     public $actions = [];
+
     /**
      * @var array Basic headers handled for the CORS requests.
      */
