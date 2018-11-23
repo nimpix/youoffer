@@ -32,6 +32,9 @@ $this->title = 'My Yii Application';
                         <a href="/backend/web/parsers">Загрузка товаров xml/yml</a>
                     </div>
                     <div>
+                        <a href="/backend/web/templates">Шаблоны</a>
+                    </div>
+                    <div>
                         <a href="/backend/web/settings">Настройки</a>
                     </div>
                 </div>

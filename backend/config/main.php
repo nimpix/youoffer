@@ -113,7 +113,8 @@ return [
                 'merch' => 'merch/index',
                 'products' => 'products/index',
                 'parsers' => 'site/parsers',
-                'api-getprods' => 'site/getprods'
+                'api-getprods' => 'site/getprods',
+                'templates' => 'templates/index'
             ],
         ],
 

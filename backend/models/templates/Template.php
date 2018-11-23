@@ -1,9 +1,9 @@
 <?php
 
-namespace backend\templates;
+namespace backend\models\templates;
 
 
 interface Template
 {
-
+    public function getUsers();
 }
