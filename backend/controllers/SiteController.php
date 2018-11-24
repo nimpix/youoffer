@@ -18,6 +18,8 @@ use backend\models\catalog\sections\types\block\TreeCreator;
 use backend\models\brands\Brands;
 use backend\models\currency\Currency;
 use backend\models\catalog\sections\Sections;
+use yii\helpers\ArrayHelper;
+
 
 /**
  * Site controller
@@ -103,12 +105,39 @@ class SiteController extends Controller
         $data = $products->find()->asArray()->all();
 
 
+        foreach ($data as &$item){
 
-//        foreach ($data as $item){
-//           $product = Products::findOne($item['id']);
-//           $sections = $product->sections;
-//           var_dump($sections);
-//        }
+           $product = Products::findOne($item['id']);
+           $sections = $product->sections;
+           $brands = $product->brands;
+           $merchs = $product->merchant;
+
+           $sections = ArrayHelper::toArray($sections, [
+                Sections::className() => [
+                    'id',
+                    'name',
+                ],
+            ]);
+
+            $brands = ArrayHelper::toArray($brands, [
+                Brands::className() => [
+                    'id',
+                    'name',
+                ],
+            ]);
+
+            $merchs = ArrayHelper::toArray($merchs, [
+                Merchant::className() => [
+                    'id',
+                    'name',
+                ],
+            ]);
+
+            ArrayHelper::setValue($item, ['sections'], $sections);
+            ArrayHelper::setValue($item, ['brands'], $brands);
+            ArrayHelper::setValue($item, ['merchants'], $merchs);
+        }
+
 
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
