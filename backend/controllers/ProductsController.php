@@ -274,7 +274,7 @@ class ProductsController extends Controller
 
 
         return $this->render(
-            'update.php',
+            'update.twig',
             [
                 'name' => $name,
                 'main_cat' => $catlist_default,
@@ -313,7 +313,7 @@ class ProductsController extends Controller
             throw new \Exception('Не пришел post');
         }
 
-      return $this->redirect(['products/index', ''], 301);
+        return $this->redirect(['products/index', ''], 301);
     }
 
     public function actionUplinks()
@@ -366,4 +366,5 @@ class ProductsController extends Controller
             );
         }
     }
+
 }

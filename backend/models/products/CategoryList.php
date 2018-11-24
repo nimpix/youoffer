@@ -1,7 +1,5 @@
 <?php
-
 namespace backend\models\products;
-
 use Yii;
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -16,12 +14,10 @@ use backend\models\merchants\Merchant;
 use backend\models\products\ProductProvider;
 use backend\models\catalog\sections\Sections;
 use yii\helpers\ArrayHelper;
-
 /**
  * Class CategoryList
  * @package backend\models\products
  */
-
 class CategoryList
 {
     public $CategoryDropdown;
@@ -35,12 +31,14 @@ class CategoryList
         /**
          * Рендерим категории уже отмеченные
          */
-        $data = Products::find()->with('sections')->where(['=', 'id', $get['id']])->all();
-        $maincat = ArrayHelper::toArray($data[0]->sections, [Sections::class => ['name','id'],]);
+      // $data = Products::find()->with('sections')->where(['=', 'id', $get['id']])->all();
+        //$maincat = ArrayHelper::toArray($data[0]->sections, [Sections::class => ['name','id'],]);
+        $product = Products::findOne($get['id']);
+        $sections = $product->sections;
 
         $maincat_arr = '';
         $maincat_id = 0;
-        foreach ($maincat as $cat) {
+        foreach ($sections as $cat) {
             $maincat_id++;
             $maincat_arr .= '<input checked="checked" name="current-list-'.$maincat_id.'" type="checkbox"  value="' . $cat['id'] . '"><label>'.$cat['name'].'</label><div class="clearfix"></div>';
         }
@@ -49,29 +47,23 @@ class CategoryList
          */
         $options = $section->find()->all();
         $options_data = ArrayHelper::toArray($options, [Sections::class => ['name','id'],]);
-
         foreach ($options_data as $key => $elem)
         {
-            foreach ($maincat as $main){
+            foreach ($sections as $main){
                 if ($elem['name'] == $main['name'])
                 {
                     unset($options_data[$key]);
                 }
             }
-
         }
-
         $options_html = '';
-        $name_id = count($maincat);
+        $name_id = count($sections);
         foreach ($options_data as $data) {
             $name_id++;
             $options_html .= '<input type="checkbox"  name="category-list-'.$name_id.'" value="' . $data['id'] . '"><label>'.$data["name"].'</label><div class="clearfix"></div>';
         }
-
         $catlist = [];
-
-        array_push($catlist,['default' => $maincat_arr,'body' => $options_html,'id' => $maincat['id']]);
-
+        array_push($catlist,['default' => $maincat_arr,'body' => $options_html,]); //'id' => $maincat['id']
         return $catlist;
     }
 }

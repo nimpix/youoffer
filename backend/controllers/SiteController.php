@@ -17,6 +17,7 @@ use backend\models\Users;
 use backend\models\catalog\sections\types\block\TreeCreator;
 use backend\models\brands\Brands;
 use backend\models\currency\Currency;
+use backend\models\catalog\sections\Sections;
 
 /**
  * Site controller
@@ -100,6 +101,14 @@ class SiteController extends Controller
     {
         $products = new Products;
         $data = $products->find()->asArray()->all();
+
+
+
+//        foreach ($data as $item){
+//           $product = Products::findOne($item['id']);
+//           $sections = $product->sections;
+//           var_dump($sections);
+//        }
 
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
