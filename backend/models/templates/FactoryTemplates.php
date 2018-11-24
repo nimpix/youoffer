@@ -49,7 +49,7 @@ class FactoryTemplates
                     'template' => '{delete}{update}',
                     'urlCreator' => function ($action, $model, $key, $index) {
                         if ($action === 'update') {
-                            return \yii\helpers\Url::toRoute(['templates/update', 'id' => $model['id']]);
+                            return \yii\helpers\Url::toRoute(['templates/view', 'id' => $model['id']]);
                         }
                         if ($action === 'delete') {
                             return \yii\helpers\Url::toRoute(['templates/delete', 'id' => $model['id']]);

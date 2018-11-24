@@ -68,6 +68,7 @@
         },
         created:function(){
             this.$store.dispatch('set_products');
+            this.$store.dispatch('set_all_data');
         }
     }
 </script>

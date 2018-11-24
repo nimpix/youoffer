@@ -35,4 +35,11 @@ class TemplatesValidator extends Model
         $request = Yii::$app->request->get();
         Templates::deleteAll(['=', 'id', $request['id']]);
     }
+
+    public function getTemplateData(){
+        $request = Yii::$app->request->get();
+        $data = Templates::find()->where(['=','id',$request['id']])->asArray()->all();
+        $this->template = $data[0]['data'];
+        $this->name = $data[0]['name'];
+    }
 }

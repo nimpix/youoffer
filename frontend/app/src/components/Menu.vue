@@ -42,6 +42,9 @@
                         <input type="submit" value="Поиск" class="btn btn-primary ml-2">
                     </div>
                 </form>
+                <ul class="list-group templates-list" v-for="template in templates">
+                    <li class="list-group-item list-group-item-action bg-warning font-weight-bold">{{ template.name }}</li>
+                </ul>
             </aside>
         </transition>
         <aside id="catalog-side" v-if="slidevis">
@@ -58,6 +61,12 @@
                slidevis: false,
                slidetemplate:false
            }
+        },
+        computed: {
+            templates() {
+                //вызываем нужный экшон который вызывает свою мутацию
+                return this.$store.getters.get_all_templates  //получаем результат
+            },
         },
         methods: {
             switchSlide:function (e) {
@@ -77,6 +86,12 @@
 </script>
 
 <style scoped lang="scss">
+    .templates-list{
+        margin-top: 30px;
+        & li{
+            color: #902f2f !important;
+        }
+    }
     .slide-transition{
         transition:all 2s linear;
     }

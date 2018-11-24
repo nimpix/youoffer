@@ -28,7 +28,7 @@ class TemplatesController extends Controller
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['parsers', 'gettemplates','update','delete','add'],
+                        'actions' => ['parsers', 'gettemplates','update','delete','add','view'],
                         'allow' => true,
                         'roles' => ['admin-role', 'product-role'],
                     ],
@@ -95,8 +95,25 @@ class TemplatesController extends Controller
                return $this->render('update.php', ['error'=> 'Данные шаблона заполнены неверно']);
            }
         }else{
-
             return $this->render('update.php', ['error' => '']);
+        }
+    }
+
+    public function actionView(){
+        $template = new TemplatesValidator();
+
+        if (Yii::$app->request->post()) {
+            if($template->load(Yii::$app->request->post()) && $template->validate()){
+                if($template->addTemplate()){
+                    return $this->render('update.php', ['error'=> 'Шаблон успешно добавлен']);
+                }else{
+                    return $this->render('update.php', ['error'=> 'Произошла ошибка']);
+                }
+            }else{
+                return $this->render('update.php', ['error'=> 'Данные шаблона заполнены неверно']);
+            }
+        }else{
+            return $this->render('view.php', ['error' => '']);
         }
     }
 

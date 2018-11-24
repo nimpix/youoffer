@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         products: [],
-        one_product: ''
+        one_product: '',
+        all_data:[]
     },
     mutations: {
         products(state, data) {
@@ -14,6 +15,9 @@ export default new Vuex.Store({
         },
         one_product(state,data){
             state.one_product = data
+        },
+       all_data(state,data){
+            state.all_data = data
         }
     },
     actions: {
@@ -32,6 +36,19 @@ export default new Vuex.Store({
         },
         set_one_product: ({commit}, id_prod) => {
             commit('one_product', id_prod)
+        },
+        set_all_data: ({commit}) => {
+            fetch('http://offer/backend/web/api-all', {
+                headers: {
+                    'Access-Control-Allow-Origin': "*"
+                },
+            })
+                .then(function (response) {
+                    return response.json()
+                })
+                .then(function (data) {
+                    commit('all_data', data);
+                });
         }
     },
     getters: {
@@ -47,6 +64,9 @@ export default new Vuex.Store({
             }
 
             return item
+        },
+        get_all_templates: state => {
+            return state.all_data.templates
         }
     }
 })
