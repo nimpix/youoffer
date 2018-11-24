@@ -21,11 +21,15 @@ class Tree extends BaseObject implements Block
     {
 
         foreach ($this->tree as $leaf) {
-            $this->result .= '<li class="main-item">' . $leaf['name'] . $this->_renderPartHierarchy($leaf['items']) . '</li>';
+            $this->result .= '<li data-id="" class="main-item">' . $leaf['name'] . $this->_renderPartHierarchy($leaf['items']) . '</li>';
         }
 
         return $this->result;
 
+    }
+
+    public function treeForApi(){
+        return $this->tree;
     }
 
     private function _renderPartHierarchy($tree)

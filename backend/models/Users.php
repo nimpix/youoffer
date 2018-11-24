@@ -19,6 +19,11 @@ class Users extends User
         return $users_data;
     }
 
+    public static function UsersForApi(){
+        $data = self::find()->asArray()->all();
+        return $data;
+    }
+
     public function getTemplates(){
         return $this->hasMany(Templates::className(), ['id' => 'templates_id'])
             ->viaTable('user_templates', ['user_id' => 'id']);

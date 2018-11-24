@@ -124,6 +124,7 @@ return [
                 'products' => 'products/index',
                 'parsers' => 'site/parsers',
                 'api-getprods' => 'site/getprods',
+                'api-all' => 'site/alldata',
                 'templates' => 'templates/index'
             ],
         ],

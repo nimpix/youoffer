@@ -12,6 +12,11 @@ use common\models\loader\parsers\Loader;
 use yii\web\UploadedFile;
 use backend\models\merchants\Merchant;
 use backend\models\products\Products;
+use backend\models\templates\Templates;
+use backend\models\Users;
+use backend\models\catalog\sections\types\block\TreeCreator;
+use backend\models\brands\Brands;
+use backend\models\currency\Currency;
 
 /**
  * Site controller
@@ -29,16 +34,16 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error', 'getprods'],
+                        'actions' => ['login', 'error', 'getprods','alldata'],
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'getprods'],
+                        'actions' => ['logout', 'index', 'getprods','alldata'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['parsers', 'getprods'],
+                        'actions' => ['parsers', 'getprods','alldata'],
                         'allow' => true,
                         'roles' => ['admin-role', 'product-role'],
                     ],
@@ -95,6 +100,26 @@ class SiteController extends Controller
     {
         $products = new Products;
         $data = $products->find()->asArray()->all();
+
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_JSON;
+        $response->data = $data;
+
+        return $response;
+    }
+
+    public function actionAlldata(){
+
+        $data['templates'] = Templates::find()->asArray()->all();
+        $data['users'] = Users::UsersForApi();
+
+        $list_creator = new TreeCreator();
+        $list = $list_creator->factory();
+
+        $data['catalog'] = $list->treeForApi();
+        $data['brands'] = Brands::find()->asArray()->all();
+        $data['merchants'] = Merchant::find()->asArray()->all();
+        $data['currency'] = Currency::find()->asArray()->all();
 
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
