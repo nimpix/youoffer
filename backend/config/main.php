@@ -14,6 +14,16 @@ return [
     ],
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
+    'controllerMap' => [
+        'elfinder' => [
+            'class' => 'mihaildev\elfinder\PathController',
+            'access' => ['@'],
+            'root' => [
+                'path' => '/uploads/images',
+                'name' => 'Global'
+            ],
+        ]
+    ],
     'bootstrap' => ['log'],
     'modules' => [
         'debug' => [

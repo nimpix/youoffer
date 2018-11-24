@@ -135,7 +135,7 @@ class CatalogController extends Controller
 
             $options = $this->catalog->renderTemplateSelectList();
 
-            return $this->render('update.twig', ['name' => $categoryData['name'], 'id' => $categoryData['id'] , 'options' => $options]);
+            return $this->render('update.php', ['name' => $categoryData['name'], 'id' => $categoryData['id'] , 'options' => $options]);
         }
     }
 }

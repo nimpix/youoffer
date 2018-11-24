@@ -274,7 +274,7 @@ class ProductsController extends Controller
 
 
         return $this->render(
-            'update.twig',
+            'update.php',
             [
                 'name' => $name,
                 'main_cat' => $catlist_default,

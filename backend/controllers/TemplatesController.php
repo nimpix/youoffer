@@ -2,15 +2,11 @@
 
 namespace backend\controllers;
 
-use backend\templates\Templates;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use common\models\LoginForm;
-use yii\helpers\Url;
-use common\models\loader\parsers\Loader;
-use yii\web\UploadedFile;
+use backend\models\templates\TemplatesValidator;
 use backend\models\templates\FactoryTemplates;
 
 
@@ -82,8 +78,26 @@ class TemplatesController extends Controller
         $factory = new FactoryTemplates();
         $data = $factory->getAllProcessorsData();
 
-
         return $this->render('index.twig',['list' => $data]);
+    }
+
+    public function actionUpdate(){
+
+        if (Yii::$app->request->post()) {
+            $template = new TemplatesValidator();
+           if($template->load(Yii::$app->request->post()) && $template->validate()){
+                if($template->addTemplate()){
+                    return $this->render('update.php', ['error'=> 'Шаблон успешно добавлен']);
+                }else{
+                    return $this->render('update.php', ['error'=> 'Произошла ошибка']);
+                }
+           }else{
+               return $this->render('update.php', ['error'=> 'Данные шаблона заполнены неверно']);
+           }
+        }else{
+
+            return $this->render('update.php', []);
+        }
     }
 
 }

@@ -50,23 +50,3 @@ $form = ActiveForm::begin([
 </div>
 <?php ActiveForm::end() ?>
 
-<script>
-    // $('#detailed').on("beforeSubmit",function(){
-    //     var form = $(this);
-    //     var formData = $(this).serialize();
-    //     console.log(formData);
-    //     $.ajax({
-    //         url: form.attr("action"),
-    //         type: form.attr("method"),
-    //         data: formData,
-    //         success: function (data) {
-    //         console.log(data);
-    //         },
-    //         error: function () {
-    //            // alert("Something went wrong");
-    //         }
-    //     });
-    // }).on('submit', function(e){
-    //     e.preventDefault();
-    // });
-</script>
