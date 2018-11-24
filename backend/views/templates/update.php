@@ -27,4 +27,4 @@ $form = ActiveForm::begin([
     </div>
 </div>
 <?php ActiveForm::end() ?>
-
+<a href="/backend/web/templates/" class="btn btn-success">Назад</a>

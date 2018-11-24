@@ -4,6 +4,7 @@ namespace backend\models\templates;
 
 use backend\models\templates\Templates;
 use  yii\base\Model;
+use Yii;
 
 class TemplatesValidator extends Model
 {
@@ -28,5 +29,10 @@ class TemplatesValidator extends Model
         }else{
             return null;
         }
+    }
+
+    public function Delete(){
+        $request = Yii::$app->request->get();
+        Templates::deleteAll(['=', 'id', $request['id']]);
     }
 }

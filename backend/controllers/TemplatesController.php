@@ -96,8 +96,14 @@ class TemplatesController extends Controller
            }
         }else{
 
-            return $this->render('update.php', []);
+            return $this->render('update.php', ['error' => '']);
         }
+    }
+
+    public function actionDelete(){
+        $template = new TemplatesValidator();
+        $template->delete();
+        return $this->redirect(['templates/index', ''], 301);
     }
 
 }
