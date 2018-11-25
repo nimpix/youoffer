@@ -6,22 +6,26 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         products: [],
-        one_product: '',
+        one_product: [],
         all_data:[],
-        templateId:''
+        template:[]
     },
     mutations: {
         products(state, data) {
             state.products = data
         },
+
         one_product(state,data){
             state.one_product = data
         },
-       all_data(state,data){
+
+        all_data(state,data){
             state.all_data = data
         },
-        templateId(state,data){
-            state.templateId = data
+
+        current(state,data){
+            state.template = data.template
+            console.log(state.template)
         }
     },
     actions: {
@@ -54,8 +58,11 @@ export default new Vuex.Store({
                     commit('all_data', data);
                 });
         },
-        set_template_id_current: ({commit}, template) => {
-            commit('templateId', template)
+        set_template_current: ({commit}, template) => {
+            commit({
+                type:'current',
+                template: template
+            })
         },
     },
     getters: {

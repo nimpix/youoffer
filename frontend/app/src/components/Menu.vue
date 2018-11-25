@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="width:100%;">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="width:100%;max-height:60px;">
             <a class="navbar-brand" href="#">Youoffer</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,13 +29,17 @@
                     <li class="nav-item">
                         <a href="/logout" class="nav-link">Выйти</a>
                     </li>
+
                 </ul>
-                <div class="col-4 justify-content-end right-block"><div class="text-right">
-                    <router-link :to="{ name: 'template', params: { templateId: templateId }}">
+                <div class="col-auto text-center font-weight-bold template__title-current">
+                  <div style="" >Шаблон {{ currentTemplate.name }}</div>
+                </div>
+                <div class="col-auto justify-content-end right-block"><div class="text-right">
+                    <router-link :to="{ name: 'template', params: { templateId: templateId, template: currentTemplate }}">
                         <div style="color:#ff3119;" class="card-error" v-if="choose">Выберите шаблон</div>
                         <div class="card-title" @click="chooseTemplate">Корзина</div>
                     </router-link></div></div>
-            </div>
+               </div>
         </nav>
 
         <transition name="slide">
@@ -47,8 +51,8 @@
                         <input type="submit" value="Поиск" class="btn btn-primary ml-2">
                     </div>
                 </form>
-                <ul class="list-group templates-list" v-for="(template,index) in templates" :key="index">
-                    <li  @click="selectTemplate(template.id)" class="list-group-item list-group-item-action font-weight-bold" >{{ template.name }}</li>
+                <ul class="list-group templates-list" v-for="(template_item,index) in templates" :key="index">
+                    <li  @click="selectTemplate(template_item.id)" class="list-group-item list-group-item-action font-weight-bold" >{{ template_item.name }}</li>
                 </ul>
             </aside>
         </transition>
@@ -65,19 +69,16 @@
            return {
                slidevis: false,
                slidetemplate:false,
-               choose:false
+               choose:false,
+               currentTemplate: this.$store.state.template
            }
         },
         computed: {
-            templates() {
-                //вызываем нужный экшон который вызывает свою мутацию
-                return this.$store.getters.get_all_data.templates  //получаем результат
-            },
             templateId(){
-                return this.$store.state.templateId
+                return this.$store.state.template.id
             },
-            currentTemplate(){
-               // return this.$store.getters.get_current_template
+            templates(){
+                return this.$store.getters.get_all_data.templates
             }
         },
         methods: {
@@ -102,15 +103,35 @@
                         break;
                 }
             },
+            //Выбираем шаблон из списка
             selectTemplate:function (id) {
+                let result;
                 this.choose = false
-                this.$store.dispatch('set_template_id_current',id);
+
+                    for(let item of this.templates){
+                      if(item.id == id){
+                          result = item
+                      }
+                    }
+
+                this.currentTemplate = result
+                //Сохраняем шаблон в хранилище в текущий шаблон
+                this.$store.dispatch('set_template_current',this.currentTemplate);
             }
         },
+        created: function(){
+                //получаем все api set_all_data
+               this.$store.dispatch('set_all_data');
+               //выбираем шаблоны
+        }
     }
 </script>
 
 <style scoped lang="scss">
+    .template__title-current{
+        font-size:40px;
+        margin-top: 30px;
+    }
     .card-title{
         display: inline;
         margin-left: 20px;
