@@ -7,7 +7,8 @@ export default new Vuex.Store({
     state: {
         products: [],
         one_product: '',
-        all_data:[]
+        all_data:[],
+        templateId:''
     },
     mutations: {
         products(state, data) {
@@ -18,6 +19,9 @@ export default new Vuex.Store({
         },
        all_data(state,data){
             state.all_data = data
+        },
+        templateId(state,data){
+            state.templateId = data
         }
     },
     actions: {
@@ -49,7 +53,10 @@ export default new Vuex.Store({
                 .then(function (data) {
                     commit('all_data', data);
                 });
-        }
+        },
+        set_template_id_current: ({commit}, template) => {
+            commit('templateId', template)
+        },
     },
     getters: {
         get_products: state => {
@@ -65,8 +72,8 @@ export default new Vuex.Store({
 
             return item
         },
-        get_all_templates: state => {
-            return state.all_data.templates
-        }
+        get_all_data: state => {
+            return state.all_data
+        },
     }
 })

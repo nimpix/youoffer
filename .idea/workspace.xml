@@ -3,13 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="eb0f08e3-43a3-438b-b668-9975cd33d355" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/TemplatesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/TemplatesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/templates/FactoryTemplates.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/templates/FactoryTemplates.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/templates/TemplatesValidator.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/templates/TemplatesValidator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/app/src/components/Catalog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/src/components/Catalog.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/app/src/components/Menu.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/src/components/Menu.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/src/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/src/router.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/app/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/src/store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/app/src/views/Details.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/src/views/Details.vue" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,19 +23,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/app/src/components/Menu.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="74">
-              <caret line="85" column="9" selection-start-line="85" selection-start-column="9" selection-end-line="85" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/app/src/store.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-8">
-              <caret line="67" column="25" selection-start-line="67" selection-start-column="8" selection-end-line="67" selection-end-column="25" />
+            <state relative-caret-position="288">
+              <caret line="55" column="10" selection-start-line="55" selection-start-column="10" selection-end-line="55" selection-end-column="10" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -44,49 +35,44 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/controllers/TemplatesController.php">
+        <entry file="file://$PROJECT_DIR$/frontend/app/src/router.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="134">
-              <caret line="103" selection-start-line="103" selection-end-line="103" />
+            <state relative-caret-position="90">
+              <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
               <folding>
-                <element signature="e#39#47#0#PHP" expanded="true" />
+                <element signature="e#0#21#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/views/templates/view.php">
+        <entry file="file://$PROJECT_DIR$/frontend/app/src/views/Template.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="62">
-              <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-              <folding>
-                <element signature="e#3#24#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="72">
+              <caret line="4" column="11" lean-forward="true" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="11" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/models/templates/FactoryTemplates.php">
+        <entry file="file://$PROJECT_DIR$/frontend/app/src/components/Menu.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="194">
-              <caret line="51" column="77" selection-start-line="51" selection-start-column="77" selection-end-line="51" selection-end-column="77" />
+            <state relative-caret-position="54">
+              <caret line="86" column="39" selection-start-line="86" selection-start-column="39" selection-end-line="86" selection-end-column="39" />
               <folding>
-                <element signature="e#44#93#0#PHP" expanded="true" />
+                <element signature="n#style#0;n#nav#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#router-link#0;n#div#0;n#div#0;n#div#0;n#nav#0;n#div#0;n#template#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/backend/models/templates/TemplatesValidator.php">
+        <entry file="file://$PROJECT_DIR$/frontend/app/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="422">
-              <caret line="42" column="36" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
-              <folding>
-                <element signature="e#44#83#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="54">
+              <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -118,6 +104,9 @@
       <find>yii\base\Model</find>
       <find>load</find>
       <find>User</find>
+      <find>index</find>
+      <find>random</find>
+      <find>templateId</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -129,9 +118,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/backend/controllers/UsersController.php" />
-        <option value="$PROJECT_DIR$/frontend/views/site/index.twig" />
-        <option value="$PROJECT_DIR$/frontend/app/src/components/HelloWorld.vue" />
         <option value="$PROJECT_DIR$/common/config/main.php" />
         <option value="$PROJECT_DIR$/common/models/loader/parsers/Loader.php" />
         <option value="$PROJECT_DIR$/common/models/loader/parsers/InsightFit.php" />
@@ -140,12 +126,10 @@
         <option value="$PROJECT_DIR$/frontend/config/main.php" />
         <option value="$PROJECT_DIR$/frontend/controllers/SiteController.php" />
         <option value="$PROJECT_DIR$/vendor/yiisoft/yii2/filters/Cors.php" />
-        <option value="$PROJECT_DIR$/frontend/app/src/main.js" />
         <option value="$PROJECT_DIR$/frontend/app/src/views/Detail.vue" />
         <option value="$PROJECT_DIR$/frontend/app/src/components/Details.vue" />
         <option value="$PROJECT_DIR$/frontend/app/src/App.vue" />
         <option value="$PROJECT_DIR$/frontend/app/src/views/Home.vue" />
-        <option value="$PROJECT_DIR$/frontend/app/src/router.js" />
         <option value="$PROJECT_DIR$/backend/models/templates/Factory.php" />
         <option value="$PROJECT_DIR$/console/migrations/m181123_165456_create_templates_table.php" />
         <option value="$PROJECT_DIR$/backend/controllers/CatalogController.php" />
@@ -173,13 +157,18 @@
         <option value="$PROJECT_DIR$/backend/controllers/SiteController.php" />
         <option value="$PROJECT_DIR$/frontend/app/src/components/Card.vue" />
         <option value="$PROJECT_DIR$/frontend/app/src/views/Details.vue" />
-        <option value="$PROJECT_DIR$/frontend/app/src/components/Catalog.vue" />
-        <option value="$PROJECT_DIR$/frontend/app/src/store.js" />
-        <option value="$PROJECT_DIR$/frontend/app/src/components/Menu.vue" />
         <option value="$PROJECT_DIR$/backend/models/templates/FactoryTemplates.php" />
         <option value="$PROJECT_DIR$/backend/controllers/TemplatesController.php" />
         <option value="$PROJECT_DIR$/backend/views/templates/view.php" />
         <option value="$PROJECT_DIR$/backend/models/templates/TemplatesValidator.php" />
+        <option value="$PROJECT_DIR$/frontend/app/src/components/Catalog.vue" />
+        <option value="$PROJECT_DIR$/frontend/app/src/views/template.vue" />
+        <option value="$PROJECT_DIR$/frontend/app/src/views/Template.vue" />
+        <option value="$PROJECT_DIR$/frontend/app/src/main.js" />
+        <option value="$PROJECT_DIR$/frontend/app/src/router.js" />
+        <option value="$PROJECT_DIR$/frontend/app/src/components/Menu.vue" />
+        <option value="$PROJECT_DIR$/frontend/app/src/store.js" />
+        <option value="$PROJECT_DIR$/frontend/app/.gitignore" />
       </list>
     </option>
   </component>
@@ -270,17 +259,16 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="137" />
-    <option name="y" value="80" />
-    <option name="width" value="1655" />
-    <option name="height" value="1005" />
+    <option name="x" value="143" />
+    <option name="y" value="52" />
+    <option name="width" value="1657" />
+    <option name="height" value="1006" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -291,51 +279,6 @@
             <path>
               <item name="app" type="b2602c69:ProjectViewProjectNode" />
               <item name="offer" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="offer" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="offer" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="offer" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="offer" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="processors" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="offer" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="offer" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="offer" type="462c0819:PsiDirectoryNode" />
               <item name="frontend" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -357,12 +300,13 @@
               <item name="frontend" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -403,12 +347,14 @@
       <workItem from="1542896826948" duration="8928000" />
       <workItem from="1542956647426" duration="12328000" />
       <workItem from="1542974012354" duration="27761000" />
-      <workItem from="1543044799795" duration="21968000" />
+      <workItem from="1543044799795" duration="22177000" />
+      <workItem from="1543091961881" duration="3549000" />
+      <workItem from="1543130617486" duration="7565000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="90222000" />
+    <option name="totallyTimeSpent" value="101545000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -420,10 +366,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="137" y="80" width="1655" height="1005" extended-state="0" />
+    <frame x="143" y="52" width="1657" height="1006" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20509633" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2122905" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -436,7 +382,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.31506848" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.31470925" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -469,26 +415,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/console/migrations/m181024_144307_create_junction_table_for_products_and_sections_tables.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-270" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/console/migrations/m181123_175757_create_junction_table_for_users_and_templates.php" />
-    <entry file="file://$PROJECT_DIR$/console/migrations/m181123_180038_create_junction_table_for_users_and_templates_tables.php" />
-    <entry file="file://$PROJECT_DIR$/common/models/loader/LoaderFactory.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/creocoder/yii2-nested-sets/src/NestedSetsBehavior.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="9" column="4" lean-forward="true" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
-          <folding>
-            <element signature="e#211#233#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/creocoder/yii2-nested-sets/src/NestedSetsQueryBehavior.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -591,16 +517,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/models/files/File.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-918">
-          <caret line="9" column="2" selection-start-line="9" selection-start-column="2" selection-end-line="9" selection-end-column="2" />
-          <folding>
-            <element signature="e#30#38#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/models/files/File.php" />
     <entry file="file://$PROJECT_DIR$/vendor/studio-42/elfinder/php/elFinder.class.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
@@ -608,13 +525,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/controllers/FilesController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/controllers/FilesController.php" />
     <entry file="file://$PROJECT_DIR$/backend/models/products/ProductInserter.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-382">
@@ -763,47 +674,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/app/src/views/Home.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="17" column="3" selection-start-line="17" selection-start-column="3" selection-end-line="17" selection-end-column="3" />
-          <folding>
-            <element signature="e#130#176#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/app/src/views/Details.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="16" column="78" selection-start-line="16" selection-start-column="78" selection-end-line="16" selection-end-column="78" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/app/src/components/Catalog.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="33" column="4" selection-start-line="33" selection-start-column="4" selection-end-line="41" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/app/src/store.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8">
-          <caret line="67" column="25" selection-start-line="67" selection-start-column="8" selection-end-line="67" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/app/src/components/Menu.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="74">
-          <caret line="85" column="9" selection-start-line="85" selection-start-column="9" selection-end-line="85" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend/views/products/update.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
@@ -838,6 +708,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/backend/models/templates/TemplatesValidator.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="422">
+          <caret line="42" column="36" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
+          <folding>
+            <element signature="e#44#83#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/backend/models/templates/FactoryTemplates.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
@@ -868,13 +748,86 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/models/templates/TemplatesValidator.php">
+    <entry file="file://$PROJECT_DIR$/frontend/app/src/views/Home.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="42" column="36" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
+        <state relative-caret-position="306">
+          <caret line="17" column="3" selection-start-line="17" selection-start-column="3" selection-end-line="17" selection-end-column="3" />
           <folding>
-            <element signature="e#44#83#0#PHP" expanded="true" />
+            <element signature="e#130#176#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/app/src/views/Details.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="354">
+          <caret line="41" column="79" lean-forward="true" selection-start-line="41" selection-start-column="11" selection-end-line="41" selection-end-column="79" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/app/src/App.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="15" column="9" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/app/src/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="32" lean-forward="true" selection-start-line="3" selection-start-column="32" selection-end-line="3" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/app/src/store.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="55" column="10" selection-start-line="55" selection-start-column="10" selection-end-line="55" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/app/src/router.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/app/src/views/Template.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="11" lean-forward="true" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/app/src/components/Catalog.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="36" column="44" selection-start-line="36" selection-start-column="44" selection-end-line="36" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/app/src/components/Menu.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="86" column="39" selection-start-line="86" selection-start-column="39" selection-end-line="86" selection-end-column="39" />
+          <folding>
+            <element signature="n#style#0;n#nav#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#router-link#0;n#div#0;n#div#0;n#div#0;n#nav#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/app/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
         </state>
       </provider>
     </entry>

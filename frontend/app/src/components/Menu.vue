@@ -7,7 +7,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav col-8">
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Главная <span class="sr-only">(current)</span></a>
                     </li>
@@ -30,6 +30,11 @@
                         <a href="/logout" class="nav-link">Выйти</a>
                     </li>
                 </ul>
+                <div class="col-4 justify-content-end right-block"><div class="text-right">
+                    <router-link :to="{ name: 'template', params: { templateId: templateId }}">
+                        <div style="color:#ff3119;" class="card-error" v-if="choose">Выберите шаблон</div>
+                        <div class="card-title" @click="chooseTemplate">Корзина</div>
+                    </router-link></div></div>
             </div>
         </nav>
 
@@ -42,8 +47,8 @@
                         <input type="submit" value="Поиск" class="btn btn-primary ml-2">
                     </div>
                 </form>
-                <ul class="list-group templates-list" v-for="template in templates">
-                    <li class="list-group-item list-group-item-action bg-warning font-weight-bold">{{ template.name }}</li>
+                <ul class="list-group templates-list" v-for="(template,index) in templates" :key="index">
+                    <li  @click="selectTemplate(template.id)" class="list-group-item list-group-item-action font-weight-bold" >{{ template.name }}</li>
                 </ul>
             </aside>
         </transition>
@@ -59,16 +64,32 @@
         data:function () {
            return {
                slidevis: false,
-               slidetemplate:false
+               slidetemplate:false,
+               choose:false
            }
         },
         computed: {
             templates() {
                 //вызываем нужный экшон который вызывает свою мутацию
-                return this.$store.getters.get_all_templates  //получаем результат
+                return this.$store.getters.get_all_data.templates  //получаем результат
             },
+            templateId(){
+                return this.$store.state.templateId
+            },
+            currentTemplate(){
+               // return this.$store.getters.get_current_template
+            }
         },
         methods: {
+            // randomColor:function(){
+            //     let r=Math.floor(Math.random() * (256));
+            //     let g=Math.floor(Math.random() * (256));
+            //     let b=Math.floor(Math.random() * (256));
+            //     return 'rgb(' + r +','+ g +','+ b+')';
+            // },
+            chooseTemplate:function(){
+              this.choose = (this.templateId == '')  ? true : false
+            },
             switchSlide:function (e) {
                 switch (e) {
                     case "template":
@@ -80,12 +101,31 @@
                         this.slidetemplate = false;
                         break;
                 }
+            },
+            selectTemplate:function (id) {
+                this.choose = false
+                this.$store.dispatch('set_template_id_current',id);
             }
-        }
+        },
     }
 </script>
 
 <style scoped lang="scss">
+    .card-title{
+        display: inline;
+        margin-left: 20px;
+        cursor:pointer;
+        color: rgba(255,255,255,.5);
+        margin-top: 7px;
+        &:hover{
+            text-decoration: none !important;
+        }
+    }
+
+    .card-error{
+        display: inline;
+    }
+
     .templates-list{
         margin-top: 30px;
         & li{

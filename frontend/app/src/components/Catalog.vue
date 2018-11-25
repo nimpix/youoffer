@@ -1,5 +1,5 @@
 <template id="catalog-template">
-    <div class="user-body">
+    <div class="user-body row">
        <div v-if="page>1" class="clearfix w-100 mb-4 text-right font-weight-bold title-pagination">Страница {{ page }}</div>
         <div class="clearfix btn-group justify-content-end w-100 mb-4">
             <button v-if="page>1" type="button" class="btn btn-sm btn-primary outline" @click="page = 1">В начало</button>
@@ -76,7 +76,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
     .user-body {
-        width: 100%;
+        width: auto;
         height: calc(100vh - 60px);
         padding: 40px;
         & .col-lg-3 {
