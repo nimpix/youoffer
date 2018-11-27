@@ -12,10 +12,10 @@
                    <div class="price-roz"><span>Розничная цена:</span> {{ data.price_roznica }} р.</div>
                    <div class="price-opt"><span>Оптовая цена:</span> {{ data.price_opt}} р.</div>
                    <div class="status"><span>Статус(наличие):</span> {{ data.status }}</div>
-                   <div class="category"><span>Категория:</span><ul class="sections" v-for="sections in data.sections"><li>{{ sections.name }}</li></ul></div>
+                   <div class="category"><span>Категория:</span><ul class="sections" v-for="(sections,index) in data.sections" :key="index"><li>{{ sections.name }}</li></ul></div>
                    <div class="brand"><span>Бренд:</span> {{ data.brands.name }}</div>
                    <div class="merch"><span>Поставщик:</span> {{ data.merchants.name }}</div>
-                   <div class=""><div class="btn btn-primary btn-add">Добавить</div></div>
+                   <Button :id="data.id"></Button>
                </div>
            </div>
             <div class="row">
@@ -32,11 +32,13 @@
 
 <script>
     import Menu from '@/components/Menu.vue'
+    import Button from '@/components/ButtonOrder.vue'
 
     export default {
         name: "Details",
         components:{
-            Menu
+            Menu,
+            Button
         },
         created:function(){
             this.$store.dispatch('set_products');

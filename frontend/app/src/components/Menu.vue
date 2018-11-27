@@ -91,7 +91,9 @@
             //     return 'rgb(' + r +','+ g +','+ b+')';
             // },
             chooseTemplate:function(){
-              this.choose = (this.templateId == '')  ? true : false
+
+              this.choose = (this.templateId == undefined)  ? true : false
+                console.log(this.templateId)
             },
             switchSlide:function (e) {
                 switch (e) {
@@ -109,7 +111,6 @@
             selectTemplate:function (id) {
                 let result;
                 this.choose = false
-
                     for(let item of this.templates){
                       if(item.id == id){
                           result = item
@@ -147,6 +148,14 @@
 
     .card-error{
         display: inline;
+        position: absolute;
+        background: #a51010;
+        width: 149px;
+        font-size: 15px;
+        right: 200px;
+        top: -10px;
+        color: #FFF !important;
+        padding: 10px 9px;
     }
 
     .templates-list{

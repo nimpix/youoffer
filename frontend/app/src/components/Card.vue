@@ -4,12 +4,13 @@
             <div class="card-image"><img class="img-responsive" :src="item.thumbnails" alt=""></div>
             <div class="title">{{ item.name }}</div>
             <div class="price">{{ item.price_roznica }} р.</div>
-            <button class="btn btn-primary btn-add">Добавить</button>
+            <Button :id="item.id"></Button>
         </div>
     </div>
 </template>
 
 <script>
+    import Button from '@/components/ButtonOrder.vue'
     export default {
         name: "Card",
         props:['item'],
@@ -22,14 +23,14 @@
             routeToDetail:function (item) {
                 this.$router.push({  name: 'details', params: { idprod: item.id}})
             }
+        },
+        components:{
+            Button
         }
     }
 </script>
 
 <style scoped lang="scss">
-    .btn-add{
-        margin-top:10px;
-    }
 
     .card-body {
         border: 1px solid #dedede;

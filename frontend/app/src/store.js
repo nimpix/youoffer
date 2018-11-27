@@ -8,7 +8,8 @@ export default new Vuex.Store({
         products: [],
         one_product: [],
         all_data: [],
-        template: []
+        template: [],
+        order:[]
     },
     mutations: {
         products(state, data) {
@@ -25,6 +26,10 @@ export default new Vuex.Store({
 
         current(state, data) {
             state.template = data.template
+        },
+
+        order(state,data){
+            state.order.push(data)
         }
     },
     actions: {
@@ -62,6 +67,10 @@ export default new Vuex.Store({
                 type: 'current',
                 template: template
             })
+        },
+
+        set_order: ({commit}, order) => {
+            commit('order', order)
         },
     },
     getters: {
