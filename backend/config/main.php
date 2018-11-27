@@ -19,7 +19,7 @@ return [
             'class' => 'mihaildev\elfinder\PathController',
             'access' => ['@'],
             'root' => [
-                'path' => '/uploads/images',
+                'path' => '../../frontend/app/uploads/images',
                 'name' => 'Global'
             ],
         ]

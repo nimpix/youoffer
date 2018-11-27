@@ -39,10 +39,12 @@
             Menu
         },
         created:function(){
-             this.$store.dispatch('set_one_product',this.$route.params.idprod);
+            this.$store.dispatch('set_products');
+            this.$store.dispatch('set_one_product',this.$route.params.idprod);
         },
         computed:{
             data(){
+                console.log(this.$store.getters.get_product)
                 return this.$store.getters.get_product
             },
             description(){

@@ -7,9 +7,11 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav col-8">
+                <ul class="navbar-nav col-6">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Главная <span class="sr-only">(current)</span></a>
+                        <router-link :to="{ name: 'home' }">
+                        <a class="nav-link" href="/">Главная <span class="sr-only">(current)</span></a>
+                        </router-link>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" id="templates-aside" @click="switchSlide('template')">Шаблоны</a>
@@ -31,11 +33,11 @@
                     </li>
 
                 </ul>
-                <div class="col-auto text-center font-weight-bold template__title-current">
-                  <div style="" >Шаблон {{ currentTemplate.name }}</div>
+                <div class="col-4 text-center font-weight-bold template__title-current">
+                  <div style="" v-if="currentTemplate.name !== undefined">Шаблон {{ currentTemplate.name }}</div>
                 </div>
-                <div class="col-auto justify-content-end right-block"><div class="text-right">
-                    <router-link :to="{ name: 'template', params: { templateId: templateId, template: currentTemplate }}">
+                <div class="col-2 justify-content-end right-block"><div class="text-right">
+                    <router-link :to="{ name: 'template', params: { templateId: templateId }}">
                         <div style="color:#ff3119;" class="card-error" v-if="choose">Выберите шаблон</div>
                         <div class="card-title" @click="chooseTemplate">Корзина</div>
                     </router-link></div></div>
@@ -129,8 +131,8 @@
 
 <style scoped lang="scss">
     .template__title-current{
-        font-size:40px;
-        margin-top: 30px;
+        font-size:30px;
+        color:#FFF;
     }
     .card-title{
         display: inline;

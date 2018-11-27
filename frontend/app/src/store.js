@@ -7,25 +7,24 @@ export default new Vuex.Store({
     state: {
         products: [],
         one_product: [],
-        all_data:[],
-        template:[]
+        all_data: [],
+        template: []
     },
     mutations: {
         products(state, data) {
             state.products = data
         },
 
-        one_product(state,data){
+        one_product(state, data) {
             state.one_product = data
         },
 
-        all_data(state,data){
+        all_data(state, data) {
             state.all_data = data
         },
 
-        current(state,data){
+        current(state, data) {
             state.template = data.template
-            console.log(state.template)
         }
     },
     actions: {
@@ -60,7 +59,7 @@ export default new Vuex.Store({
         },
         set_template_current: ({commit}, template) => {
             commit({
-                type:'current',
+                type: 'current',
                 template: template
             })
         },
@@ -71,8 +70,8 @@ export default new Vuex.Store({
         },
         get_product: state => {
             let item;
-            for(let prod of state.products){
-                if(prod.id ==state.one_product){
+            for (let prod of state.products) {
+                if (prod.id == state.one_product) {
                     item = prod
                 }
             }

@@ -22,10 +22,11 @@ $form = ActiveForm::begin([
 <?= $form->field($model, 'template')->label('Шаблон')->widget(CKEditor::className(),[
     'editorOptions' => ElFinder::ckeditorOptions('elfinder',[])
 ]);?>
+<?= $form->field($model, 'updater')->hiddenInput(['value'=>true])->label(false); ?>
 
 <div class="form-group">
     <div class="col-lg-offset-1 col-lg-11">
-        <?= Html::submitButton('Добавить', ['class' => 'btn btn-primary send-data']) ?>
+        <?= Html::submitButton('Изменить', ['class' => 'btn btn-primary send-data']) ?>
     </div>
 </div>
 <?php ActiveForm::end() ?>

@@ -99,22 +99,32 @@ class TemplatesController extends Controller
         }
     }
 
-    public function actionView(){
+    public function actionView()
+    {
         $template = new TemplatesValidator();
 
         if (Yii::$app->request->post()) {
-            if($template->load(Yii::$app->request->post()) && $template->validate()){
-                if($template->addTemplate()){
-                    return $this->render('update.php', ['error'=> 'Шаблон успешно добавлен']);
-                }else{
-                    return $this->render('update.php', ['error'=> 'Произошла ошибка']);
+            if ($template->load(Yii::$app->request->post()) && $template->validate()) {
+                //insert or update
+                if ($template->updater) {
+                    if ($template->updateTemplate()) {
+                        return $this->render('view.php', ['error' => 'Шаблон успешно изменен']);
+                    } else {
+                        return $this->render('view.php', ['error' => 'Произошла ошибка при обновлении']);
+                    }
+                } else {
+                    if ($template->addTemplate()) {
+                        return $this->render('update.php', ['error' => 'Шаблон успешно добавлен']);
+                    } else {
+                        return $this->render('update.php', ['error' => 'Произошла ошибка при добавлении']);
+                    }
                 }
-            }else{
-                return $this->render('update.php', ['error'=> 'Данные шаблона заполнены неверно']);
+                return $this->render('update.php', ['error' => 'Данные шаблона заполнены неверно']);
             }
-        }else{
+        } else {
             return $this->render('view.php', ['error' => '']);
         }
+
     }
 
     public function actionDelete(){
