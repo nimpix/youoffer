@@ -10,7 +10,7 @@ return [
     'id' => 'app-backend',
     'language' => 'ru-RU',
     'aliases' =>[
-        '@images' => '/var/www/offer.com/data/www/offer.com',
+        '@images' => '/var/www/offer/',
     ],
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
@@ -19,8 +19,8 @@ return [
             'class' => 'mihaildev\elfinder\PathController',
             'access' => ['@'],
             'root' => [
-                'path' => '../../frontend/app/uploads/images',
-                'name' => 'Global'
+                'path' => '../../frontend/app/public/uploads/images',
+                'name' => 'Files'
             ],
         ]
     ],

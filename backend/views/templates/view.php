@@ -16,7 +16,7 @@ $form = ActiveForm::begin([
     'options' => ['class' => ''],
 ]) ?>
 <? $model = new TemplatesValidator();
-   $model->getTemplateData();
+$model->getTemplateData();
 ?>
 <?= $form->field($model, 'name')->Input('name')->label('Название') ?>
 <?= $form->field($model, 'template')->label('Шаблон')->widget(CKEditor::className(),[
